@@ -1,0 +1,150 @@
+[gd_scene load_steps=2 format=3 uid="uid://sx4ci77own1c"]
+
+[ext_resource type="Script" path="res://CharacterManager.cs" id="1_ma41s"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ma41s")
+
+[node name="Char1" type="Node2D" parent="."]
+position = Vector2(143, 144)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Char1"]
+offset_top = -38.0
+offset_right = 100.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Char1/VBoxContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="LineEdit" type="LineEdit" parent="Char1/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Char1"]
+offset_left = -95.0
+offset_top = 32.0
+offset_right = 191.0
+offset_bottom = 131.0
+alignment = 1
+
+[node name="Button_HL" type="Button" parent="Char1/HBoxContainer"]
+layout_mode = 2
+text = "<"
+
+[node name="Head" type="TextureRect" parent="Char1/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button_HR" type="Button" parent="Char1/HBoxContainer"]
+layout_mode = 2
+text = ">"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Char1"]
+offset_left = -82.0
+offset_top = 135.0
+offset_right = 178.0
+offset_bottom = 232.0
+alignment = 1
+
+[node name="Button_BL" type="Button" parent="Char1/HBoxContainer2"]
+layout_mode = 2
+text = "<"
+
+[node name="Body" type="TextureRect" parent="Char1/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Button_BR" type="Button" parent="Char1/HBoxContainer2"]
+layout_mode = 2
+text = ">"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Char1"]
+offset_left = -62.0
+offset_top = 237.0
+offset_right = 161.0
+offset_bottom = 341.0
+alignment = 1
+
+[node name="Button_LL" type="Button" parent="Char1/HBoxContainer3"]
+layout_mode = 2
+text = "<"
+
+[node name="LowerBody" type="TextureRect" parent="Char1/HBoxContainer3"]
+layout_mode = 2
+
+[node name="Button_LR" type="Button" parent="Char1/HBoxContainer3"]
+layout_mode = 2
+text = ">"
+
+[node name="Char2" type="Node2D" parent="."]
+position = Vector2(408, 143)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Char2"]
+offset_top = -38.0
+offset_right = 100.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Char2/VBoxContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="LineEdit" type="LineEdit" parent="Char2/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Char2"]
+offset_left = -95.0
+offset_top = 32.0
+offset_right = 191.0
+offset_bottom = 131.0
+alignment = 1
+
+[node name="Button_HL" type="Button" parent="Char2/HBoxContainer"]
+layout_mode = 2
+text = "<"
+
+[node name="Head" type="TextureRect" parent="Char2/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button_HR" type="Button" parent="Char2/HBoxContainer"]
+layout_mode = 2
+text = ">"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Char2"]
+offset_left = -82.0
+offset_top = 135.0
+offset_right = 178.0
+offset_bottom = 232.0
+alignment = 1
+
+[node name="Button_BL" type="Button" parent="Char2/HBoxContainer2"]
+layout_mode = 2
+text = "<"
+
+[node name="Body" type="TextureRect" parent="Char2/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Button_BR" type="Button" parent="Char2/HBoxContainer2"]
+layout_mode = 2
+text = ">"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Char2"]
+offset_left = -62.0
+offset_top = 237.0
+offset_right = 161.0
+offset_bottom = 341.0
+alignment = 1
+
+[node name="Button_LL" type="Button" parent="Char2/HBoxContainer3"]
+layout_mode = 2
+text = "<"
+
+[node name="LowerBody" type="TextureRect" parent="Char2/HBoxContainer3"]
+layout_mode = 2
+
+[node name="Button_LR" type="Button" parent="Char2/HBoxContainer3"]
+layout_mode = 2
+text = ">"
