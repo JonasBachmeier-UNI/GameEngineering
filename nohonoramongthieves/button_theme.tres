@@ -1,0 +1,28 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bq6j8yolc4bdm"]
+
+[ext_resource type="FontFile" uid="uid://b0amabkn15sx0" path="res://assets/linux_libertine/LinLibertine_aS.ttf" id="1_o617e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_smobc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6wogh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1kls"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4kf34"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ouoyu"]
+
+[resource]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0.313726, 0.313726, 0.313726, 1)
+Button/colors/font_hover_color = Color(0.313726, 0.313726, 0.313726, 1)
+Button/colors/font_hover_pressed_color = Color(0.314316, 0.314316, 0.314316, 1)
+Button/colors/font_pressed_color = Color(0.462291, 0.462291, 0.462291, 1)
+Button/font_sizes/font_size = 38
+Button/fonts/font = ExtResource("1_o617e")
+Button/styles/disabled = SubResource("StyleBoxEmpty_smobc")
+Button/styles/focus = SubResource("StyleBoxEmpty_6wogh")
+Button/styles/hover = SubResource("StyleBoxEmpty_k1kls")
+Button/styles/normal = SubResource("StyleBoxEmpty_4kf34")
+Button/styles/pressed = SubResource("StyleBoxEmpty_ouoyu")
+Label/colors/font_color = Color(0, 0, 0, 1)

@@ -1,0 +1,204 @@
+[gd_scene load_steps=7 format=3 uid="uid://cq2dm8t6mi3nn"]
+
+[ext_resource type="Theme" uid="uid://bq6j8yolc4bdm" path="res://button_theme.tres" id="1_ck3qu"]
+[ext_resource type="Script" path="res://StartMenu.cs" id="1_r3ech"]
+[ext_resource type="Texture2D" uid="uid://bf4r8gvi3sw1h" path="res://assets/ui_button_empty.png" id="3_glm8l"]
+[ext_resource type="Texture2D" uid="uid://bt51pco4es7ci" path="res://assets/ui_menu_background_image.png" id="4_7ut8j"]
+[ext_resource type="Texture2D" uid="uid://dkalebuihyrcp" path="res://assets/ui_button_empty_highlighted.png" id="4_naprm"]
+[ext_resource type="Texture2D" uid="uid://dgbghbpnocgts" path="res://assets/ui_logo.png" id="5_x8io1"]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ck3qu")
+script = ExtResource("1_r3ech")
+
+[node name="QuitButton" type="Button" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = 201.88
+offset_right = 159.5
+offset_bottom = 265.625
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+
+[node name="ButtonBackground" type="TextureRect" parent="QuitButton"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = -37.0
+offset_right = 159.5
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_glm8l")
+expand_mode = 1
+
+[node name="ButtonHovered" type="TextureRect" parent="QuitButton"]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = -37.0
+offset_right = 159.5
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_naprm")
+expand_mode = 1
+
+[node name="StartButton" type="Button" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = 47.88
+offset_right = 159.5
+offset_bottom = 111.625
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start"
+
+[node name="ButtonBackround" type="TextureRect" parent="StartButton"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = -37.0
+offset_right = 159.5
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_glm8l")
+expand_mode = 1
+
+[node name="ButtonHovered" type="TextureRect" parent="StartButton"]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = -37.0
+offset_right = 159.5
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_naprm")
+expand_mode = 1
+
+[node name="OptionsButton" type="Button" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = 124.88
+offset_right = 159.5
+offset_bottom = 188.625
+grow_horizontal = 2
+grow_vertical = 2
+text = "Options"
+
+[node name="ButtonBackround" type="TextureRect" parent="OptionsButton"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = -37.0
+offset_right = 159.5
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_glm8l")
+expand_mode = 1
+
+[node name="ButtonHovered" type="TextureRect" parent="OptionsButton"]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = -37.0
+offset_right = 159.5
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_naprm")
+expand_mode = 1
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_7ut8j")
+expand_mode = 1
+
+[node name="Logo" type="TextureRect" parent="."]
+z_index = -5
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -164.5
+offset_top = 46.0
+offset_right = 164.5
+offset_bottom = 358.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("5_x8io1")
+expand_mode = 1
