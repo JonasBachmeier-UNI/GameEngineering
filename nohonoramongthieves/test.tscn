@@ -9,8 +9,9 @@
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="GameBoard" type="Node" parent="."]
+[node name="GameBoard" type="Node" parent="." node_paths=PackedStringArray("tml")]
 script = ExtResource("1_pdsm0")
+tml = NodePath("Map")
 
 [node name="Map" type="TileMapLayer" parent="GameBoard"]
 

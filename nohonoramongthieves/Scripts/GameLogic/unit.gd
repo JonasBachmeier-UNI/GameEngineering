@@ -36,7 +36,9 @@ func _ready() -> void:
 
 func _on_game_board_matrix_ready(value: Variant) -> void:
 	grid = value
-	## Koordinaten der Gegner mit ENEMY_POSITION_VALUE belegen
+	## TODO:
+	# Koordinaten der Gegner mit ENEMY_POSITION_VALUE belegen
+	# Verbündete auf 999
 	print_grid()
 	astar = create_astar_for_grid()
 	print(astar.get_point_path(101, 505))
