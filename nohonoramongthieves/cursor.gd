@@ -21,8 +21,7 @@ var can_select_enemy = false
 func _on_game_board_matrix_ready(value: Variant) -> void:
 	var tml_vec = gameboard.grid_to_tml_coords(Vector2i(start_x, start_y))
 	global_position = tml.map_to_local(tml_vec)
-	update_units()
-	print(get_hovered_unit())
+	hovering_check()
 	
 func _process(delta: float) -> void:
 	
@@ -88,8 +87,7 @@ func move(direction: Vector2):
 	global_position = tml.map_to_local(target_tile)
 	x_pos += direction.x
 	y_pos += direction.y
-	
-	print(get_hovered_unit())
+	hovering_check()
 	
 	
 ## Speichert die Position der Einheiten ab
@@ -115,49 +113,73 @@ func get_hovered_unit():
 	return null
 	
 func hovering_check():
+	update_units()
 	can_select = false
 	can_select_target = false
 	can_select_enemy = false
 	
 	var hovered = get_hovered_unit()
-	if hovered == null and selected_unit == null:
+	if hovered == null and !did_select_unit:
 		return
 	
-	var pos_vec = [x_pos, y_pos]
+	var pos_vec = Vector2i(x_pos, y_pos)
 	
 	## Noch keine Einheit ausgewählt
 	if !did_select_unit:
 		if hovered == null:
 			## Leeres Feld also nichts
+			print("Leeres Feld")
 			return
 		## Auswählbare Einheit auf Feld
 		if !hovered.isEnemy:
 			## Einheit Auswählbar
 			can_select = true
-			return
-		pass
-	
-	## Eine Einheit ist bereits ausgewählt
-	if did_select_unit:
-		if selected_unit.in_move_range.has(pos_vec):
-			## Unit geht Pfad und reset bools / selected units
-			can_select_target = true
-			return
-		if selected_unit.in_attack_range.has(pos_vec):
-			## Unit geht neben das Feld und greift an und reset bools / selected units
-			can_select_enemy = true
+			print("Einheit Auswählbar")
 			return
 			
-		## Nicht auswählbar
+		print("Gegner nicht auswählbar")
 		return
+	
+	## Eine Einheit ist bereits ausgewählt
+
+	if x_pos == selected_unit.x_coord and y_pos == selected_unit.y_coord:
+		print("Auf diesem Feld steht die Einheit")
+		return
+		pass
+
+	## Array von Arrays zu Array von Vector2is
+	# TODO: in Unit alle 2d Arrays zu Vector2i
+	var test_move = []
+	for i in selected_unit.in_move_range:
+		test_move.append(Vector2i(i[0], i[1]))
+		
+	var test_attack = []
+	for i in selected_unit.in_attack_range:
+		test_attack.append(Vector2i(i[0], i[1]))
+		
+	if test_move.has(pos_vec):
+		## Unit geht Pfad und reset bools / selected units
+		can_select_target = true
+		print("Feld erreichbar")
+		return
+	if test_attack.has(pos_vec):
+		## Unit geht neben das Feld und greift an und reset bools / selected units
+		can_select_enemy = true
+		print("Feld angreifbar")
+		return
+			
+	## Nicht auswählbar
+	return
 	
 
 func select_unit(unit):
+	print("Einheit ausgewählt")
 	did_select_unit = true
 	selected_unit = unit
 	can_select = false
 	
 func reset_selection():
-	hovering_check()
+	print("Auswahl zurückgenommen")
 	did_select_unit = false
 	selected_unit = null
+	hovering_check()

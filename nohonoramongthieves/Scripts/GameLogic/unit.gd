@@ -68,6 +68,7 @@ func _on_game_board_matrix_ready(value: Variant) -> void:
 	# Verbündete auf 999
 	update_board()
 	print_grid()
+	get_cells_in_range()
 	astar = create_astar_for_grid()
 	print(astar.get_point_path(101, 505))
 	
@@ -93,13 +94,13 @@ func update_board():
 
 
 
-func get_cells_in_range(cur_x, cur_y):
+func get_cells_in_range():
 	
 	# überprüfen, wie weit man gehen kann
 	var move_count = 0
-	var check_next = [[[cur_x, cur_y]]]
+	var check_next = [[[x_coord, y_coord]]]
 	
-	in_move_range.append([cur_x, cur_y])
+	in_move_range.append([x_coord, y_coord])
 	# schon geprüfte Felder
 	var checked = []
 	
@@ -130,6 +131,7 @@ func get_cells_in_range(cur_x, cur_y):
 		
 		check_next.append(next_batch)
 		move_count += 1
+		
 
 
 #	## Testing
