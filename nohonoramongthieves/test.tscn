@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://b63yit1cu4gvl"]
+[gd_scene load_steps=12 format=4 uid="uid://b63yit1cu4gvl"]
 
 [ext_resource type="Script" path="res://Scripts/GameLogic/game_board.gd" id="1_pdsm0"]
 [ext_resource type="Script" path="res://Scripts/GameLogic/unit.gd" id="2_2tyed"]
 [ext_resource type="Texture2D" uid="uid://ch6p6faml6exn" path="res://assets/Tileset/cave.png" id="2_wyglw"]
+[ext_resource type="Texture2D" uid="uid://dl7vtvav0ny0r" path="res://assets/highlighted/highlight_tile.png" id="4_t07s4"]
+[ext_resource type="Texture2D" uid="uid://c6peupm1b2ju4" path="res://assets/highlighted/tile_highlighted_2.png" id="5_ut7o1"]
+[ext_resource type="Script" path="res://cursor.gd" id="6_qbh61"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r7elo"]
 resource_name = "walkable"
@@ -76,6 +79,20 @@ sources/1 = SubResource("TileSetAtlasSource_t18yb")
 
 [sub_resource type="Curve2D" id="Curve2D_eoxen"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_kfbps"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_t07s4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ut7o1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
 [node name="Test" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -97,5 +114,13 @@ tile_set = SubResource("TileSet_xdb4t")
 [node name="Unit" type="Path2D" parent="GameBoard/Units"]
 curve = SubResource("Curve2D_eoxen")
 script = ExtResource("2_2tyed")
+x_coord = 1
+y_coord = 1
+
+[node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
+sprite_frames = SubResource("SpriteFrames_kfbps")
+frame_progress = 0.502825
+script = ExtResource("6_qbh61")
 
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Units/Unit" method="_on_game_board_matrix_ready"]
+[connection signal="matrix_ready" from="GameBoard" to="GameBoard/Cursor" method="_on_game_board_matrix_ready"]

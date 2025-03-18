@@ -76,8 +76,8 @@ func tml_to_grid_coords(tml_coords: Vector2i):
 		
 func grid_to_tml_coords(grid_coords: Vector2i):
 	return Vector2i(
-		grid_coords[0] + MINIMUM_OFFSET_X,
-		grid_coords[1] + MINIMUM_OFFSET_Y
+		grid_coords[0] - MINIMUM_OFFSET_X,
+		grid_coords[1] - MINIMUM_OFFSET_Y
 		)
 
 func get_grid_value(coords: Vector2i):

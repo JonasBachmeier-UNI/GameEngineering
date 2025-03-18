@@ -1,3 +1,4 @@
+class_name Unit
 extends Path2D
 
 const ID_CONVERT_MULT = 100
@@ -60,6 +61,8 @@ func current_pos_to_tml():
 func _on_game_board_matrix_ready(value: Variant) -> void:
 	base_grid = value
 	grid = value
+	var tml_vec = gameboard.grid_to_tml_coords(Vector2i(x_coord, y_coord))
+	global_position = tml.map_to_local(tml_vec)
 	## TODO:
 	# Koordinaten der Gegner mit ENEMY_POSITION_VALUE belegen
 	# Verbündete auf 999
@@ -268,7 +271,7 @@ func create_astar_for_grid():
 				var id_n = coordinate_to_id(x-1, y)
 				astar.connect_points(id, id_n)
 
-			if x < x_max+1:
+			if x < x_max-1:
 				var id_n = coordinate_to_id(x+1, y)
 				astar.connect_points(id, id_n)
 				
