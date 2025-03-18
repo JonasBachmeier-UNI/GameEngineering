@@ -162,7 +162,12 @@ func hovering_check():
 		can_select_target = true
 		print("Feld erreichbar")
 		return
-	if test_attack.has(pos_vec):
+		
+	if hovered == null:
+		print("nicht erreichbar / angreifbar")
+		return
+		
+	if test_attack.has(pos_vec) and hovered.isEnemy:
 		## Unit geht neben das Feld und greift an und reset bools / selected units
 		can_select_enemy = true
 		print("Feld angreifbar")

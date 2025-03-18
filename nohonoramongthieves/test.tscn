@@ -96,6 +96,7 @@ animations = [{
 [node name="Test" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
 
 [node name="GameBoard" type="Node" parent="." node_paths=PackedStringArray("tml")]
 script = ExtResource("1_pdsm0")
@@ -119,7 +120,7 @@ y_coord = 1
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 sprite_frames = SubResource("SpriteFrames_kfbps")
-frame_progress = 0.128621
+frame_progress = 0.931815
 script = ExtResource("6_qbh61")
 
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Units/Unit" method="_on_game_board_matrix_ready"]
