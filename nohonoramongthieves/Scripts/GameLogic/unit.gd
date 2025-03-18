@@ -3,7 +3,9 @@ extends Path2D
 const ID_CONVERT_MULT = 100
 const ENEMY_POSITION_VALUE = 500
 
-## TODO: wenn man gegangen ist kann man nix mehr machen
+@onready var tml = $"../../Map"
+@onready var gameboard = $"../../../GameBoard"
+
 
 ## Teamzuweisung
 @export var isEnemy: bool
@@ -13,8 +15,17 @@ const ENEMY_POSITION_VALUE = 500
 @export var x_coord: int
 @export var y_coord: int
 
+## TODO: wenn man gegangen ist kann man nix mehr machen
+var has_moved = false
+
 var grid
+## TODO: Grid wird nach jedem Zug auf dieser Basis generiert (Signal)
+# update_board() nach jedem Zug aufrufen
+var base_grid
 var astar = AStar2D.new()
+
+## Alle Child-Nodes von Unit
+var units
 
 ## Gameplay 
 @export var hp:= 10
@@ -33,16 +44,50 @@ func _ready() -> void:
 	pass
 	
 
+## Alle "Sibling Nodes"
+func update_units():
+	units = get_parent().get_children().filter(func(node): return node != self)
+	
+
+## Setzt die Einheit auf die Map
+func current_pos_to_tml():
+	var gb_pos = Vector2i(x_coord, y_coord)
+	var tml_pos = gameboard.grid_to_tml_coords(gb_pos)
+	global_position = tml.map_to_local(tml_pos)
+
 
 func _on_game_board_matrix_ready(value: Variant) -> void:
+	base_grid = value
 	grid = value
 	## TODO:
 	# Koordinaten der Gegner mit ENEMY_POSITION_VALUE belegen
 	# Verbündete auf 999
+	update_board()
 	print_grid()
 	astar = create_astar_for_grid()
 	print(astar.get_point_path(101, 505))
 	
+
+## Setzt Gegner und Verbündete auf das Grid
+func update_board():
+	grid = base_grid
+	var enemy_positions = []
+	var ally_positions = []
+	
+	for unit in units:
+		position = gameboard.grid_to_tml_coords(Vector2i(unit.x_coord, unit.y_coord))
+		if unit.isEnemy != self.isEnemy:
+			enemy_positions.append(position)
+		else:
+			ally_positions.append(position)
+		
+	for enemy_position in enemy_positions:
+		set_grid_value(enemy_position[0], enemy_position[1], ENEMY_POSITION_VALUE)
+		
+	for ally_position in ally_positions:
+		set_grid_value(ally_position[0], ally_position[1], 999)
+
+
 
 func get_cells_in_range(cur_x, cur_y):
 	
