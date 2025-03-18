@@ -41,6 +41,7 @@ var in_move_range = []
 var in_attack_range = []
 
 func _ready() -> void:
+	update_units()
 	pass
 	
 
