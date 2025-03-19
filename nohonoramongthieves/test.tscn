@@ -120,7 +120,8 @@ y_coord = 1
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 sprite_frames = SubResource("SpriteFrames_kfbps")
-frame_progress = 0.931815
+autoplay = "default"
+frame_progress = 0.149173
 script = ExtResource("6_qbh61")
 
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Units/Unit" method="_on_game_board_matrix_ready"]
