@@ -350,5 +350,6 @@ func id_to_coordinate(coord):
 
 func _on_cursor_update_board() -> void:
 	update_units()
+	update_board()
 	get_cells_in_range()
 	pass # Replace with function body.
