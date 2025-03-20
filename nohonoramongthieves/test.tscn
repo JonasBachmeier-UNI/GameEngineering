@@ -134,4 +134,5 @@ script = ExtResource("6_qbh61")
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Units/Unit" method="_on_game_board_matrix_ready"]
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Cursor" method="_on_game_board_matrix_ready"]
 [connection signal="path_completed" from="GameBoard/Units/Unit" to="GameBoard/Cursor" method="_on_unit_path_completed"]
+[connection signal="path_started" from="GameBoard/Units/Unit" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="update_board" from="GameBoard/Cursor" to="GameBoard/Units/Unit" method="_on_cursor_update_board"]

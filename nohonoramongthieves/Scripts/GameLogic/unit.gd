@@ -19,7 +19,7 @@ signal path_completed
 ## Teamzuweisung
 @export var isEnemy: bool
 ## Geschwindigkeit auf Pfad
-@export var speed := 300.0
+@export var speed := 100.0
 
 @export var x_coord: int
 @export var y_coord: int

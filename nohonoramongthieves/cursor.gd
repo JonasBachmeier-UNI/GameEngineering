@@ -15,6 +15,8 @@ signal update_board
 var did_select_unit: bool = false
 var selected_unit = null
 
+var is_active = true
+
 var can_select = false
 var can_select_target = false
 var can_select_enemy = false
@@ -73,6 +75,10 @@ func unit_move_check_routine():
 		pass
 
 func move(direction: Vector2):
+	
+	if !is_active:
+		return
+	
 	## Aktuelle Position auf der Tilemap
 	var current_tile = tml.local_to_map(global_position)
 	## Zielposition
@@ -196,7 +202,12 @@ func reset_selection():
 func _on_unit_path_completed() -> void:
 	selected_unit.x_coord = x_pos
 	selected_unit.y_coord = y_pos
+	is_active = true
 	reset_selection()
 	emit_signal("update_board")
 	update_units()
-	pass # Replace with function body.
+
+
+
+func _on_unit_path_started() -> void:
+	is_active = false
