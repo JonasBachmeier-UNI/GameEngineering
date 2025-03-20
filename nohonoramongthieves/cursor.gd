@@ -10,6 +10,8 @@ var all_units
 var my_units
 var enemies
 
+signal update_board
+
 var did_select_unit: bool = false
 var selected_unit = null
 
@@ -58,6 +60,7 @@ func unit_move_check_routine():
 		## TODO: mit gewünschten Input unit bewegen
 		if Input.is_action_just_pressed("ui_select"):
 			print("Einheit auf: ", selected_unit.x_coord, " ", selected_unit.y_coord, " nach: ", x_pos, " ", y_pos)
+			selected_unit.move(x_pos, y_pos)
 			## selected_unit geht zur aktuellen Position
 			pass
 			
@@ -188,3 +191,12 @@ func reset_selection():
 	did_select_unit = false
 	selected_unit = null
 	hovering_check()
+
+
+func _on_unit_path_completed() -> void:
+	selected_unit.x_coord = x_pos
+	selected_unit.y_coord = y_pos
+	reset_selection()
+	emit_signal("update_board")
+	update_units()
+	pass # Replace with function body.

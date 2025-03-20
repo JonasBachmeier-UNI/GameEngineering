@@ -6,6 +6,14 @@ const ENEMY_POSITION_VALUE = 500
 
 @onready var tml = $"../../Map"
 @onready var gameboard = $"../../../GameBoard"
+@onready var path_follow = $"PathFollow2D"
+
+
+## wenn true dann wird dem Pfad gefolgt
+var is_moving = false
+
+signal path_started
+signal path_completed
 
 
 ## Teamzuweisung
@@ -42,9 +50,14 @@ var in_move_range = []
 var in_attack_range = []
 
 func _ready() -> void:
+	path_follow.loop = false
 	update_units()
 	pass
 	
+
+func _process(delta: float) -> void:
+	follow_curve(delta)
+
 
 ## Alle "Sibling Nodes"
 func update_units():
@@ -70,7 +83,6 @@ func _on_game_board_matrix_ready(value: Variant) -> void:
 	print_grid()
 	get_cells_in_range()
 	astar = create_astar_for_grid()
-	print(astar.get_point_path(101, 505))
 	
 
 ## Setzt Gegner und Verbündete auf das Grid
@@ -95,6 +107,9 @@ func update_board():
 
 
 func get_cells_in_range():
+	
+	in_move_range = []
+	in_attack_range = []
 	
 	# überprüfen, wie weit man gehen kann
 	var move_count = 0
@@ -278,9 +293,51 @@ func create_astar_for_grid():
 				astar.connect_points(id, id_n)
 				
 	return astar
-
-
 	
+
+
+func get_global_positions_from_path(path):
+	var gbs = []
+	for point in path:
+		var tml_pos = gameboard.grid_to_tml_coords(point)
+		gbs.append(tml.map_to_local(tml_pos) - global_position)
+	return gbs
+
+
+func set_path(points):
+	curve.clear_points()
+	for point in points:
+		curve.add_point(point)
+
+
+func follow_curve(delta):
+	if !is_moving:
+		return
+	
+	if path_follow.progress_ratio >= 1:
+		is_moving = false
+		emit_signal("path_completed")
+		return
+	
+	path_follow.progress += speed * delta
+	
+
+func start_movement():
+	is_moving = true
+	path_follow.progress = 0
+	emit_signal("path_started")
+	
+
+func move(new_x, new_y):
+	var id_cur = coordinate_to_id(x_coord, y_coord)
+	var id_new = coordinate_to_id(new_x, new_y)
+	var grid_path = astar.get_point_path(id_cur, id_new)
+	var path = get_global_positions_from_path(grid_path)
+	set_path(path)
+	start_movement()
+
+
+
 func coordinate_to_id(x, y):
 	return x*ID_CONVERT_MULT + y
 	
@@ -289,3 +346,9 @@ func id_to_coordinate(coord):
 	var y = coord % ID_CONVERT_MULT
 	var x = (coord - y) / ID_CONVERT_MULT
 	return [x, y]
+
+
+func _on_cursor_update_board() -> void:
+	update_units()
+	get_cells_in_range()
+	pass # Replace with function body.
