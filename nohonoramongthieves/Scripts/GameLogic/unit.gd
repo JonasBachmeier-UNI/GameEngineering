@@ -5,6 +5,7 @@ const ID_CONVERT_MULT = 100
 const ENEMY_POSITION_VALUE = 500
 
 @onready var tml = $"../../Map"
+@onready var overlay = $"../../UnitOverlay"
 @onready var gameboard = $"../../../GameBoard"
 @onready var path_follow = $"PathFollow2D"
 
@@ -141,8 +142,9 @@ func get_cells_in_range():
 					next_batch.append(c)
 		
 			for c in attackable_temp:
-				if !checked.has(c) and !in_move_range.has(c):
+				if !checked.has(c) and !in_move_range.has(c) and !in_attack_range.has(c):
 					in_attack_range.append(c)
+		
 		
 		check_next.append(next_batch)
 		move_count += 1
@@ -336,6 +338,19 @@ func move(new_x, new_y):
 	set_path(path)
 	start_movement()
 
+func show_range():
+	get_cells_in_range()
+	for point in in_attack_range:
+		var tile = gameboard.grid_to_tml_coords(Vector2i(point[0], point[1]))
+		print(tile)
+		overlay.set_cell(tile, 1, Vector2i(0, 0))
+		
+	for point in in_move_range:
+		var tile = gameboard.grid_to_tml_coords(Vector2i(point[0], point[1]))
+		overlay.set_cell(tile, 0, Vector2i(0, 0))
+
+func clear_overlay():
+	overlay.clear()
 
 
 func coordinate_to_id(x, y):

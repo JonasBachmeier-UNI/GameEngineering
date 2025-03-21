@@ -1,6 +1,7 @@
 extends AnimatedSprite2D
 
 @onready var tml = $"../Map"
+@onready var overlay = $"../UnitOverlay"
 @onready var gameboard = $"../../GameBoard"
 @export var start_x = 1
 @export var start_y = 1
@@ -127,6 +128,10 @@ func hovering_check():
 	can_select_target = false
 	can_select_enemy = false
 	
+	if !did_select_unit:
+		print("HIER")
+		overlay.clear()
+	
 	var hovered = get_hovered_unit()
 	if hovered == null and !did_select_unit:
 		return
@@ -135,6 +140,7 @@ func hovering_check():
 	
 	## Noch keine Einheit ausgewählt
 	if !did_select_unit:
+		
 		if hovered == null:
 			## Leeres Feld also nichts
 			print("Leeres Feld")
@@ -142,6 +148,7 @@ func hovering_check():
 		## Auswählbare Einheit auf Feld
 		if !hovered.isEnemy:
 			## Einheit Auswählbar
+			hovered.show_range()
 			can_select = true
 			print("Einheit Auswählbar")
 			return
@@ -190,10 +197,12 @@ func select_unit(unit):
 	print("Einheit ausgewählt")
 	did_select_unit = true
 	selected_unit = unit
+	selected_unit.show_range()
 	can_select = false
 	
 func reset_selection():
 	print("Auswahl zurückgenommen")
+	selected_unit.clear_overlay()
 	did_select_unit = false
 	selected_unit = null
 	hovering_check()
