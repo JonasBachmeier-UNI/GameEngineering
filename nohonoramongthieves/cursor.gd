@@ -29,6 +29,9 @@ func _on_game_board_matrix_ready(value: Variant) -> void:
 	
 func _process(delta: float) -> void:
 	
+	if !is_active:
+		return
+	
 	unit_move_check_routine()
 	
 	## Cursor Movement TODO: vielleicht nur auf erreichbare gehen dürfen (wenn unit_selected)
@@ -75,9 +78,6 @@ func unit_move_check_routine():
 		pass
 
 func move(direction: Vector2):
-	
-	if !is_active:
-		return
 	
 	## Aktuelle Position auf der Tilemap
 	var current_tile = tml.local_to_map(global_position)
