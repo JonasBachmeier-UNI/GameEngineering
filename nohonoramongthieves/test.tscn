@@ -124,8 +124,6 @@ tile_set = SubResource("TileSet_xdb4t")
 [node name="UnitOverlay" type="TileMapLayer" parent="GameBoard"]
 tile_set = SubResource("TileSet_7516k")
 
-[node name="UnitPath" type="TileMapLayer" parent="GameBoard"]
-
 [node name="Units" type="Node" parent="GameBoard"]
 
 [node name="Unit" type="Path2D" parent="GameBoard/Units"]

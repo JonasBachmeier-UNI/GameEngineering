@@ -83,7 +83,6 @@ func _on_game_board_matrix_ready(value: Variant) -> void:
 	# Koordinaten der Gegner mit ENEMY_POSITION_VALUE belegen
 	# Verbündete auf 999
 	update_board()
-	print_grid()
 	get_cells_in_range()
 	astar = create_astar_for_grid()
 	
@@ -345,7 +344,6 @@ func show_range():
 	get_cells_in_range()
 	for point in in_attack_range:
 		var tile = gameboard.grid_to_tml_coords(Vector2i(point[0], point[1]))
-		print(tile)
 		overlay.set_cell(tile, 1, Vector2i(0, 0))
 		
 	for point in in_move_range:
