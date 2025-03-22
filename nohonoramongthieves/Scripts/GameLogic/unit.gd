@@ -38,11 +38,13 @@ var astar = AStar2D.new()
 var units
 
 ## Gameplay 
-@export var hp:= 10
+@export var max_hp:= 10
+var hp = max_hp
 @export var dmg := 3
 @export var defense := 1
 # Reichweite der Einheit
 @export var move_range := 2
+var moved = 0
 
 # Tiles, die erreicht werden können
 # Startfeld drin?
@@ -325,6 +327,7 @@ func follow_curve(delta):
 	
 
 func start_movement():
+	clear_overlay()
 	is_moving = true
 	path_follow.progress = 0
 	emit_signal("path_started")

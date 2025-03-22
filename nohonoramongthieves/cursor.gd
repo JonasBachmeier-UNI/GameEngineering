@@ -129,7 +129,6 @@ func hovering_check():
 	can_select_enemy = false
 	
 	if !did_select_unit:
-		print("HIER")
 		overlay.clear()
 	
 	var hovered = get_hovered_unit()
