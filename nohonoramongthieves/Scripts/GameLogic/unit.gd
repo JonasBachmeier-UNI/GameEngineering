@@ -343,6 +343,28 @@ func move(new_x, new_y):
 	start_movement()
 
 
+func can_attack_field(x, y):
+	if !in_attack_range.has([x, y]) and !in_move_range.has([x,y]):
+		return false
+	
+	if get_grid_value(x, y) != ENEMY_POSITION_VALUE:
+		return false
+		
+	return true
+
+func attack_unit(enemy: Unit):
+	enemy.get_damaged(dmg)
+
+
+func get_damaged(atk):
+	hp -= atk - defense
+	if hp < 0:
+		hp = 0
+		
+	if hp == 0:
+		# TODO: Unit tot definieren
+		pass
+
 
 func show_range():
 	get_cells_in_range()
