@@ -74,6 +74,8 @@ func unit_move_check_routine():
 		## TODO: mit gewünschten Input unit Feld angreifen lassen
 		if Input.is_action_just_pressed("ui_select"):
 			print("Einheit auf: ", selected_unit.x_coord, " ", selected_unit.y_coord, " attackiert: ", x_pos, " ", y_pos)
+			selected_unit.move_to_enemy(x_pos, y_pos)
+			## TODO Menü aufrufen
 			## selected_unit geht neben aktuelles Feld und greift an
 			pass
 		pass
