@@ -154,4 +154,5 @@ script = ExtResource("10_jqmi4")
 [connection signal="path_completed" from="GameBoard/Units/Unit" to="GameBoard/Cursor" method="_on_unit_path_completed"]
 [connection signal="path_started" from="GameBoard/Units/Unit" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="update_board" from="GameBoard/Cursor" to="GameBoard/Units/Unit" method="_on_cursor_update_board"]
+[connection signal="enemy_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_enemy_turn"]
 [connection signal="player_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_player_turn"]

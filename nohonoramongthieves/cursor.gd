@@ -135,6 +135,10 @@ func hovering_check():
 	if hovered == null and !did_select_unit:
 		return
 	
+	## Wenn die Einheit schon gezogen hat wird sie nicht mehr benutzt
+	if hovered.has_moved:
+		return
+	
 	var pos_vec = Vector2i(x_pos, y_pos)
 	
 	## Noch keine Einheit ausgewählt
@@ -222,4 +226,11 @@ func _on_unit_path_started() -> void:
 
 
 func _on_game_manager_player_turn() -> void:
+	is_active = true
+	visible = true
 	hovering_check()
+
+
+func _on_game_manager_enemy_turn() -> void:
+	is_active = false
+	visible = false

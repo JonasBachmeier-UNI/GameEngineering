@@ -8,6 +8,7 @@ var turn_count = 0
 var is_player_turn = true
 
 signal player_turn
+signal enemy_turn
 
 func _ready() -> void:
 	update_units()
@@ -38,6 +39,7 @@ func start_next_turn():
 	update_units()
 	for unit in units:
 		unit.moved_count = 0
+		unit.has_moved = false
 		unit.update_units()
 		unit.get_cells_in_range()
 		
@@ -49,4 +51,5 @@ func start_next_turn():
 	else:
 		## AI Turn
 		is_player_turn = false
+		emit_signal("enemy_turn")
 		pass

@@ -342,6 +342,14 @@ func move(new_x, new_y):
 	print(moved_count)
 	start_movement()
 
+## TODO: Test
+func move_to_enemy(enemy_x, enemy_y):
+	var id_cur = coordinate_to_id(x_coord, y_coord)
+	var id_enemy = coordinate_to_id(enemy_x, enemy_y)
+	var grid_path = astar.get_point_path(id_cur, id_enemy)
+	move(grid_path[-2][0], grid_path[-2][1])
+
+
 
 func can_attack_field(x, y):
 	if !in_attack_range.has([x, y]) and !in_move_range.has([x,y]):
@@ -352,7 +360,13 @@ func can_attack_field(x, y):
 		
 	return true
 
+
+func wait_for_next_turn():
+	has_moved = true
+
 func attack_unit(enemy: Unit):
+	# TODO: Unit auf inaktiv setzen
+	has_moved = true
 	enemy.get_damaged(dmg)
 
 
