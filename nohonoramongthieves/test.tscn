@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://b63yit1cu4gvl"]
+[gd_scene load_steps=19 format=4 uid="uid://b63yit1cu4gvl"]
 
 [ext_resource type="Script" path="res://Scripts/GameLogic/game_board.gd" id="1_pdsm0"]
 [ext_resource type="Script" path="res://Scripts/GameLogic/unit.gd" id="2_2tyed"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://l31kxdyrswdc" path="res://assets/Unit/test.png" id="4_yitvx"]
 [ext_resource type="Texture2D" uid="uid://c6peupm1b2ju4" path="res://assets/highlighted/tile_highlighted_2.png" id="5_ut7o1"]
 [ext_resource type="Script" path="res://cursor.gd" id="6_qbh61"]
+[ext_resource type="Script" path="res://game_manager.gd" id="10_jqmi4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r7elo"]
 resource_name = "walkable"
@@ -144,6 +145,9 @@ sprite_frames = SubResource("SpriteFrames_kfbps")
 autoplay = "default"
 frame_progress = 0.149173
 script = ExtResource("6_qbh61")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("10_jqmi4")
 
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Units/Unit" method="_on_game_board_matrix_ready"]
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Cursor" method="_on_game_board_matrix_ready"]

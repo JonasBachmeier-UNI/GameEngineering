@@ -18,7 +18,7 @@ signal path_completed
 
 
 ## Teamzuweisung
-@export var isEnemy: bool
+@export var is_enemy: bool
 ## Geschwindigkeit auf Pfad
 @export var speed := 100.0
 
@@ -44,7 +44,7 @@ var hp = max_hp
 @export var defense := 1
 # Reichweite der Einheit
 @export var move_range := 2
-var moved = 0
+var moved_count = 0
 
 # Tiles, die erreicht werden können
 # Startfeld drin?
@@ -95,7 +95,7 @@ func update_board():
 	
 	for unit in units:
 		position = gameboard.grid_to_tml_coords(Vector2i(unit.x_coord, unit.y_coord))
-		if unit.isEnemy != self.isEnemy:
+		if unit.is_enemy != self.is_enemy:
 			enemy_positions.append(position)
 		else:
 			ally_positions.append(position)
@@ -121,7 +121,7 @@ func get_cells_in_range():
 	# schon geprüfte Felder
 	var checked = []
 	
-	while move_count <= move_range:
+	while move_count <= move_range - moved_count:
 		
 		# Alle im nächsten Zug erreichbare Felder
 		var next_batch = []
@@ -172,7 +172,7 @@ func get_possible_moves(x, y, move_count):
 	var reachable_neighbours = []
 	var attackable_neighbours = []
 	
-	if move_count > move_range:
+	if move_count > move_range - moved_count:
 		return [reachable_neighbours, attackable_neighbours]
 
 
@@ -183,7 +183,7 @@ func get_possible_moves(x, y, move_count):
 	if y > 0:
 		## Das untere Feld ist erreichbar
 		var grid_value = get_grid_value(x, y-1)
-		if (grid_value + move_count) <= move_range:
+		if (grid_value + move_count) <= move_range - moved_count:
 			reachable_neighbours.append([x, y-1])
 		## Das untere Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
@@ -194,7 +194,7 @@ func get_possible_moves(x, y, move_count):
 	if y < max_y-1:
 		## Das obere Feld ist erreichbar
 		var grid_value = get_grid_value(x, y+1)
-		if (grid_value + move_count) <= move_range:
+		if (grid_value + move_count) <= move_range - moved_count:
 			reachable_neighbours.append([x, y+1])
 		## Das obere Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
@@ -205,7 +205,7 @@ func get_possible_moves(x, y, move_count):
 	if x > 0:
 		var grid_value = get_grid_value(x-1, y)
 		## Das linke Feld ist erreichbar
-		if (grid_value + move_count) <= move_range:
+		if (grid_value + move_count) <= move_range - moved_count:
 			reachable_neighbours.append([x-1, y])
 		## Das linke Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
@@ -216,7 +216,7 @@ func get_possible_moves(x, y, move_count):
 	if x < max_x - 1:
 		## Das rechte Feld ist erreichbar
 		var grid_value = get_grid_value(x+1, y)
-		if (grid_value + move_count) <= move_range:
+		if (grid_value + move_count) <= move_range - moved_count:
 			reachable_neighbours.append([x+1, y])
 		## Das rechte Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
@@ -338,6 +338,8 @@ func move(new_x, new_y):
 	var grid_path = astar.get_point_path(id_cur, id_new)
 	var path = get_global_positions_from_path(grid_path)
 	set_path(path)
+	moved_count += len(path)-1
+	print(moved_count)
 	start_movement()
 
 func show_range():

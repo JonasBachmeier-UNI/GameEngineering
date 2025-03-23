@@ -111,7 +111,7 @@ func update_units():
 	
 	## Listen werden befüllt
 	for unit in all_units:
-		if unit.isEnemy:
+		if unit.is_enemy:
 			enemies.append(unit)
 		else:
 			my_units.append(unit)
@@ -145,7 +145,7 @@ func hovering_check():
 			print("Leeres Feld")
 			return
 		## Auswählbare Einheit auf Feld
-		if !hovered.isEnemy:
+		if !hovered.is_enemy:
 			## Einheit Auswählbar
 			hovered.show_range()
 			can_select = true
@@ -182,7 +182,7 @@ func hovering_check():
 		print("nicht erreichbar / angreifbar")
 		return
 		
-	if test_attack.has(pos_vec) and hovered.isEnemy:
+	if test_attack.has(pos_vec) and hovered.is_enemy:
 		## Unit geht neben das Feld und greift an und reset bools / selected units
 		can_select_enemy = true
 		print("Feld angreifbar")
