@@ -1,6 +1,125 @@
-[gd_scene load_steps=2 format=3 uid="uid://sx4ci77own1c"]
+[gd_scene load_steps=25 format=3 uid="uid://sx4ci77own1c"]
 
-[ext_resource type="Script" path="res://CharacterManager.cs" id="1_ma41s"]
+[ext_resource type="Script" path="res://Scripts/CharacterManager.cs" id="1_ma41s"]
+[ext_resource type="Shader" path="res://Character.gdshader" id="2_dqqup"]
+[ext_resource type="Texture2D" uid="uid://dc0yficp3xmhj" path="res://Gradient/purple_gradient.tres" id="3_dnpq0"]
+[ext_resource type="Texture2D" uid="uid://bj3lor87lqid8" path="res://Gradient/red_gradient.tres" id="4_slwxt"]
+[ext_resource type="Texture2D" uid="uid://bjv64k8cwc4vh" path="res://Gradient/brown_gradient.tres" id="4_tmp8t"]
+[ext_resource type="Texture2D" uid="uid://bxuv2mby4usf3" path="res://Gradient/black_white_Gradient.tres" id="6_0qcnq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2coaq"]
+shader = ExtResource("2_dqqup")
+shader_parameter/mix_amount = 0.505
+shader_parameter/gradient = ExtResource("3_dnpq0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4tjin"]
+shader = ExtResource("2_dqqup")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = ExtResource("4_tmp8t")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yx3pk"]
+shader = ExtResource("2_dqqup")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = ExtResource("4_slwxt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_upcw5"]
+shader = ExtResource("2_dqqup")
+shader_parameter/mix_amount = 0.505
+shader_parameter/gradient = ExtResource("6_0qcnq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bnj7i"]
+shader = ExtResource("2_dqqup")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = ExtResource("6_0qcnq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5atls"]
+shader = ExtResource("2_dqqup")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = ExtResource("6_0qcnq")
+
+[sub_resource type="Shader" id="Shader_tj5ku"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D gradient: hint_default_black;
+uniform float mix_amount = 1.0;
+
+void fragment()
+{
+	vec4 input_color = texture(TEXTURE, UV);
+	float grayscale_value = dot(input_color.rgb, vec3(0.299, 0.587, 0.114));
+	vec3 sampled_color = texture(gradient, vec2(grayscale_value, 0.0)).rgb;
+
+	COLOR.rgb = mix(input_color.rgb,sampled_color, mix_amount);
+	COLOR.a = input_color.a;
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_ielr4"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f2n0h"]
+gradient = SubResource("Gradient_ielr4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ao6em"]
+shader = SubResource("Shader_tj5ku")
+shader_parameter/mix_amount = 0.505
+shader_parameter/gradient = SubResource("GradientTexture1D_f2n0h")
+
+[sub_resource type="Shader" id="Shader_c4816"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D gradient: hint_default_black;
+uniform float mix_amount = 1.0;
+
+void fragment()
+{
+	vec4 input_color = texture(TEXTURE, UV);
+	float grayscale_value = dot(input_color.rgb, vec3(0.299, 0.587, 0.114));
+	vec3 sampled_color = texture(gradient, vec2(grayscale_value, 0.0)).rgb;
+
+	COLOR.rgb = mix(input_color.rgb,sampled_color, mix_amount);
+	COLOR.a = input_color.a;
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_grwx7"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_66b2b"]
+gradient = SubResource("Gradient_grwx7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xoat5"]
+shader = SubResource("Shader_c4816")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_66b2b")
+
+[sub_resource type="Shader" id="Shader_2a0pw"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D gradient: hint_default_black;
+uniform float mix_amount = 1.0;
+
+void fragment()
+{
+	vec4 input_color = texture(TEXTURE, UV);
+	float grayscale_value = dot(input_color.rgb, vec3(0.299, 0.587, 0.114));
+	vec3 sampled_color = texture(gradient, vec2(grayscale_value, 0.0)).rgb;
+
+	COLOR.rgb = mix(input_color.rgb,sampled_color, mix_amount);
+	COLOR.a = input_color.a;
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_l0jdv"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wjvoj"]
+gradient = SubResource("Gradient_l0jdv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lilys"]
+shader = SubResource("Shader_2a0pw")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_wjvoj")
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -13,6 +132,7 @@ script = ExtResource("1_ma41s")
 
 [node name="Char1" type="Node2D" parent="."]
 position = Vector2(143, 144)
+metadata/id = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Char1"]
 offset_top = -38.0
@@ -26,62 +146,127 @@ text = "Name:"
 [node name="LineEdit" type="LineEdit" parent="Char1/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Char1"]
-offset_left = -95.0
-offset_top = 32.0
-offset_right = 191.0
-offset_bottom = 131.0
+[node name="Container" type="Container" parent="Char1"]
+offset_left = -100.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 400.0
+
+[node name="Top" type="TextureRect" parent="Char1/Container"]
+z_index = 5
+texture_filter = 3
+material = SubResource("ShaderMaterial_2coaq")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Head" type="TextureRect" parent="Char1/Container"]
+z_index = 4
+texture_filter = 3
+material = SubResource("ShaderMaterial_4tjin")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Body" type="TextureRect" parent="Char1/Container"]
+z_index = 3
+texture_filter = 3
+material = SubResource("ShaderMaterial_yx3pk")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HBoxContainer0" type="HBoxContainer" parent="Char1"]
+z_index = 3
+offset_left = 218.0
+offset_top = 103.0
+offset_right = 289.0
+offset_bottom = 134.0
+size_flags_stretch_ratio = 0.0
 alignment = 1
 
-[node name="Button_HL" type="Button" parent="Char1/HBoxContainer"]
+[node name="Button_LL" type="Button" parent="Char1/HBoxContainer0"]
+z_index = 10
 layout_mode = 2
+size_flags_vertical = 0
 text = "<"
 
-[node name="Head" type="TextureRect" parent="Char1/HBoxContainer"]
+[node name="Button_LR" type="Button" parent="Char1/HBoxContainer0"]
+z_index = 10
 layout_mode = 2
-
-[node name="Button_HR" type="Button" parent="Char1/HBoxContainer"]
-layout_mode = 2
+size_flags_vertical = 0
 text = ">"
 
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char1/HBoxContainer0"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="Char1"]
+z_index = 2
+offset_left = 217.0
+offset_top = 249.0
+offset_right = 288.0
+offset_bottom = 280.0
+alignment = 1
+
+[node name="Button_HL" type="Button" parent="Char1/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = "<"
+
+[node name="Button_HR" type="Button" parent="Char1/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char1/HBoxContainer1"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="Char1"]
-offset_left = -82.0
-offset_top = 135.0
-offset_right = 178.0
-offset_bottom = 232.0
+z_index = 1
+offset_left = 217.0
+offset_top = 372.0
+offset_right = 288.0
+offset_bottom = 403.0
 alignment = 1
 
 [node name="Button_BL" type="Button" parent="Char1/HBoxContainer2"]
+z_index = 10
 layout_mode = 2
+size_flags_vertical = 8
 text = "<"
-
-[node name="Body" type="TextureRect" parent="Char1/HBoxContainer2"]
-layout_mode = 2
 
 [node name="Button_BR" type="Button" parent="Char1/HBoxContainer2"]
+z_index = 10
 layout_mode = 2
+size_flags_vertical = 8
 text = ">"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Char1"]
-offset_left = -62.0
-offset_top = 237.0
-offset_right = 161.0
-offset_bottom = 341.0
-alignment = 1
-
-[node name="Button_LL" type="Button" parent="Char1/HBoxContainer3"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char1/HBoxContainer2"]
 layout_mode = 2
-text = "<"
+text = " C "
+edit_alpha = false
 
-[node name="LowerBody" type="TextureRect" parent="Char1/HBoxContainer3"]
-layout_mode = 2
-
-[node name="Button_LR" type="Button" parent="Char1/HBoxContainer3"]
-layout_mode = 2
-text = ">"
+[node name="NextSceneButton" type="Button" parent="."]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 0
+offset_left = 1729.0
+offset_top = 953.0
+offset_right = 1789.0
+offset_bottom = 984.0
+text = "Weiter"
 
 [node name="Char2" type="Node2D" parent="."]
-position = Vector2(408, 143)
+position = Vector2(822, 144)
+metadata/id = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Char2"]
 offset_top = -38.0
@@ -95,56 +280,236 @@ text = "Name:"
 [node name="LineEdit" type="LineEdit" parent="Char2/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Char2"]
-offset_left = -95.0
-offset_top = 32.0
-offset_right = 191.0
-offset_bottom = 131.0
+[node name="Container" type="Container" parent="Char2"]
+offset_left = -100.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 400.0
+
+[node name="Top" type="TextureRect" parent="Char2/Container"]
+z_index = 5
+texture_filter = 3
+material = SubResource("ShaderMaterial_upcw5")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Head" type="TextureRect" parent="Char2/Container"]
+z_index = 4
+texture_filter = 3
+material = SubResource("ShaderMaterial_bnj7i")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Body" type="TextureRect" parent="Char2/Container"]
+z_index = 3
+texture_filter = 3
+material = SubResource("ShaderMaterial_5atls")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HBoxContainer0" type="HBoxContainer" parent="Char2"]
+z_index = 3
+offset_left = 218.0
+offset_top = 103.0
+offset_right = 289.0
+offset_bottom = 134.0
+size_flags_stretch_ratio = 0.0
 alignment = 1
 
-[node name="Button_HL" type="Button" parent="Char2/HBoxContainer"]
+[node name="Button_LL" type="Button" parent="Char2/HBoxContainer0"]
+z_index = 10
 layout_mode = 2
+size_flags_vertical = 0
 text = "<"
 
-[node name="Head" type="TextureRect" parent="Char2/HBoxContainer"]
+[node name="Button_LR" type="Button" parent="Char2/HBoxContainer0"]
+z_index = 10
 layout_mode = 2
-
-[node name="Button_HR" type="Button" parent="Char2/HBoxContainer"]
-layout_mode = 2
+size_flags_vertical = 0
 text = ">"
 
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char2/HBoxContainer0"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="Char2"]
+z_index = 2
+offset_left = 217.0
+offset_top = 249.0
+offset_right = 288.0
+offset_bottom = 280.0
+alignment = 1
+
+[node name="Button_HL" type="Button" parent="Char2/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = "<"
+
+[node name="Button_HR" type="Button" parent="Char2/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char2/HBoxContainer1"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="Char2"]
-offset_left = -82.0
-offset_top = 135.0
-offset_right = 178.0
-offset_bottom = 232.0
+z_index = 1
+offset_left = 217.0
+offset_top = 372.0
+offset_right = 288.0
+offset_bottom = 403.0
 alignment = 1
 
 [node name="Button_BL" type="Button" parent="Char2/HBoxContainer2"]
+z_index = 10
 layout_mode = 2
+size_flags_vertical = 8
 text = "<"
-
-[node name="Body" type="TextureRect" parent="Char2/HBoxContainer2"]
-layout_mode = 2
 
 [node name="Button_BR" type="Button" parent="Char2/HBoxContainer2"]
+z_index = 10
 layout_mode = 2
+size_flags_vertical = 8
 text = ">"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Char2"]
-offset_left = -62.0
-offset_top = 237.0
-offset_right = 161.0
-offset_bottom = 341.0
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char2/HBoxContainer2"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="Char3" type="Node2D" parent="."]
+position = Vector2(1393, 144)
+metadata/id = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Char3"]
+offset_top = -38.0
+offset_right = 100.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Char3/VBoxContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="LineEdit" type="LineEdit" parent="Char3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Container" type="Container" parent="Char3"]
+offset_left = -100.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 400.0
+
+[node name="Top" type="TextureRect" parent="Char3/Container"]
+z_index = 5
+texture_filter = 3
+material = SubResource("ShaderMaterial_ao6em")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Head" type="TextureRect" parent="Char3/Container"]
+z_index = 4
+texture_filter = 3
+material = SubResource("ShaderMaterial_xoat5")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Body" type="TextureRect" parent="Char3/Container"]
+z_index = 3
+texture_filter = 3
+material = SubResource("ShaderMaterial_lilys")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HBoxContainer0" type="HBoxContainer" parent="Char3"]
+z_index = 3
+offset_left = 218.0
+offset_top = 103.0
+offset_right = 289.0
+offset_bottom = 134.0
+size_flags_stretch_ratio = 0.0
 alignment = 1
 
-[node name="Button_LL" type="Button" parent="Char2/HBoxContainer3"]
+[node name="Button_LL" type="Button" parent="Char3/HBoxContainer0"]
+z_index = 10
 layout_mode = 2
+size_flags_vertical = 0
 text = "<"
 
-[node name="LowerBody" type="TextureRect" parent="Char2/HBoxContainer3"]
+[node name="Button_LR" type="Button" parent="Char3/HBoxContainer0"]
+z_index = 10
 layout_mode = 2
-
-[node name="Button_LR" type="Button" parent="Char2/HBoxContainer3"]
-layout_mode = 2
+size_flags_vertical = 0
 text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char3/HBoxContainer0"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="Char3"]
+z_index = 2
+offset_left = 217.0
+offset_top = 249.0
+offset_right = 288.0
+offset_bottom = 280.0
+alignment = 1
+
+[node name="Button_HL" type="Button" parent="Char3/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = "<"
+
+[node name="Button_HR" type="Button" parent="Char3/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char3/HBoxContainer1"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Char3"]
+z_index = 1
+offset_left = 217.0
+offset_top = 372.0
+offset_right = 288.0
+offset_bottom = 403.0
+alignment = 1
+
+[node name="Button_BL" type="Button" parent="Char3/HBoxContainer2"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 8
+text = "<"
+
+[node name="Button_BR" type="Button" parent="Char3/HBoxContainer2"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 8
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char3/HBoxContainer2"]
+layout_mode = 2
+text = " C "
+edit_alpha = false

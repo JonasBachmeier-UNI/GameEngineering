@@ -15,6 +15,16 @@ run/main_scene="res://CharacterCreation.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalCharacter="*res://Scripts/GlobalCharacterManager.cs"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+
 [dotnet]
 
 project/assembly_name="NoHonorAmongThieves"

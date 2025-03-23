@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbl04okgfjmfd"
-path="res://.godot/imported/Body3.PNG-741f91783fa4acea5a3c82503aae79ae.ctex"
+uid="uid://dbsmredcrfyo3"
+path="res://.godot/imported/Gemini_Szepter.jpg-9306d39ff866f32bce758b1439840415.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Body3.PNG"
-dest_files=["res://.godot/imported/Body3.PNG-741f91783fa4acea5a3c82503aae79ae.ctex"]
+source_file="res://Assets/DecisionImages/Gemini_Szepter.jpg"
+dest_files=["res://.godot/imported/Gemini_Szepter.jpg-9306d39ff866f32bce758b1439840415.ctex"]
 
 [params]
 
