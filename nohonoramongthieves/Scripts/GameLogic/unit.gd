@@ -347,6 +347,11 @@ func move_to_enemy(enemy_x, enemy_y):
 	var id_cur = coordinate_to_id(x_coord, y_coord)
 	var id_enemy = coordinate_to_id(enemy_x, enemy_y)
 	var grid_path = astar.get_point_path(id_cur, id_enemy)
+	
+	## Man steht schon neben dem Gegner
+	if len(grid_path) <= 2:
+		return
+		
 	move(grid_path[-2][0], grid_path[-2][1])
 
 
