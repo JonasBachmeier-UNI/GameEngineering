@@ -219,3 +219,7 @@ func _on_unit_path_completed() -> void:
 
 func _on_unit_path_started() -> void:
 	is_active = false
+
+
+func _on_game_manager_player_turn() -> void:
+	hovering_check()

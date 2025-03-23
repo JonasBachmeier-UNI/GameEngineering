@@ -342,6 +342,8 @@ func move(new_x, new_y):
 	print(moved_count)
 	start_movement()
 
+
+
 func show_range():
 	get_cells_in_range()
 	for point in in_attack_range:

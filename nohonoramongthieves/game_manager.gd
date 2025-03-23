@@ -5,9 +5,23 @@ var units = []
 var player_units = []
 var enemy_units = []
 var turn_count = 0
+var is_player_turn = true
+
+signal player_turn
 
 func _ready() -> void:
 	update_units()
+
+
+func _process(delta: float) -> void:
+	## Kein Input möglich
+	if !is_player_turn:
+		start_next_turn()
+		return
+		
+	if Input.is_action_just_pressed("ui_text_backspace"):
+		start_next_turn()
+
 
 
 func update_units():
@@ -24,11 +38,15 @@ func start_next_turn():
 	update_units()
 	for unit in units:
 		unit.moved_count = 0
+		unit.update_units()
+		unit.get_cells_in_range()
 		
 	if turn_count % 2 == 0:
 		## Player Turn
+		is_player_turn = true
+		emit_signal("player_turn")
 		pass
 	else:
 		## AI Turn
+		is_player_turn = false
 		pass
-	
