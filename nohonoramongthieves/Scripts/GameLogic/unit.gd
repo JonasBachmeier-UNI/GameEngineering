@@ -355,6 +355,40 @@ func move_to_enemy(enemy_x, enemy_y):
 	move(grid_path[-2][0], grid_path[-2][1])
 
 
+func ai_move():
+	update_units()
+	var shortest_path = []
+	var target_unit = null
+	var id = coordinate_to_id(x_coord, y_coord)
+	for unit in units:
+		if unit.is_enemy != is_enemy and unit.hp > 0:
+			var enemy_id = coordinate_to_id(unit.x_coord, unit.y_coord)
+			var path_to_unit = astar.get_point_path(id, enemy_id)
+			if shortest_path == [] or len(shortest_path) > len(path_to_unit):
+				target_unit = unit
+				shortest_path = path_to_unit
+	
+	if shortest_path == []:
+		wait_for_next_turn()
+		return
+	
+	if len(shortest_path) <= move_range-moved_count:
+		var path = get_global_positions_from_path(shortest_path.pop_back())
+		set_path(path)
+		moved_count += len(path)-1
+		start_movement()
+		attack_unit(target_unit)
+		return
+	
+	var counter = 0
+	shortest_path.resize(move_range-moved_count)
+	set_path(shortest_path)
+	moved_count += len(shortest_path)-1
+	start_movement()
+	while path_follow.progress_ratio < 1:
+		pass
+	wait_for_next_turn()
+
 
 func can_attack_field(x, y):
 	if !in_attack_range.has([x, y]) and !in_move_range.has([x,y]):

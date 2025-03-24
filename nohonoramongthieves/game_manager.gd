@@ -34,6 +34,12 @@ func update_units():
 			player_units.append(unit)
 
 
+## TODO: test
+func ai_turn():
+	for unit in enemy_units:
+		unit.ai_move()
+
+
 func start_next_turn():
 	turn_count += 1
 	update_units()

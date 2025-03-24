@@ -138,8 +138,9 @@ func hovering_check():
 		return
 	
 	## Wenn die Einheit schon gezogen hat wird sie nicht mehr benutzt
-	if hovered.has_moved:
-		return
+	if hovered != null:
+		if hovered.has_moved:
+			return
 	
 	var pos_vec = Vector2i(x_pos, y_pos)
 	
