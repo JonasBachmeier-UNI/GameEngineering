@@ -1,0 +1,37 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bq6j8yolc4bdm"]
+
+[ext_resource type="FontFile" uid="uid://b0amabkn15sx0" path="res://assets/linux_libertine/LinLibertine_aS.ttf" id="1_3qowf"]
+[ext_resource type="StyleBox" uid="uid://wjq50h5x86d4" path="res://themes/button_bg_highlighted.tres" id="2_7msb2"]
+[ext_resource type="StyleBox" uid="uid://bhd4kj2d0yic1" path="res://themes/button_bg.tres" id="3_7vimy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_smobc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1g1nc"]
+bg_color = Color(0.610449, 0.614299, 0.519899, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+expand_margin_left = 30.0
+expand_margin_top = 30.0
+expand_margin_right = 30.0
+expand_margin_bottom = 30.0
+
+[resource]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0.313726, 0.313726, 0.313726, 1)
+Button/colors/font_hover_color = Color(0.313726, 0.313726, 0.313726, 1)
+Button/colors/font_hover_pressed_color = Color(0.314316, 0.314316, 0.314316, 1)
+Button/colors/font_pressed_color = Color(0.462291, 0.462291, 0.462291, 1)
+Button/font_sizes/font_size = 38
+Button/fonts/font = ExtResource("1_3qowf")
+Button/styles/disabled = SubResource("StyleBoxEmpty_smobc")
+Button/styles/focus = ExtResource("2_7msb2")
+Button/styles/hover = ExtResource("2_7msb2")
+Button/styles/normal = ExtResource("3_7vimy")
+Button/styles/pressed = ExtResource("2_7msb2")
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/font_sizes/font_size = 38
+Label/fonts/font = ExtResource("1_3qowf")
+Panel/styles/panel = SubResource("StyleBoxFlat_1g1nc")

@@ -1,0 +1,52 @@
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://fl6fe5vcl7qu"]
+
+[ext_resource type="FontFile" uid="uid://i51eci01of66" path="res://assets/linux_libertine/LinLibertine_aBS.ttf" id="1_8gmbu"]
+[ext_resource type="FontFile" uid="uid://b0amabkn15sx0" path="res://assets/linux_libertine/LinLibertine_aS.ttf" id="1_up853"]
+[ext_resource type="Texture2D" uid="uid://sm5yc6365n5u" path="res://assets/Unbenannt.png" id="2_eg1qb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a3vui"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7nti"]
+texture = ExtResource("2_eg1qb")
+texture_margin_left = 40.0
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gqjs4"]
+texture_margin_left = 40.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1abgs"]
+texture_margin_left = 40.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dowgu"]
+texture_margin_left = 40.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1g1nc"]
+bg_color = Color(1, 1, 1, 0.627451)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 20
+
+[resource]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0.313726, 0.313726, 0.313726, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.314316, 0.314316, 0.314316, 1)
+Button/colors/font_pressed_color = Color(0.462291, 0.462291, 0.462291, 1)
+Button/font_sizes/font_size = 38
+Button/fonts/font = ExtResource("1_8gmbu")
+Button/styles/disabled = SubResource("StyleBoxFlat_a3vui")
+Button/styles/focus = SubResource("StyleBoxTexture_j7nti")
+Button/styles/hover = SubResource("StyleBoxTexture_gqjs4")
+Button/styles/normal = SubResource("StyleBoxTexture_1abgs")
+Button/styles/pressed = SubResource("StyleBoxTexture_dowgu")
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/font_sizes/font_size = 38
+Label/fonts/font = ExtResource("1_up853")
+Panel/styles/panel = SubResource("StyleBoxFlat_1g1nc")

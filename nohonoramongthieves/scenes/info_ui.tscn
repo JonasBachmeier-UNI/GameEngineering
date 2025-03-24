@@ -1,0 +1,127 @@
+[gd_scene load_steps=4 format=3 uid="uid://db02ekgaf0l8q"]
+
+[ext_resource type="Theme" uid="uid://fl6fe5vcl7qu" path="res://themes/ingame_menu_theme.tres" id="1_2huqw"]
+[ext_resource type="Script" path="res://scenes/HealthBar.cs" id="2_4g0wy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5blv"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="InfoUI" type="Control"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(0, 200)
+size_flags_horizontal = 0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_2huqw")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CombatStats" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ATK" type="HBoxContainer" parent="Panel/HBoxContainer/CombatStats"]
+layout_mode = 2
+
+[node name="ATK" type="Label" parent="Panel/HBoxContainer/CombatStats/ATK"]
+layout_mode = 2
+text = "ATK"
+
+[node name="Stat" type="Label" parent="Panel/HBoxContainer/CombatStats/ATK"]
+layout_mode = 2
+text = "3"
+
+[node name="DEF" type="HBoxContainer" parent="Panel/HBoxContainer/CombatStats"]
+layout_mode = 2
+
+[node name="DEF" type="Label" parent="Panel/HBoxContainer/CombatStats/DEF"]
+layout_mode = 2
+text = "DEF"
+
+[node name="Stat" type="Label" parent="Panel/HBoxContainer/CombatStats/DEF"]
+layout_mode = 2
+text = "10
+"
+
+[node name="Control" type="Control" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Health" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HP" type="HBoxContainer" parent="Panel/HBoxContainer/Health"]
+layout_mode = 2
+
+[node name="HP" type="Label" parent="Panel/HBoxContainer/Health/HP"]
+layout_mode = 2
+text = "HP"
+
+[node name="CurrHP" type="Label" parent="Panel/HBoxContainer/Health/HP"]
+layout_mode = 2
+text = "7"
+
+[node name="seperator" type="Label" parent="Panel/HBoxContainer/Health/HP"]
+layout_mode = 2
+text = "/"
+
+[node name="MaxHP" type="Label" parent="Panel/HBoxContainer/Health/HP"]
+layout_mode = 2
+text = "10"
+
+[node name="ProgressBar" type="ProgressBar" parent="Panel/HBoxContainer/Health"]
+layout_mode = 2
+script = ExtResource("2_4g0wy")
+
+[node name="Title" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 30.0
+offset_top = -17.0
+offset_right = 70.0
+offset_bottom = 23.0
+scale = Vector2(1.96, 0.880001)
+theme = ExtResource("1_2huqw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_o5blv")
+
+[node name="TitleLabel" type="Label" parent="Title"]
+layout_mode = 0
+offset_left = 5.10204
+offset_top = 3.40909
+offset_right = 89.102
+offset_bottom = 47.4091
+scale = Vector2(0.337483, 0.785069)
+text = "INFO"

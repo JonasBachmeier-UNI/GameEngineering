@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvsa6k2hggvi0"]
+
+[ext_resource type="Theme" uid="uid://bq6j8yolc4bdm" path="res://themes/menu_button_theme.tres" id="1_x7ri7"]
+[ext_resource type="Script" path="res://scripts/OptionsMenu.cs" id="2_x5yur"]
+[ext_resource type="FontFile" uid="uid://b0amabkn15sx0" path="res://assets/linux_libertine/LinLibertine_aS.ttf" id="2_xm35d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_luhqo"]
+font = ExtResource("2_xm35d")
+font_size = 60
+font_color = Color(0, 0, 0, 1)
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_x7ri7")
+script = ExtResource("2_x5yur")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.5
+offset_top = -198.0
+offset_right = 152.5
+offset_bottom = 198.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_luhqo")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Volume"
+
+[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer"]
+layout_mode = 2
+value = 50.0
+rounded = true
+
+[node name="Control" type="Control" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel
+"
+
+[node name="SaveButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save"
