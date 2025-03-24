@@ -117,7 +117,7 @@ func update_units():
 			enemies.append(unit)
 		else:
 			my_units.append(unit)
-			
+
 func get_hovered_unit():
 	for unit in all_units:
 		if unit.x_coord == x_pos and unit.y_coord == y_pos:
@@ -143,7 +143,7 @@ func hovering_check():
 			return
 	
 	var pos_vec = Vector2i(x_pos, y_pos)
-	
+
 	## Noch keine Einheit ausgewählt
 	if !did_select_unit:
 		
@@ -208,17 +208,16 @@ func select_unit(unit):
 	
 func reset_selection():
 	print("Auswahl zurückgenommen")
-	selected_unit.clear_overlay()
+	if selected_unit != null:
+		selected_unit.clear_overlay()
 	did_select_unit = false
 	selected_unit = null
 	hovering_check()
 
 
 func _on_unit_path_completed() -> void:
-	selected_unit.x_coord = x_pos
-	selected_unit.y_coord = y_pos
-	is_active = true
 	reset_selection()
+	is_active = true
 	emit_signal("update_board")
 	update_units()
 

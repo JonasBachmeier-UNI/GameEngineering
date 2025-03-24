@@ -72,13 +72,13 @@ func current_pos_to_tml():
 	var gb_pos = Vector2i(x_coord, y_coord)
 	var tml_pos = gameboard.grid_to_tml_coords(gb_pos)
 	global_position = tml.map_to_local(tml_pos)
+	print(self)
 
 
-func _on_game_board_matrix_ready(value: Variant) -> void:
+func on_game_board_matrix_ready(value: Variant) -> void:
 	base_grid = value
 	grid = value
-	var tml_vec = gameboard.grid_to_tml_coords(Vector2i(x_coord, y_coord))
-	global_position = tml.map_to_local(tml_vec)
+	current_pos_to_tml()
 	## TODO:
 	# Koordinaten der Gegner mit ENEMY_POSITION_VALUE belegen
 	# Verbündete auf 999
@@ -89,38 +89,45 @@ func _on_game_board_matrix_ready(value: Variant) -> void:
 
 ## Setzt Gegner und Verbündete auf das Grid
 func update_board():
-	grid = base_grid
+	grid = base_grid.duplicate(true)
 	var enemy_positions = []
 	var ally_positions = []
 	
 	for unit in units:
-		position = gameboard.grid_to_tml_coords(Vector2i(unit.x_coord, unit.y_coord))
+		var x_test = unit.x_coord
+		var y_test = unit.y_coord
+		var test_position = Vector2i(x_test, y_test)
 		if unit.is_enemy != self.is_enemy:
-			enemy_positions.append(position)
+			enemy_positions.append(test_position)
 		else:
-			ally_positions.append(position)
-		
+			ally_positions.append(test_position)
 	for enemy_position in enemy_positions:
 		set_grid_value(enemy_position[0], enemy_position[1], ENEMY_POSITION_VALUE)
 		
 	for ally_position in ally_positions:
 		set_grid_value(ally_position[0], ally_position[1], 999)
+		
+	astar = create_astar_for_grid()
 
 
 
 func get_cells_in_range():
+	
+	update_units()
+	update_board()
 	
 	in_move_range = []
 	in_attack_range = []
 	
 	# überprüfen, wie weit man gehen kann
 	var move_count = 0
-	var check_next = [[[x_coord, y_coord]]]
+	var x_test = x_coord
+	var y_test = y_coord
+	var check_next = [[[x_test, y_test]]]
 	
-	in_move_range.append([x_coord, y_coord])
+	in_move_range.append([x_test, y_test])
 	# schon geprüfte Felder
 	var checked = []
-	
 	while move_count <= move_range - moved_count:
 		
 		# Alle im nächsten Zug erreichbare Felder
@@ -255,6 +262,7 @@ func get_grid_value(x, y):
 	
 func set_grid_value(x, y, value):
 	grid[y][x] = value
+
 	
 func print_grid():
 	for x in grid:
@@ -317,8 +325,9 @@ func follow_curve(delta):
 	if !is_moving:
 		return
 	
-	if path_follow.progress_ratio >= 1:
+	if path_follow.progress_ratio >= 1 and is_moving:
 		is_moving = false
+		curve.clear_points()
 		emit_signal("path_completed")
 		return
 	
@@ -339,8 +348,9 @@ func move(new_x, new_y):
 	var path = get_global_positions_from_path(grid_path)
 	set_path(path)
 	moved_count += len(path)-1
-	print(moved_count)
 	start_movement()
+	x_coord = new_x
+	y_coord = new_y
 
 ## TODO: Test
 func move_to_enemy(enemy_x, enemy_y):
@@ -356,6 +366,7 @@ func move_to_enemy(enemy_x, enemy_y):
 
 
 func ai_move():
+	print("ANFANG: ", self)
 	update_units()
 	var shortest_path = []
 	var target_unit = null
@@ -368,26 +379,34 @@ func ai_move():
 				target_unit = unit
 				shortest_path = path_to_unit
 	
-	if shortest_path == []:
+	print("ENDE FOR")
+	
+	if len(shortest_path) <= 1:
 		wait_for_next_turn()
 		return
 	
-	if len(shortest_path) <= move_range-moved_count:
-		var path = get_global_positions_from_path(shortest_path.pop_back())
+	if len(shortest_path) <= move_range-moved_count+1:
+		var path_help = shortest_path.slice(0, len(shortest_path)-1)
+		var path = get_global_positions_from_path(path_help)
 		set_path(path)
 		moved_count += len(path)-1
 		start_movement()
+		x_coord = path_help[-1][0]
+		y_coord = path_help[-1][1]
 		attack_unit(target_unit)
 		return
 	
 	var counter = 0
+	print("VOR RESIZE")
 	shortest_path.resize(move_range-moved_count)
-	set_path(shortest_path)
+	var path = get_global_positions_from_path(shortest_path)
+	set_path(path)
 	moved_count += len(shortest_path)-1
 	start_movement()
-	while path_follow.progress_ratio < 1:
-		pass
+	x_coord = shortest_path[-1][0]
+	y_coord = shortest_path[-1][1]
 	wait_for_next_turn()
+	print("ENDE")
 
 
 func can_attack_field(x, y):

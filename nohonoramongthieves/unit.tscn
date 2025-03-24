@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://1tu0ew23kxa2"]
 
-[ext_resource type="Script" path="res://Scripts/GameLogic/unit.gd" id="1_b127e"]
-[ext_resource type="Texture2D" uid="uid://l31kxdyrswdc" path="res://assets/Unit/test.png" id="2_dhfo3"]
+[ext_resource type="Script" path="res://Scripts/GameLogic/unit.gd" id="1_l8aop"]
+[ext_resource type="Texture2D" uid="uid://l31kxdyrswdc" path="res://assets/Unit/test.png" id="2_j8h8j"]
 
 [sub_resource type="Curve2D" id="Curve2D_eoxen"]
 
 [node name="Unit" type="Path2D"]
 curve = SubResource("Curve2D_eoxen")
-script = ExtResource("1_b127e")
+script = ExtResource("1_l8aop")
 x_coord = 1
 y_coord = 1
 move_range = 4
@@ -16,4 +16,4 @@ move_range = 4
 rotates = false
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D"]
-texture = ExtResource("2_dhfo3")
+texture = ExtResource("2_j8h8j")
