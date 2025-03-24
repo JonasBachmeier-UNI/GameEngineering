@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 public partial class StartMenu : Control
 {
     private PackedScene _optionsMenuScene;
+    private PackedScene _test;
 
     private Button _startButton;
     private Button _optionsButton;
@@ -13,6 +14,7 @@ public partial class StartMenu : Control
     public override void _Ready()
     {
         _optionsMenuScene = GD.Load<PackedScene>("res://scenes/options_menu.tscn");
+        _test = GD.Load<PackedScene>("res://scenes/action_select.tscn");
 
         _startButton = GetNode<Button>("StartButton");
         _optionsButton = GetNode<Button>("OptionsButton");
@@ -25,7 +27,11 @@ public partial class StartMenu : Control
 
     private void _OnStartButtonPressed()
     {
-        // GetTree().ChangeSceneToFile("res://scenes/Level1.tscn");
+        Node current_scene = GetTree().CurrentScene;
+
+        Control optionsMenuInstance = _test.Instantiate<Control>();
+
+        current_scene.AddChild(optionsMenuInstance);
     }
 
     private void _OnOptionsButtonPressed()
