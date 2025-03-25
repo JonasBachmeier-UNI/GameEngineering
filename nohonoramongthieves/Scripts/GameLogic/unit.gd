@@ -65,7 +65,6 @@ func current_pos_to_tml():
 	var gb_pos = Vector2i(x_coord, y_coord)
 	var tml_pos = gameboard.grid_to_tml_coords(gb_pos)
 	global_position = tml.map_to_local(tml_pos)
-	print(self)
 
 
 func on_game_board_matrix_ready(value: Variant) -> void:
@@ -324,7 +323,6 @@ func get_shortest_path_to_enemy():
 	var last_field_y = shortest_path[-1][1]
 	var field_unreachable = get_grid_value(last_field_x, last_field_y) >= ENEMY_POSITION_VALUE
 	while field_unreachable:
-		print(get_grid_value(last_field_x, last_field_y))
 		if len(shortest_path) <= 1:
 			return [shortest_path, target_unit]
 		shortest_path = shortest_path.slice(0, len(shortest_path)-1)
