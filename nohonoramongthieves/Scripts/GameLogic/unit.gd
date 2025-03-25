@@ -13,12 +13,9 @@ const ENEMY_POSITION_VALUE = 500
 ## wenn true dann wird dem Pfad gefolgt
 var is_moving = false
 
-signal path_started
-signal path_completed
-
 
 ## Teamzuweisung
-@export var isEnemy: bool
+@export var is_enemy: bool
 ## Geschwindigkeit auf Pfad
 @export var speed := 100.0
 
@@ -44,7 +41,7 @@ var hp = max_hp
 @export var defense := 1
 # Reichweite der Einheit
 @export var move_range := 2
-var moved = 0
+var moved_count = 0
 
 # Tiles, die erreicht werden können
 # Startfeld drin?
@@ -56,10 +53,6 @@ func _ready() -> void:
 	path_follow.loop = false
 	update_units()
 	pass
-	
-
-func _process(delta: float) -> void:
-	follow_curve(delta)
 
 
 ## Alle "Sibling Nodes"
@@ -72,57 +65,63 @@ func current_pos_to_tml():
 	var gb_pos = Vector2i(x_coord, y_coord)
 	var tml_pos = gameboard.grid_to_tml_coords(gb_pos)
 	global_position = tml.map_to_local(tml_pos)
+	print(self)
 
 
-func _on_game_board_matrix_ready(value: Variant) -> void:
-	base_grid = value
+func on_game_board_matrix_ready(value: Variant) -> void:
+	base_grid = value.duplicate(true)
 	grid = value
-	var tml_vec = gameboard.grid_to_tml_coords(Vector2i(x_coord, y_coord))
-	global_position = tml.map_to_local(tml_vec)
+	current_pos_to_tml()
 	## TODO:
 	# Koordinaten der Gegner mit ENEMY_POSITION_VALUE belegen
 	# Verbündete auf 999
 	update_board()
-	print_grid()
 	get_cells_in_range()
 	astar = create_astar_for_grid()
 	
 
 ## Setzt Gegner und Verbündete auf das Grid
 func update_board():
-	grid = base_grid
+	grid = base_grid.duplicate(true)
 	var enemy_positions = []
 	var ally_positions = []
 	
 	for unit in units:
-		position = gameboard.grid_to_tml_coords(Vector2i(unit.x_coord, unit.y_coord))
-		if unit.isEnemy != self.isEnemy:
-			enemy_positions.append(position)
+		var x_test = unit.x_coord
+		var y_test = unit.y_coord
+		var test_position = Vector2i(x_test, y_test)
+		if unit.is_enemy != self.is_enemy:
+			enemy_positions.append(test_position)
 		else:
-			ally_positions.append(position)
-		
+			ally_positions.append(test_position)
 	for enemy_position in enemy_positions:
 		set_grid_value(enemy_position[0], enemy_position[1], ENEMY_POSITION_VALUE)
 		
 	for ally_position in ally_positions:
 		set_grid_value(ally_position[0], ally_position[1], 999)
+		
+	astar = create_astar_for_grid()
 
 
 
 func get_cells_in_range():
+	
+	update_units()
+	update_board()
 	
 	in_move_range = []
 	in_attack_range = []
 	
 	# überprüfen, wie weit man gehen kann
 	var move_count = 0
-	var check_next = [[[x_coord, y_coord]]]
+	var x_test = x_coord
+	var y_test = y_coord
+	var check_next = [[[x_test, y_test]]]
 	
-	in_move_range.append([x_coord, y_coord])
+	in_move_range.append([x_test, y_test])
 	# schon geprüfte Felder
 	var checked = []
-	
-	while move_count <= move_range:
+	while move_count <= move_range - moved_count:
 		
 		# Alle im nächsten Zug erreichbare Felder
 		var next_batch = []
@@ -150,30 +149,14 @@ func get_cells_in_range():
 		
 		check_next.append(next_batch)
 		move_count += 1
-		
 
-
-#	## Testing
-#	for c in in_move_range:
-#		set_grid_value(c[0], c[1], 2)
-#
-#		
-#	for c in in_attack_range:
-#		set_grid_value(c[0], c[1], 3)
-#
-#		
-#	set_grid_value(cur_x, cur_y, 0)
-#		
-#	for x in grid:
-#		print(x)
-	
 
 func get_possible_moves(x, y, move_count):
 	
 	var reachable_neighbours = []
 	var attackable_neighbours = []
 	
-	if move_count > move_range:
+	if move_count > move_range - moved_count:
 		return [reachable_neighbours, attackable_neighbours]
 
 
@@ -184,7 +167,7 @@ func get_possible_moves(x, y, move_count):
 	if y > 0:
 		## Das untere Feld ist erreichbar
 		var grid_value = get_grid_value(x, y-1)
-		if (grid_value + move_count) <= move_range:
+		if (grid_value + move_count) <= move_range - moved_count:
 			reachable_neighbours.append([x, y-1])
 		## Das untere Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
@@ -195,7 +178,7 @@ func get_possible_moves(x, y, move_count):
 	if y < max_y-1:
 		## Das obere Feld ist erreichbar
 		var grid_value = get_grid_value(x, y+1)
-		if (grid_value + move_count) <= move_range:
+		if (grid_value + move_count) <= move_range - moved_count:
 			reachable_neighbours.append([x, y+1])
 		## Das obere Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
@@ -206,7 +189,7 @@ func get_possible_moves(x, y, move_count):
 	if x > 0:
 		var grid_value = get_grid_value(x-1, y)
 		## Das linke Feld ist erreichbar
-		if (grid_value + move_count) <= move_range:
+		if (grid_value + move_count) <= move_range - moved_count:
 			reachable_neighbours.append([x-1, y])
 		## Das linke Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
@@ -217,7 +200,7 @@ func get_possible_moves(x, y, move_count):
 	if x < max_x - 1:
 		## Das rechte Feld ist erreichbar
 		var grid_value = get_grid_value(x+1, y)
-		if (grid_value + move_count) <= move_range:
+		if (grid_value + move_count) <= move_range - moved_count:
 			reachable_neighbours.append([x+1, y])
 		## Das rechte Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
@@ -235,18 +218,19 @@ func get_path_to_destination(end_x: int, end_y: int):
 	if !in_attack_range.has(destination) and !in_move_range.has(destination):
 		return []
 	
-	# Wenn nur durch Attacke erreichbar
-	if in_attack_range.has(destination):
-		# kürzesten Pfad zu Nachbar
+	# Wenn nur durch Attacke erreichbar und keine Gegner auf Feld
+	if in_attack_range.has(destination) and get_grid_value(end_x, end_y) != ENEMY_POSITION_VALUE:
 		return []
 		
-	# in movement range
+	# in movement range oder Gegner angreifbar
 	var id_start = coordinate_to_id(x_coord, y_coord)
 	var id_end = coordinate_to_id(end_x, end_y)
-	var id_path = astar.get_point_path(id_start, id_end)
-	var coord_path = []
-	for id in id_path:
-		coord_path.append(id_to_coordinate(id))
+	var coord_path = astar.get_point_path(id_start, id_end)
+	
+	# Gegner auf dem Endfeld --> Pfad wird um 1 gekürzt
+	if in_attack_range.has(destination):
+		coord_path = coord_path.slice(0, len(coord_path)-1)
+	
 	return coord_path
 
 
@@ -256,6 +240,7 @@ func get_grid_value(x, y):
 	
 func set_grid_value(x, y, value):
 	grid[y][x] = value
+
 	
 func print_grid():
 	for x in grid:
@@ -314,38 +299,54 @@ func set_path(points):
 		curve.add_point(point)
 
 
-func follow_curve(delta):
-	if !is_moving:
-		return
-	
-	if path_follow.progress_ratio >= 1:
-		is_moving = false
-		emit_signal("path_completed")
-		return
-	
-	path_follow.progress += speed * delta
-	
 
-func start_movement():
-	clear_overlay()
-	is_moving = true
-	path_follow.progress = 0
-	emit_signal("path_started")
-	
+func update_position(new_x, new_y):
+	x_coord = new_x
+	y_coord = new_y
 
-func move(new_x, new_y):
-	var id_cur = coordinate_to_id(x_coord, y_coord)
-	var id_new = coordinate_to_id(new_x, new_y)
-	var grid_path = astar.get_point_path(id_cur, id_new)
-	var path = get_global_positions_from_path(grid_path)
-	set_path(path)
-	start_movement()
+
+func get_shortest_path_to_enemy():
+	update_units()
+	var shortest_path = []
+	var target_unit = null
+	var id = coordinate_to_id(x_coord, y_coord)
+	for unit in units:
+		if unit.is_enemy != is_enemy and unit.hp > 0:
+			var enemy_id = coordinate_to_id(unit.x_coord, unit.y_coord)
+			var path_to_unit = astar.get_point_path(id, enemy_id)
+			if shortest_path == [] or len(shortest_path) > len(path_to_unit):
+				target_unit = unit
+				shortest_path = path_to_unit
+	
+	return [shortest_path, target_unit]
+
+func get_moves_left():
+	return move_range - moved_count
+
+
+func wait_for_next_turn():
+	has_moved = true
+
+func attack_unit(enemy: Unit):
+	# TODO: Unit auf inaktiv setzen
+	has_moved = true
+	enemy.get_damaged(dmg)
+
+
+func get_damaged(atk):
+	hp -= atk - defense
+	if hp < 0:
+		hp = 0
+		
+	if hp == 0:
+		# TODO: Unit tot definieren
+		pass
+
 
 func show_range():
 	get_cells_in_range()
 	for point in in_attack_range:
 		var tile = gameboard.grid_to_tml_coords(Vector2i(point[0], point[1]))
-		print(tile)
 		overlay.set_cell(tile, 1, Vector2i(0, 0))
 		
 	for point in in_move_range:
@@ -364,10 +365,3 @@ func id_to_coordinate(coord):
 	var y = coord % ID_CONVERT_MULT
 	var x = (coord - y) / ID_CONVERT_MULT
 	return [x, y]
-
-
-func _on_cursor_update_board() -> void:
-	update_units()
-	update_board()
-	get_cells_in_range()
-	pass # Replace with function body.

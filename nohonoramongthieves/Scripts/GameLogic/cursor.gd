@@ -3,6 +3,7 @@ extends AnimatedSprite2D
 @onready var tml = $"../Map"
 @onready var overlay = $"../UnitOverlay"
 @onready var gameboard = $"../../GameBoard"
+@onready var unit_manager = $"../Units"
 @export var start_x = 1
 @export var start_y = 1
 var x_pos = start_x
@@ -77,9 +78,10 @@ func unit_move_check_routine():
 		## TODO: mit gewünschten Input unit Feld angreifen lassen
 		if Input.is_action_just_pressed("ui_select"):
 			print("Einheit auf: ", selected_unit.x_coord, " ", selected_unit.y_coord, " attackiert: ", x_pos, " ", y_pos)
+			# selected_unit.move_to_enemy(x_pos, y_pos)
+			unit_manager.move_unit(selected_unit, x_pos, y_pos)
+			## TODO Menü aufrufen
 			## selected_unit geht neben aktuelles Feld und greift an
-			pass
-		pass
 
 func move(direction: Vector2):
 	
@@ -114,11 +116,11 @@ func update_units():
 	
 	## Listen werden befüllt
 	for unit in all_units:
-		if unit.isEnemy:
+		if unit.is_enemy:
 			enemies.append(unit)
 		else:
 			my_units.append(unit)
-			
+
 func get_hovered_unit():
 	for unit in all_units:
 		if unit.x_coord == x_pos and unit.y_coord == y_pos:
@@ -138,32 +140,36 @@ func hovering_check():
 	if hovered == null and !did_select_unit:
 		return
 	
-	var pos_vec = Vector2i(x_pos, y_pos)
+	## Wenn die Einheit schon gezogen hat wird sie nicht mehr benutzt
+	if hovered != null:
+		if hovered.has_moved:
+			return
 	
+	var pos_vec = Vector2i(x_pos, y_pos)
+
 	## Noch keine Einheit ausgewählt
 	if !did_select_unit:
 		
 		if hovered == null:
 			## Leeres Feld also nichts
-			print("Leeres Feld")
+			#print("Leeres Feld")
 			return
 		## Auswählbare Einheit auf Feld
-		if !hovered.isEnemy:
+		if !hovered.is_enemy:
 			## Einheit Auswählbar
-			hovered.show_range()
+			unit_manager.show_unit_range(hovered)
 			can_select = true
-			print("Einheit Auswählbar")
+			#print("Einheit Auswählbar")
 			return
 			
-		print("Gegner nicht auswählbar")
+		#print("Gegner nicht auswählbar")
 		return
 	
 	## Eine Einheit ist bereits ausgewählt
 
 	if x_pos == selected_unit.x_coord and y_pos == selected_unit.y_coord:
-		print("Auf diesem Feld steht die Einheit")
+		#print("Auf diesem Feld steht die Einheit")
 		return
-		pass
 
 	## Array von Arrays zu Array von Vector2is
 	# TODO: in Unit alle 2d Arrays zu Vector2i
@@ -178,17 +184,17 @@ func hovering_check():
 	if test_move.has(pos_vec):
 		## Unit geht Pfad und reset bools / selected units
 		can_select_target = true
-		print("Feld erreichbar")
+		#print("Feld erreichbar")
 		return
 		
 	if hovered == null:
-		print("nicht erreichbar / angreifbar")
+		#print("nicht erreichbar / angreifbar")
 		return
 		
-	if test_attack.has(pos_vec) and hovered.isEnemy:
+	if test_attack.has(pos_vec) and hovered.is_enemy:
 		## Unit geht neben das Feld und greift an und reset bools / selected units
 		can_select_enemy = true
-		print("Feld angreifbar")
+		#print("Feld angreifbar")
 		return
 			
 	## Nicht auswählbar
@@ -199,26 +205,38 @@ func select_unit(unit):
 	print("Einheit ausgewählt")
 	did_select_unit = true
 	selected_unit = unit
-	selected_unit.show_range()
+	unit_manager.show_unit_range(selected_unit)
 	can_select = false
 	
 func reset_selection():
-	print("Auswahl zurückgenommen")
-	selected_unit.clear_overlay()
+	#print("Auswahl zurückgenommen")
+	if selected_unit != null:
+		unit_manager.clear_overlay()
 	did_select_unit = false
 	selected_unit = null
 	hovering_check()
 
 
-func _on_unit_path_completed() -> void:
-	selected_unit.x_coord = x_pos
-	selected_unit.y_coord = y_pos
+func _on_game_manager_player_turn() -> void:
+	print("PLAYER TURN")
 	is_active = true
+	visible = true
+	hovering_check()
+
+
+func _on_game_manager_enemy_turn() -> void:
+	print("ENEMY TURN")
+	is_active = false
+	visible = false
+
+
+func _on_units_path_completed() -> void:
+	print("PATH_COMPLETED")
 	reset_selection()
+	is_active = true
 	emit_signal("update_board")
 	update_units()
 
 
-
-func _on_unit_path_started() -> void:
+func _on_units_unit_moves() -> void:
 	is_active = false

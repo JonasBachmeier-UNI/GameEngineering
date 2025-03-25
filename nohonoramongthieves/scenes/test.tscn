@@ -1,15 +1,15 @@
 [gd_scene load_steps=19 format=4 uid="uid://b63yit1cu4gvl"]
 
 [ext_resource type="Script" path="res://Scripts/GameLogic/game_board.gd" id="1_pdsm0"]
-[ext_resource type="Script" path="res://Scripts/GameLogic/unit.gd" id="2_2tyed"]
 [ext_resource type="Texture2D" uid="uid://ch6p6faml6exn" path="res://assets/Tileset/cave.png" id="2_wyglw"]
 [ext_resource type="Texture2D" uid="uid://bfseogyh6my87" path="res://assets/Unit/walkable_tile.png" id="3_p4v44"]
 [ext_resource type="Texture2D" uid="uid://dygywwf8t2fjm" path="res://assets/Unit/attackable_tile.png" id="4_kcg2a"]
 [ext_resource type="Texture2D" uid="uid://dl7vtvav0ny0r" path="res://assets/highlighted/highlight_tile.png" id="4_t07s4"]
-[ext_resource type="Texture2D" uid="uid://l31kxdyrswdc" path="res://assets/Unit/test.png" id="4_yitvx"]
+[ext_resource type="Script" path="res://unit_manager.gd" id="5_177xh"]
 [ext_resource type="Texture2D" uid="uid://c6peupm1b2ju4" path="res://assets/highlighted/tile_highlighted_2.png" id="5_ut7o1"]
-[ext_resource type="Script" path="res://Scripts/GameLogic/cursor.gd" id="6_qbh61"]
-[ext_resource type="PackedScene" uid="uid://bqhpora7apbhh" path="res://scenes/UI/action_select.tscn" id="10_jis30"]
+[ext_resource type="PackedScene" uid="uid://1tu0ew23kxa2" path="res://unit.tscn" id="6_0du6g"]
+[ext_resource type="Script" path="res://cursor.gd" id="6_qbh61"]
+[ext_resource type="Script" path="res://game_manager.gd" id="10_jqmi4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r7elo"]
 resource_name = "walkable"
@@ -93,8 +93,6 @@ texture = ExtResource("4_kcg2a")
 sources/0 = SubResource("TileSetAtlasSource_s85b1")
 sources/1 = SubResource("TileSetAtlasSource_8l7nb")
 
-[sub_resource type="Curve2D" id="Curve2D_eoxen"]
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_kfbps"]
 animations = [{
 "frames": [{
@@ -125,22 +123,15 @@ tile_set = SubResource("TileSet_xdb4t")
 [node name="UnitOverlay" type="TileMapLayer" parent="GameBoard"]
 tile_set = SubResource("TileSet_7516k")
 
-[node name="UnitPath" type="TileMapLayer" parent="GameBoard"]
-
 [node name="Units" type="Node" parent="GameBoard"]
+script = ExtResource("5_177xh")
 
-[node name="Unit" type="Path2D" parent="GameBoard/Units"]
-curve = SubResource("Curve2D_eoxen")
-script = ExtResource("2_2tyed")
-x_coord = 1
-y_coord = 1
-move_range = 4
+[node name="Unit" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 
-[node name="PathFollow2D" type="PathFollow2D" parent="GameBoard/Units/Unit"]
-rotates = false
-
-[node name="Sprite2D" type="Sprite2D" parent="GameBoard/Units/Unit/PathFollow2D"]
-texture = ExtResource("4_yitvx")
+[node name="Unit2" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
+is_enemy = true
+x_coord = 2
+move_range = 2
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 sprite_frames = SubResource("SpriteFrames_kfbps")
@@ -148,11 +139,21 @@ autoplay = "default"
 frame_progress = 0.149173
 script = ExtResource("6_qbh61")
 
-[node name="ActionSelect" parent="." instance=ExtResource("10_jis30")]
 
-[connection signal="matrix_ready" from="GameBoard" to="GameBoard/Units/Unit" method="_on_game_board_matrix_ready"]
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("10_jqmi4")
+
+[connection signal="matrix_ready" from="GameBoard" to="GameBoard/Units" method="_on_game_board_matrix_ready"]
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Cursor" method="_on_game_board_matrix_ready"]
-[connection signal="path_completed" from="GameBoard/Units/Unit" to="GameBoard/Cursor" method="_on_unit_path_completed"]
-[connection signal="path_started" from="GameBoard/Units/Unit" to="GameBoard/Cursor" method="_on_unit_path_started"]
+[connection signal="ai_move_done" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_ai_move_done"]
+[connection signal="ai_move_done" from="GameBoard/Units" to="GameManager" method="_on_units_ai_move_done"]
+[connection signal="path_completed" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_path_completed"]
+[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
+[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
+[connection signal="enemy_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_enemy_turn"]
+[connection signal="new_turn" from="GameManager" to="GameBoard/Units" method="_on_game_manager_new_turn"]
+[connection signal="player_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_player_turn"]
 [connection signal="show_actions" from="GameBoard/Cursor" to="GameBoard" method="_on_cursor_show_actions"]
-[connection signal="update_board" from="GameBoard/Cursor" to="GameBoard/Units/Unit" method="_on_cursor_update_board"]
+
+[editable path="GameBoard/Units/Unit"]
+[editable path="GameBoard/Units/Unit2"]
