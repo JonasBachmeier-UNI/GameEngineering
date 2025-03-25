@@ -84,15 +84,15 @@ func ai_move(unit):
 	var target_unit = ai_data[1]
 	
 	## Kein Pfad zu einem Gegner möglich
-	if len(shortest_path) <= 2:
+	if len(shortest_path) <= 1:
 		unit.wait_for_next_turn()
 		emit_signal("ai_move_done")
 		return
 	
 	## Eine Einheit ist angreifbar
 	if len(shortest_path) <= unit.get_moves_left() + 1:
-		var new_x = target_unit.x_coord
-		var new_y = target_unit.y_coord
+		var new_x = shortest_path[-1][0]
+		var new_y = shortest_path[-1][1]
 		move_unit(unit, new_x, new_y)
 		unit_attack(unit, target_unit)
 		return

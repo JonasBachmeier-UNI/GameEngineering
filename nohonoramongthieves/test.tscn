@@ -127,6 +127,7 @@ tile_set = SubResource("TileSet_7516k")
 script = ExtResource("5_177xh")
 
 [node name="Unit" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
+max_hp = 885
 
 [node name="Unit3" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
@@ -135,6 +136,16 @@ y_coord = 3
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
 x_coord = 4
+
+[node name="Unit4" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
+is_enemy = true
+x_coord = 4
+y_coord = 3
+
+[node name="Unit5" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
+is_enemy = true
+x_coord = 4
+y_coord = 2
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 sprite_frames = SubResource("SpriteFrames_kfbps")
@@ -159,3 +170,5 @@ script = ExtResource("10_jqmi4")
 [editable path="GameBoard/Units/Unit"]
 [editable path="GameBoard/Units/Unit3"]
 [editable path="GameBoard/Units/Unit2"]
+[editable path="GameBoard/Units/Unit4"]
+[editable path="GameBoard/Units/Unit5"]

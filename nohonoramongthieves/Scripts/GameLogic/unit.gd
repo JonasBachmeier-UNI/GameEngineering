@@ -307,6 +307,7 @@ func update_position(new_x, new_y):
 
 func get_shortest_path_to_enemy():
 	update_units()
+	update_board()
 	var shortest_path = []
 	var target_unit = null
 	var id = coordinate_to_id(x_coord, y_coord)
@@ -318,6 +319,18 @@ func get_shortest_path_to_enemy():
 			if shortest_path == [] or len(shortest_path) > len(path_to_unit):
 				target_unit = unit
 				shortest_path = path_to_unit
+	
+	var last_field_x = shortest_path[-1][0]
+	var last_field_y = shortest_path[-1][1]
+	var field_unreachable = get_grid_value(last_field_x, last_field_y) >= ENEMY_POSITION_VALUE
+	while field_unreachable:
+		print(get_grid_value(last_field_x, last_field_y))
+		if len(shortest_path) <= 1:
+			return [shortest_path, target_unit]
+		shortest_path = shortest_path.slice(0, len(shortest_path)-1)
+		last_field_x = shortest_path[-1][0]
+		last_field_y = shortest_path[-1][1]
+		field_unreachable = get_grid_value(last_field_x, last_field_y) >= ENEMY_POSITION_VALUE
 	
 	return [shortest_path, target_unit]
 
