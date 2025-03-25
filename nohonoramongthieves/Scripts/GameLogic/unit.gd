@@ -311,6 +311,7 @@ func get_shortest_path_to_enemy():
 	var target_unit = null
 	var id = coordinate_to_id(x_coord, y_coord)
 	for unit in units:
+		## AKTUELLER BUG: Einheit ohne HP wird noch angezeigt, aber in KI deswegen nicht mehr verfolgt
 		if unit.is_enemy != is_enemy and unit.hp > 0:
 			var enemy_id = coordinate_to_id(unit.x_coord, unit.y_coord)
 			var path_to_unit = astar.get_point_path(id, enemy_id)

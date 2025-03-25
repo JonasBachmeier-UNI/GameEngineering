@@ -53,7 +53,6 @@ func _on_game_board_matrix_ready(value: Variant) -> void:
 
 func create_astar():
 	for unit in units:
-		is_ai_move = false
 		unit.create_astar_for_grid()
 
 func move_unit(unit, new_x, new_y):
@@ -79,6 +78,7 @@ func enemy_ai_move(unit):
 
 
 func ai_move(unit):
+	unit.update_board()
 	var ai_data = unit.get_shortest_path_to_enemy()
 	var shortest_path = ai_data[0]
 	var target_unit = ai_data[1]

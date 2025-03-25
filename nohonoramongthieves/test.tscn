@@ -128,10 +128,13 @@ script = ExtResource("5_177xh")
 
 [node name="Unit" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 
+[node name="Unit3" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
+is_enemy = true
+y_coord = 3
+
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
-x_coord = 2
-move_range = 2
+x_coord = 4
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 sprite_frames = SubResource("SpriteFrames_kfbps")
@@ -154,4 +157,5 @@ script = ExtResource("10_jqmi4")
 [connection signal="player_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_player_turn"]
 
 [editable path="GameBoard/Units/Unit"]
+[editable path="GameBoard/Units/Unit3"]
 [editable path="GameBoard/Units/Unit2"]
