@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://db02ekgaf0l8q"]
 
-[ext_resource type="Theme" uid="uid://fl6fe5vcl7qu" path="res://themes/ingame_menu_theme.tres" id="1_2huqw"]
-[ext_resource type="Script" path="res://scenes/HealthBar.cs" id="2_4g0wy"]
+[ext_resource type="Theme" uid="uid://fl6fe5vcl7qu" path="res://themes/ingame_menu_theme.tres" id="1_5603y"]
+[ext_resource type="Script" path="res://Scripts/UI/health_bar.gd" id="2_rl4hd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5blv"]
 bg_color = Color(1, 1, 1, 1)
@@ -39,7 +39,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_2huqw")
+theme = ExtResource("1_5603y")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -105,7 +105,7 @@ text = "10"
 
 [node name="ProgressBar" type="ProgressBar" parent="Panel/HBoxContainer/Health"]
 layout_mode = 2
-script = ExtResource("2_4g0wy")
+script = ExtResource("2_rl4hd")
 
 [node name="Title" type="Panel" parent="."]
 layout_mode = 0
@@ -114,7 +114,7 @@ offset_top = -17.0
 offset_right = 70.0
 offset_bottom = 23.0
 scale = Vector2(1.96, 0.880001)
-theme = ExtResource("1_2huqw")
+theme = ExtResource("1_5603y")
 theme_override_styles/panel = SubResource("StyleBoxFlat_o5blv")
 
 [node name="TitleLabel" type="Label" parent="Title"]

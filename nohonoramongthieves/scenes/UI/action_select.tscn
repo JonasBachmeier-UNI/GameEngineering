@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqhpora7apbhh"]
+[gd_scene load_steps=4 format=3 uid="uid://bqhpora7apbhh"]
 
 [ext_resource type="Theme" uid="uid://fl6fe5vcl7qu" path="res://themes/ingame_menu_theme.tres" id="1_kpftx"]
+[ext_resource type="Script" path="res://Scripts/UI/action_select.gd" id="2_tte3y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yr7su"]
 bg_color = Color(1, 1, 1, 0.627451)
@@ -19,19 +20,22 @@ expand_margin_right = 30.0
 expand_margin_bottom = 30.0
 
 [node name="ActionSelect" type="Control"]
+z_index = 500
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -100.0
-offset_right = 80.0
-offset_bottom = 100.0
+offset_left = 2.0
+offset_top = 1.00003
+offset_right = 232.0
+offset_bottom = 201.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.118728, 0.124987)
 theme = ExtResource("1_kpftx")
+script = ExtResource("2_tte3y")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -53,6 +57,10 @@ pivot_offset = Vector2(150.46, 75.3129)
 
 [node name="Move" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../End_Turn")
+focus_neighbor_bottom = NodePath("../Attack")
+focus_next = NodePath("../Attack")
+focus_previous = NodePath("../End_Turn")
 text = "MOVE"
 alignment = 0
 
@@ -61,6 +69,10 @@ layout_mode = 2
 
 [node name="Attack" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Move")
+focus_neighbor_bottom = NodePath("../Info")
+focus_next = NodePath("../Info")
+focus_previous = NodePath("../Move")
 text = "ATTACK"
 alignment = 0
 
@@ -69,6 +81,10 @@ layout_mode = 2
 
 [node name="Info" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Attack")
+focus_neighbor_bottom = NodePath("../End_Turn")
+focus_next = NodePath("../End_Turn")
+focus_previous = NodePath("../Attack")
 text = "INFO"
 alignment = 0
 
@@ -77,5 +93,14 @@ layout_mode = 2
 
 [node name="End_Turn" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Info")
+focus_neighbor_bottom = NodePath("../Move")
+focus_next = NodePath("../Move")
+focus_previous = NodePath("../Info")
 text = "END TURN"
 alignment = 0
+
+[connection signal="pressed" from="Panel/VBoxContainer/Move" to="." method="_on_move_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Info" to="." method="_on_info_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/End_Turn" to="." method="_on_end_turn_pressed"]

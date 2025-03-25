@@ -2,6 +2,8 @@ extends Node
 
 @export var tml: TileMapLayer
 
+var action_select
+
 ## für Übersetzung des TMLs in eine Matrix
 var MINIMUM_OFFSET_X: int
 var MINIMUM_OFFSET_Y: int
@@ -24,6 +26,9 @@ func _ready() -> void:
 	
 	create_matrix(used_cells)
 	emit_signal("matrix_ready", grid)
+	
+	action_select = $"../ActionSelect"
+	action_select.visible = false
 	
 func _process(delta: float) -> void:
 	pass
@@ -92,3 +97,12 @@ func print_grid():
 		
 func get_grid():
 	return grid
+
+
+func _on_cursor_show_actions(x, y, unit_selected) -> void:
+	print(unit_selected)
+	print(action_select)
+	action_select.unit_selected = unit_selected
+	action_select.x_pos = x
+	action_select.y_pos = y
+	action_select.visible = true

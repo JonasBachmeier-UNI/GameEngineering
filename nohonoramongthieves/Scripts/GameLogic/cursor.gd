@@ -12,11 +12,13 @@ var my_units
 var enemies
 
 signal update_board
+signal show_actions(x, y, unit_selected)
 
 var did_select_unit: bool = false
 var selected_unit = null
 
 var is_active = true
+var in_menu = false
 
 var can_select = false
 var can_select_target = false
@@ -39,14 +41,15 @@ func _process(delta: float) -> void:
 	movement_check_routine()
 	
 func movement_check_routine():
-	if Input.is_action_just_pressed("ui_up"):
-		move(Vector2.UP)
-	elif Input.is_action_just_pressed("ui_down"):
-		move(Vector2.DOWN)
-	elif Input.is_action_just_pressed("ui_left"):
-		move(Vector2.LEFT)
-	elif Input.is_action_just_pressed("ui_right"):
-		move(Vector2.RIGHT)
+	if !in_menu:
+		if Input.is_action_just_pressed("ui_up"):
+			move(Vector2.UP)
+		elif Input.is_action_just_pressed("ui_down"):
+			move(Vector2.DOWN)
+		elif Input.is_action_just_pressed("ui_left"):
+			move(Vector2.LEFT)
+		elif Input.is_action_just_pressed("ui_right"):
+			move(Vector2.RIGHT)
 
 
 func unit_move_check_routine():
@@ -64,10 +67,10 @@ func unit_move_check_routine():
 	
 	if can_select_target:
 		## TODO: mit gewünschten Input unit bewegen
-		if Input.is_action_just_pressed("ui_select"):
-			print("Einheit auf: ", selected_unit.x_coord, " ", selected_unit.y_coord, " nach: ", x_pos, " ", y_pos)
-			selected_unit.move(x_pos, y_pos)
-			## selected_unit geht zur aktuellen Position
+		if Input.is_action_just_pressed("ui_select"):			
+			in_menu = true
+			## opens action_select
+			emit_signal("show_actions", x_pos, y_pos, false)
 			pass
 			
 	if can_select_enemy:
