@@ -13,9 +13,6 @@ const ENEMY_POSITION_VALUE = 500
 ## wenn true dann wird dem Pfad gefolgt
 var is_moving = false
 
-signal path_started
-signal path_completed
-
 
 ## Teamzuweisung
 @export var is_enemy: bool
@@ -56,10 +53,6 @@ func _ready() -> void:
 	path_follow.loop = false
 	update_units()
 	pass
-	
-
-func _process(delta: float) -> void:
-	follow_curve(delta)
 
 
 ## Alle "Sibling Nodes"
@@ -76,7 +69,7 @@ func current_pos_to_tml():
 
 
 func on_game_board_matrix_ready(value: Variant) -> void:
-	base_grid = value
+	base_grid = value.duplicate(true)
 	grid = value
 	current_pos_to_tml()
 	## TODO:
@@ -156,23 +149,7 @@ func get_cells_in_range():
 		
 		check_next.append(next_batch)
 		move_count += 1
-		
 
-
-#	## Testing
-#	for c in in_move_range:
-#		set_grid_value(c[0], c[1], 2)
-#
-#		
-#	for c in in_attack_range:
-#		set_grid_value(c[0], c[1], 3)
-#
-#		
-#	set_grid_value(cur_x, cur_y, 0)
-#		
-#	for x in grid:
-#		print(x)
-	
 
 func get_possible_moves(x, y, move_count):
 	
@@ -322,52 +299,10 @@ func set_path(points):
 		curve.add_point(point)
 
 
-func follow_curve(delta):
-	if !is_moving:
-		return
-	
-	if path_follow.progress_ratio >= 1 and is_moving:
-		is_moving = false
-		curve.clear_points()
-		emit_signal("path_completed")
-		return
-	
-	path_follow.progress += speed * delta
-	
-
-func start_movement():
-	clear_overlay()
-	is_moving = true
-	path_follow.progress = 0
-	emit_signal("path_started")
-	
 
 func update_position(new_x, new_y):
 	x_coord = new_x
 	y_coord = new_y
-
-func move(new_x, new_y):
-	var id_cur = coordinate_to_id(x_coord, y_coord)
-	var id_new = coordinate_to_id(new_x, new_y)
-	var grid_path = astar.get_point_path(id_cur, id_new)
-	var path = get_global_positions_from_path(grid_path)
-	set_path(path)
-	moved_count += len(path)-1
-	start_movement()
-	x_coord = new_x
-	y_coord = new_y
-
-## TODO: Test
-func move_to_enemy(enemy_x, enemy_y):
-	var id_cur = coordinate_to_id(x_coord, y_coord)
-	var id_enemy = coordinate_to_id(enemy_x, enemy_y)
-	var grid_path = astar.get_point_path(id_cur, id_enemy)
-	
-	## Man steht schon neben dem Gegner
-	if len(grid_path) <= 2:
-		return
-		
-	move(grid_path[-2][0], grid_path[-2][1])
 
 
 func get_shortest_path_to_enemy():
@@ -387,46 +322,6 @@ func get_shortest_path_to_enemy():
 
 func get_moves_left():
 	return move_range - moved_count
-
-func ai_move():
-	var path_data = get_shortest_path_to_enemy()
-	var shortest_path = path_data[0]
-	var target_unit = path_data[1]
-	
-	if len(shortest_path) <= 1:
-		wait_for_next_turn()
-		return
-	
-	if len(shortest_path) <= move_range-moved_count+1:
-		var path_help = shortest_path.slice(0, len(shortest_path)-1)
-		var path = get_global_positions_from_path(path_help)
-		set_path(path)
-		moved_count += len(path)-1
-		start_movement()
-		x_coord = path_help[-1][0]
-		y_coord = path_help[-1][1]
-		attack_unit(target_unit)
-		return
-	
-	
-	shortest_path.resize(move_range-moved_count)
-	var path = get_global_positions_from_path(shortest_path)
-	set_path(path)
-	moved_count += len(shortest_path)-1
-	start_movement()
-	x_coord = shortest_path[-1][0]
-	y_coord = shortest_path[-1][1]
-	wait_for_next_turn()
-
-
-func can_attack_field(x, y):
-	if !in_attack_range.has([x, y]) and !in_move_range.has([x,y]):
-		return false
-	
-	if get_grid_value(x, y) != ENEMY_POSITION_VALUE:
-		return false
-		
-	return true
 
 
 func wait_for_next_turn():
@@ -470,10 +365,3 @@ func id_to_coordinate(coord):
 	var y = coord % ID_CONVERT_MULT
 	var x = (coord - y) / ID_CONVERT_MULT
 	return [x, y]
-
-
-func _on_cursor_update_board() -> void:
-	update_units()
-	update_board()
-	get_cells_in_range()
-	pass # Replace with function body.
