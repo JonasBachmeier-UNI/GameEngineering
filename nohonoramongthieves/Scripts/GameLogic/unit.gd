@@ -241,18 +241,19 @@ func get_path_to_destination(end_x: int, end_y: int):
 	if !in_attack_range.has(destination) and !in_move_range.has(destination):
 		return []
 	
-	# Wenn nur durch Attacke erreichbar
-	if in_attack_range.has(destination):
-		# kürzesten Pfad zu Nachbar
+	# Wenn nur durch Attacke erreichbar und keine Gegner auf Feld
+	if in_attack_range.has(destination) and get_grid_value(end_x, end_y) != ENEMY_POSITION_VALUE:
 		return []
 		
-	# in movement range
+	# in movement range oder Gegner angreifbar
 	var id_start = coordinate_to_id(x_coord, y_coord)
 	var id_end = coordinate_to_id(end_x, end_y)
-	var id_path = astar.get_point_path(id_start, id_end)
-	var coord_path = []
-	for id in id_path:
-		coord_path.append(id_to_coordinate(id))
+	var coord_path = astar.get_point_path(id_start, id_end)
+	
+	# Gegner auf dem Endfeld --> Pfad wird um 1 gekürzt
+	if in_attack_range.has(destination):
+		coord_path = coord_path.slice(0, len(coord_path)-1)
+	
 	return coord_path
 
 
@@ -341,6 +342,10 @@ func start_movement():
 	emit_signal("path_started")
 	
 
+func update_position(new_x, new_y):
+	x_coord = new_x
+	y_coord = new_y
+
 func move(new_x, new_y):
 	var id_cur = coordinate_to_id(x_coord, y_coord)
 	var id_new = coordinate_to_id(new_x, new_y)
@@ -365,8 +370,7 @@ func move_to_enemy(enemy_x, enemy_y):
 	move(grid_path[-2][0], grid_path[-2][1])
 
 
-func ai_move():
-	print("ANFANG: ", self)
+func get_shortest_path_to_enemy():
 	update_units()
 	var shortest_path = []
 	var target_unit = null
@@ -379,7 +383,15 @@ func ai_move():
 				target_unit = unit
 				shortest_path = path_to_unit
 	
-	print("ENDE FOR")
+	return [shortest_path, target_unit]
+
+func get_moves_left():
+	return move_range - moved_count
+
+func ai_move():
+	var path_data = get_shortest_path_to_enemy()
+	var shortest_path = path_data[0]
+	var target_unit = path_data[1]
 	
 	if len(shortest_path) <= 1:
 		wait_for_next_turn()
@@ -396,8 +408,7 @@ func ai_move():
 		attack_unit(target_unit)
 		return
 	
-	var counter = 0
-	print("VOR RESIZE")
+	
 	shortest_path.resize(move_range-moved_count)
 	var path = get_global_positions_from_path(shortest_path)
 	set_path(path)
@@ -406,7 +417,6 @@ func ai_move():
 	x_coord = shortest_path[-1][0]
 	y_coord = shortest_path[-1][1]
 	wait_for_next_turn()
-	print("ENDE")
 
 
 func can_attack_field(x, y):

@@ -1,11 +1,14 @@
 extends Node
 
-@onready var units_node = $"../GameBoard/Units"
+@onready var unit_manager = $"../GameBoard/Units"
+@onready var cursor = $"../GameBoard/Cursor"
 var units = []
 var player_units = []
 var enemy_units = []
 var turn_count = 0
 var is_player_turn = true
+
+var enemy_move_counter = 0
 
 signal player_turn
 signal enemy_turn
@@ -18,16 +21,16 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	## Kein Input möglich
 	if !is_player_turn:
-		start_next_turn()
 		return
-		
+	
 	if Input.is_action_just_pressed("ui_text_backspace"):
+		cursor.reset_selection()
 		start_next_turn()
 
 
 
 func update_units():
-	units = units_node.get_children()
+	units = unit_manager.get_children()
 	for unit in units:
 		if unit.is_enemy:
 			enemy_units.append(unit)
@@ -37,9 +40,11 @@ func update_units():
 
 ## TODO: test
 func ai_turn():
-	for unit in enemy_units:
-		unit.ai_move()
-	start_next_turn()
+	if len(enemy_units) > enemy_move_counter:
+		enemy_move_counter += 1
+		unit_manager.enemy_ai_move(enemy_units[enemy_move_counter - 1])
+	else:
+		start_next_turn()
 
 
 func start_next_turn():
@@ -55,10 +60,15 @@ func start_next_turn():
 		## Player Turn
 		is_player_turn = true
 		emit_signal("player_turn")
-		pass
 	else:
 		## AI Turn
 		is_player_turn = false
 		emit_signal("enemy_turn")
-		ai_turn()
-		pass
+		start_ai()
+
+func start_ai():
+	enemy_move_counter = 0
+	ai_turn()
+
+func _on_units_ai_move_done() -> void:
+	ai_turn()

@@ -131,6 +131,7 @@ script = ExtResource("5_177xh")
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
 x_coord = 2
+move_range = 2
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 sprite_frames = SubResource("SpriteFrames_kfbps")
@@ -143,6 +144,11 @@ script = ExtResource("10_jqmi4")
 
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Units" method="_on_game_board_matrix_ready"]
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Cursor" method="_on_game_board_matrix_ready"]
+[connection signal="ai_move_done" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_ai_move_done"]
+[connection signal="ai_move_done" from="GameBoard/Units" to="GameManager" method="_on_units_ai_move_done"]
+[connection signal="path_completed" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_path_completed"]
+[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
+[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
 [connection signal="path_completed" from="GameBoard/Units/Unit" to="GameBoard/Cursor" method="_on_unit_path_completed"]
 [connection signal="path_started" from="GameBoard/Units/Unit" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="path_completed" from="GameBoard/Units/Unit2" to="GameBoard/Cursor" method="_on_unit_path_completed"]
