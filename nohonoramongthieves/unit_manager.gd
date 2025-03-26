@@ -105,6 +105,10 @@ func ai_move(unit):
 	unit.wait_for_next_turn()
 
 
+func unit_wait(unit):
+	unit.wait_for_next_turn()
+
+
 func unit_attack(attacker, defender):
 	attacker.attack_unit(defender)
 

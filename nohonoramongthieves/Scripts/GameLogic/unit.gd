@@ -281,7 +281,7 @@ func create_astar_for_grid():
 				astar.connect_points(id, id_n)
 				
 	return astar
-	
+
 
 
 func get_global_positions_from_path(path):
@@ -319,6 +319,8 @@ func get_shortest_path_to_enemy():
 				target_unit = unit
 				shortest_path = path_to_unit
 	
+	if len(shortest_path) < 2:
+		return [shortest_path, target_unit]
 	var last_field_x = shortest_path[-1][0]
 	var last_field_y = shortest_path[-1][1]
 	var field_unreachable = get_grid_value(last_field_x, last_field_y) >= ENEMY_POSITION_VALUE
