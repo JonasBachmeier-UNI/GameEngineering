@@ -65,7 +65,6 @@ func current_pos_to_tml():
 	var gb_pos = Vector2i(x_coord, y_coord)
 	var tml_pos = gameboard.grid_to_tml_coords(gb_pos)
 	global_position = tml.map_to_local(tml_pos)
-	print(self)
 
 
 func on_game_board_matrix_ready(value: Variant) -> void:
@@ -282,7 +281,7 @@ func create_astar_for_grid():
 				astar.connect_points(id, id_n)
 				
 	return astar
-	
+
 
 
 func get_global_positions_from_path(path):
@@ -307,16 +306,31 @@ func update_position(new_x, new_y):
 
 func get_shortest_path_to_enemy():
 	update_units()
+	update_board()
 	var shortest_path = []
 	var target_unit = null
 	var id = coordinate_to_id(x_coord, y_coord)
 	for unit in units:
+		## AKTUELLER BUG: Einheit ohne HP wird noch angezeigt, aber in KI deswegen nicht mehr verfolgt
 		if unit.is_enemy != is_enemy and unit.hp > 0:
 			var enemy_id = coordinate_to_id(unit.x_coord, unit.y_coord)
 			var path_to_unit = astar.get_point_path(id, enemy_id)
 			if shortest_path == [] or len(shortest_path) > len(path_to_unit):
 				target_unit = unit
 				shortest_path = path_to_unit
+	
+	if len(shortest_path) < 2:
+		return [shortest_path, target_unit]
+	var last_field_x = shortest_path[-1][0]
+	var last_field_y = shortest_path[-1][1]
+	var field_unreachable = get_grid_value(last_field_x, last_field_y) >= ENEMY_POSITION_VALUE
+	while field_unreachable:
+		if len(shortest_path) <= 1:
+			return [shortest_path, target_unit]
+		shortest_path = shortest_path.slice(0, len(shortest_path)-1)
+		last_field_x = shortest_path[-1][0]
+		last_field_y = shortest_path[-1][1]
+		field_unreachable = get_grid_value(last_field_x, last_field_y) >= ENEMY_POSITION_VALUE
 	
 	return [shortest_path, target_unit]
 

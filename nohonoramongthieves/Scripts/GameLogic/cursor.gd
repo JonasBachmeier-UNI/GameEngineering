@@ -155,9 +155,9 @@ func hovering_check():
 			#print("Leeres Feld")
 			return
 		## Auswählbare Einheit auf Feld
+		unit_manager.show_unit_range(hovered)
 		if !hovered.is_enemy:
 			## Einheit Auswählbar
-			unit_manager.show_unit_range(hovered)
 			can_select = true
 			#print("Einheit Auswählbar")
 			return
@@ -190,7 +190,10 @@ func hovering_check():
 	if hovered == null:
 		#print("nicht erreichbar / angreifbar")
 		return
-		
+	
+	## TODO: Vergleichsinfo anzeigen
+	
+	
 	if test_attack.has(pos_vec) and hovered.is_enemy:
 		## Unit geht neben das Feld und greift an und reset bools / selected units
 		can_select_enemy = true

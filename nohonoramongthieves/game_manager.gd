@@ -23,6 +23,9 @@ func _process(delta: float) -> void:
 	if !is_player_turn:
 		return
 	
+	if !cursor.is_active:
+		return
+	
 	if Input.is_action_just_pressed("ui_text_backspace"):
 		cursor.reset_selection()
 		start_next_turn()
