@@ -44,7 +44,6 @@ func update_units():
 ## TODO: test
 func ai_turn():
 	if len(enemy_units) > enemy_move_counter:
-		print("AI_TURN: ", enemy_move_counter)
 		enemy_move_counter += 1
 		unit_manager.enemy_ai_move(enemy_units[enemy_move_counter - 1])
 	else:
@@ -75,7 +74,6 @@ func start_ai():
 	ai_turn()
 
 func _on_units_ai_move_done() -> void:
-	print("ON_DONE")
 	ai_turn()
 
 
