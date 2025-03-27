@@ -67,6 +67,12 @@ func current_pos_to_tml():
 	global_position = tml.map_to_local(tml_pos)
 
 
+## TODO: aufrufen wenn hp < 0
+## Löscht komplette Node bei besiegen der Node
+func on_death():
+	queue_free()
+
+
 func on_game_board_matrix_ready(value: Variant) -> void:
 	base_grid = value.duplicate(true)
 	grid = value
