@@ -75,3 +75,8 @@ func start_ai():
 
 func _on_units_ai_move_done() -> void:
 	ai_turn()
+
+
+func _on_units_all_units_moved() -> void:
+	if is_player_turn:
+		start_next_turn()

@@ -12,6 +12,7 @@ var is_ai_move = false
 signal unit_moves
 signal path_completed
 signal ai_move_done
+signal all_units_moved
 
 ## TODO Menü passend anzeigen
 
@@ -107,6 +108,16 @@ func ai_move(unit):
 
 func unit_wait(unit):
 	unit.wait_for_next_turn()
+
+
+## TODO: passend einbauen
+func check_all_units_moved():
+	if is_ai_move:
+		return
+	for unit in units:
+		if !unit.is_enemy and !unit.has_moved:
+			return
+	emit_signal("all_units_moved")
 
 
 func unit_attack(attacker, defender):
