@@ -2,12 +2,16 @@ extends AnimatedSprite2D
 
 @onready var tml = $"../Map"
 @onready var overlay = $"../UnitOverlay"
+@onready var path_map = $"../UnitPath"
 @onready var gameboard = $"../../GameBoard"
 @onready var unit_manager = $"../Units"
 @export var start_x = 1
 @export var start_y = 1
 var x_pos = start_x
 var y_pos = start_y
+var last_x = start_x
+var last_y = start_y
+
 var all_units
 var my_units
 var enemies
@@ -22,6 +26,7 @@ var is_active = true
 var can_select = false
 var can_select_target = false
 var can_select_enemy = false
+var help_path = false
 
 
 func _on_game_board_matrix_ready(value: Variant) -> void:
@@ -67,7 +72,6 @@ func unit_move_check_routine():
 		## TODO: mit gewünschten Input unit bewegen
 		if Input.is_action_just_pressed("ui_select"):
 			print("Einheit auf: ", selected_unit.x_coord, " ", selected_unit.y_coord, " nach: ", x_pos, " ", y_pos)
-			# selected_unit.move(x_pos, y_pos)
 			unit_manager.move_unit(selected_unit, x_pos, y_pos)
 			## selected_unit geht zur aktuellen Position
 			
@@ -75,8 +79,10 @@ func unit_move_check_routine():
 		## TODO: mit gewünschten Input unit Feld angreifen lassen
 		if Input.is_action_just_pressed("ui_select"):
 			print("Einheit auf: ", selected_unit.x_coord, " ", selected_unit.y_coord, " attackiert: ", x_pos, " ", y_pos)
-			# selected_unit.move_to_enemy(x_pos, y_pos)
-			unit_manager.move_unit(selected_unit, x_pos, y_pos)
+			if help_path:
+				unit_manager.move_unit(selected_unit, last_x, last_y)
+			else:
+				unit_manager.move_unit(selected_unit, x_pos, y_pos)
 			## TODO Menü aufrufen
 			## selected_unit geht neben aktuelles Feld und greift an
 
@@ -95,8 +101,13 @@ func move(direction: Vector2):
 	if tile_id != 0:
 		return
 	
+	## Wenn bewegt wird, wird der Pfad gelöscht
+	path_map.clear()
+	
 	## Positionsänderung
 	global_position = tml.map_to_local(target_tile)
+	last_x = x_pos
+	last_y = y_pos
 	x_pos += direction.x
 	y_pos += direction.y
 	hovering_check()
@@ -129,6 +140,7 @@ func hovering_check():
 	can_select = false
 	can_select_target = false
 	can_select_enemy = false
+	help_path = false
 	
 	if !did_select_unit:
 		overlay.clear()
@@ -181,7 +193,8 @@ func hovering_check():
 	if test_move.has(pos_vec):
 		## Unit geht Pfad und reset bools / selected units
 		can_select_target = true
-		#print("Feld erreichbar")
+		var path = selected_unit.get_path_to_destination(x_pos, y_pos)
+		path_map.path_to_tilemap(path)
 		return
 		
 	if hovered == null:
@@ -194,6 +207,14 @@ func hovering_check():
 	if test_attack.has(pos_vec) and hovered.is_enemy:
 		## Unit geht neben das Feld und greift an und reset bools / selected units
 		can_select_enemy = true
+		
+		var path = selected_unit.get_path_to_destination(x_pos, y_pos)
+		
+		if test_move.has(Vector2i(last_x, last_y)):
+			path = selected_unit.get_path_to_destination(last_x, last_y)
+			help_path = true
+		
+		path_map.path_to_tilemap(path)
 		#print("Feld angreifbar")
 		return
 			
@@ -210,6 +231,7 @@ func select_unit(unit):
 	
 func reset_selection():
 	#print("Auswahl zurückgenommen")
+	path_map.clear()
 	if selected_unit != null:
 		unit_manager.clear_overlay()
 	did_select_unit = false

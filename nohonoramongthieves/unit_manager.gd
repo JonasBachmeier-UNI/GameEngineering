@@ -59,6 +59,14 @@ func create_astar():
 func move_unit(unit, new_x, new_y):
 	var grid_path = unit.get_path_to_destination(new_x, new_y)
 	var path = unit.get_global_positions_from_path(grid_path)
+	
+	if len(path) < 2:
+		emit_signal("path_completed")
+		if is_ai_move:
+			is_ai_move = false
+			emit_signal("ai_move_done")
+		return
+	
 	unit.set_path(path)
 	unit.moved_count += len(path)-1
 	unit.update_position(grid_path[-1][0], grid_path[-1][1])
@@ -85,8 +93,9 @@ func ai_move(unit):
 	var target_unit = ai_data[1]
 	
 	## Kein Pfad zu einem Gegner möglich
-	if len(shortest_path) <= 1:
+	if target_unit == null:
 		unit.wait_for_next_turn()
+		is_ai_move = false
 		emit_signal("ai_move_done")
 		return
 	
