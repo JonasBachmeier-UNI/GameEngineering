@@ -354,7 +354,9 @@ func attack_unit(enemy: Unit):
 
 
 func get_damaged(atk):
-	hp -= atk - defense
+	print(hp)
+	return
+	hp = hp - (atk - defense)
 	if hp < 0:
 		hp = 0
 		

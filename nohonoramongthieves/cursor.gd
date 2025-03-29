@@ -149,20 +149,19 @@ func hovering_check():
 	if hovered == null and !did_select_unit:
 		return
 	
-	## Wenn die Einheit schon gezogen hat wird sie nicht mehr benutzt
-	if hovered != null:
-		if hovered.has_moved:
-			return
-	
 	var pos_vec = Vector2i(x_pos, y_pos)
 
 	## Noch keine Einheit ausgewählt
 	if !did_select_unit:
-		
 		if hovered == null:
 			## Leeres Feld also nichts
 			#print("Leeres Feld")
 			return
+		
+		## Wenn die Einheit schon gezogen hat wird sie nicht mehr benutzt
+		if hovered.has_moved:
+			return
+		
 		## Auswählbare Einheit auf Feld
 		unit_manager.show_unit_range(hovered)
 		if !hovered.is_enemy:
@@ -179,6 +178,7 @@ func hovering_check():
 	if x_pos == selected_unit.x_coord and y_pos == selected_unit.y_coord:
 		#print("Auf diesem Feld steht die Einheit")
 		return
+	
 
 	## Array von Arrays zu Array von Vector2is
 	# TODO: in Unit alle 2d Arrays zu Vector2i
@@ -189,7 +189,8 @@ func hovering_check():
 	var test_attack = []
 	for i in selected_unit.in_attack_range:
 		test_attack.append(Vector2i(i[0], i[1]))
-		
+	
+	
 	if test_move.has(pos_vec):
 		## Unit geht Pfad und reset bools / selected units
 		can_select_target = true
@@ -198,11 +199,9 @@ func hovering_check():
 		return
 		
 	if hovered == null:
-		#print("nicht erreichbar / angreifbar")
 		return
 	
 	## TODO: Vergleichsinfo anzeigen
-	
 	
 	if test_attack.has(pos_vec) and hovered.is_enemy:
 		## Unit geht neben das Feld und greift an und reset bools / selected units

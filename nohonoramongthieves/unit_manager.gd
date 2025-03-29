@@ -63,6 +63,7 @@ func move_unit(unit, new_x, new_y):
 	if len(path) < 2:
 		emit_signal("path_completed")
 		if is_ai_move:
+			print("HIER")
 			is_ai_move = false
 			emit_signal("ai_move_done")
 		return
@@ -82,8 +83,8 @@ func start_unit_movement(unit):
 
 
 func enemy_ai_move(unit):
-	ai_move(unit)
 	is_ai_move = true
+	ai_move(unit)
 
 
 func ai_move(unit):
@@ -101,9 +102,9 @@ func ai_move(unit):
 	
 	## Eine Einheit ist angreifbar
 	if len(shortest_path) <= unit.get_moves_left() + 1:
-		var new_x = shortest_path[-1][0]
-		var new_y = shortest_path[-1][1]
-		move_unit(unit, new_x, new_y)
+		var dest_x = shortest_path[-1][0]
+		var dest_y = shortest_path[-1][1]
+		move_unit(unit, dest_x, dest_y)
 		unit_attack(unit, target_unit)
 		return
 	
