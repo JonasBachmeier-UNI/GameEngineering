@@ -62,7 +62,8 @@ public partial class InBetweenScene : Control
 			GD.Print("Button " + btn.GetNode<CharacterDisplay>("CharacterDisplay").CharacterIndex);
 
 			// Update button text
-			btn.Text = (i + 1).ToString();
+			Character character = GlobalCharacterManager.Instance.GetCharacter(i);
+			btn.Text = character.Name;
 
 			btn.Visible = true; // Ensure the button is visible
 		}
