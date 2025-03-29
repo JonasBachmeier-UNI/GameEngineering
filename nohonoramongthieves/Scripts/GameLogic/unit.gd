@@ -321,7 +321,7 @@ func get_shortest_path_to_enemy():
 		if unit.is_enemy != is_enemy and unit.hp > 0:
 			var enemy_id = coordinate_to_id(unit.x_coord, unit.y_coord)
 			var path_to_unit = astar.get_point_path(id, enemy_id)
-			if shortest_path == [] or len(shortest_path) > len(path_to_unit):
+			if shortest_path.is_empty()  or len(shortest_path) > len(path_to_unit):
 				target_unit = unit
 				shortest_path = path_to_unit
 	
