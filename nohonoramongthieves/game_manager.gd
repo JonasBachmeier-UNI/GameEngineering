@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 
 
 func update_units():
-	units = unit_manager.get_children()
+	units = unit_manager.get_children().filter(func(unit): return unit.hp > 0)
 	enemy_units = []
 	player_units = []
 	for unit in units:
