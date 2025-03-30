@@ -252,7 +252,6 @@ func _on_game_manager_enemy_turn() -> void:
 
 
 func _on_units_path_completed() -> void:
-	print("PATH_COMPLETED")
 	reset_selection()
 	is_active = true
 	emit_signal("update_board")

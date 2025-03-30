@@ -19,12 +19,15 @@ signal all_units_moved
 @export var speed = 70
 
 func _ready() -> void:
-	units = get_children()
+	get_units()
 
 
 func _process(delta: float) -> void:
 	execute_movement(delta)
 
+
+func get_units():
+	units = get_children().filter(func(unit): return unit.hp > 0)
 
 func execute_movement(delta):
 	if !is_unit_moving:
@@ -53,6 +56,7 @@ func _on_game_board_matrix_ready(value: Variant) -> void:
 	update_unit_grids(value)
 
 func create_astar():
+	get_units()
 	for unit in units:
 		unit.create_astar_for_grid()
 
@@ -63,7 +67,6 @@ func move_unit(unit, new_x, new_y):
 	if len(path) < 2:
 		emit_signal("path_completed")
 		if is_ai_move:
-			print("HIER")
 			is_ai_move = false
 			emit_signal("ai_move_done")
 		return
@@ -131,10 +134,39 @@ func check_all_units_moved():
 
 
 func unit_attack(attacker, defender):
-	attacker.attack_unit(defender)
+	var damage = attacker.dmg + attacker.dmg_bonus
+	attacker.dmg_bonus = 0
+	
+	defender.hp -= (damage - defender.defense)
+	if defender.hp < 0:
+		defender.hp = 0
+	
+	if defender.hp == 0:
+		defender.on_death()
+		check_one_side_empty()
 
 func show_unit_range(unit):
 	unit.show_range()
 
 func clear_overlay():
 	overlay.clear()
+
+
+## TODO: Signals an game manager
+func check_one_side_empty():
+	get_units()
+	print(units)
+	var enemies = []
+	var allies = []
+	
+	for unit in units:
+		if unit.is_enemy:
+			enemies.append(unit)
+		else:
+			allies.append(unit)
+	
+	if enemies.is_empty():
+		print("PLAYER WON")
+	
+	elif allies.is_empty():
+		print("ENEMY WON")

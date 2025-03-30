@@ -34,6 +34,8 @@ func _process(delta: float) -> void:
 
 func update_units():
 	units = unit_manager.get_children()
+	enemy_units = []
+	player_units = []
 	for unit in units:
 		if unit.is_enemy:
 			enemy_units.append(unit)
@@ -51,6 +53,7 @@ func ai_turn():
 
 
 func start_next_turn():
+	update_units()
 	emit_signal("new_turn")
 	turn_count += 1
 	for unit in units:

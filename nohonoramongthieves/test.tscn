@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://b63yit1cu4gvl"]
+[gd_scene load_steps=41 format=4 uid="uid://b63yit1cu4gvl"]
 
 [ext_resource type="Script" path="res://Scripts/GameLogic/game_board.gd" id="1_pdsm0"]
 [ext_resource type="Texture2D" uid="uid://ch6p6faml6exn" path="res://assets/Tileset/cave.png" id="2_wyglw"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://bbrpew1nl1j25" path="res://assets/UnitPath/unten_links.png" id="13_o5cxk"]
 [ext_resource type="Texture2D" uid="uid://bn1ebnxat3m4i" path="res://assets/UnitPath/unten_rechts.png" id="14_cpmau"]
 [ext_resource type="Script" path="res://unit_path.gd" id="15_78ek8"]
+[ext_resource type="Script" path="res://inventory_manager.gd" id="22_dct3n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r7elo"]
 resource_name = "walkable"
@@ -194,6 +195,7 @@ script = ExtResource("15_78ek8")
 script = ExtResource("5_177xh")
 
 [node name="Unit" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
+max_hp = 13
 move_range = 7
 
 [node name="Unit3" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
@@ -202,7 +204,6 @@ y_coord = 3
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
 x_coord = 3
-max_hp = 885
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 sprite_frames = SubResource("SpriteFrames_kfbps")
@@ -212,6 +213,9 @@ script = ExtResource("6_qbh61")
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("10_jqmi4")
+
+[node name="InventoryManager" type="Node" parent="."]
+script = ExtResource("22_dct3n")
 
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Units" method="_on_game_board_matrix_ready"]
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Cursor" method="_on_game_board_matrix_ready"]
