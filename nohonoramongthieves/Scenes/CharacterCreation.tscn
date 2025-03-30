@@ -1,38 +1,38 @@
 [gd_scene load_steps=19 format=3 uid="uid://sx4ci77own1c"]
 
-[ext_resource type="Script" path="res://Scripts/CharacterManager.cs" id="1_ma41s"]
-[ext_resource type="Shader" path="res://Character.gdshader" id="2_dqqup"]
-[ext_resource type="Texture2D" uid="uid://bxuv2mby4usf3" path="res://Gradient/black_white_Gradient.tres" id="6_0qcnq"]
+[ext_resource type="Script" path="res://Scripts/CharacterManager.cs" id="1_bjg1c"]
+[ext_resource type="Shader" path="res://Character.gdshader" id="2_4pls1"]
+[ext_resource type="Texture2D" uid="uid://bxuv2mby4usf3" path="res://Gradient/black_white_Gradient.tres" id="3_awcd2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2coaq"]
-shader = ExtResource("2_dqqup")
+shader = ExtResource("2_4pls1")
 shader_parameter/mix_amount = 1.0
-shader_parameter/gradient = ExtResource("6_0qcnq")
+shader_parameter/gradient = ExtResource("3_awcd2")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4tjin"]
-shader = ExtResource("2_dqqup")
+shader = ExtResource("2_4pls1")
 shader_parameter/mix_amount = 1.0
-shader_parameter/gradient = ExtResource("6_0qcnq")
+shader_parameter/gradient = ExtResource("3_awcd2")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yx3pk"]
-shader = ExtResource("2_dqqup")
+shader = ExtResource("2_4pls1")
 shader_parameter/mix_amount = 1.0
-shader_parameter/gradient = ExtResource("6_0qcnq")
+shader_parameter/gradient = ExtResource("3_awcd2")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_upcw5"]
-shader = ExtResource("2_dqqup")
+shader = ExtResource("2_4pls1")
 shader_parameter/mix_amount = 1.0
-shader_parameter/gradient = ExtResource("6_0qcnq")
+shader_parameter/gradient = ExtResource("3_awcd2")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bnj7i"]
-shader = ExtResource("2_dqqup")
+shader = ExtResource("2_4pls1")
 shader_parameter/mix_amount = 1.0
-shader_parameter/gradient = ExtResource("6_0qcnq")
+shader_parameter/gradient = ExtResource("3_awcd2")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5atls"]
-shader = ExtResource("2_dqqup")
+shader = ExtResource("2_4pls1")
 shader_parameter/mix_amount = 1.0
-shader_parameter/gradient = ExtResource("6_0qcnq")
+shader_parameter/gradient = ExtResource("3_awcd2")
 
 [sub_resource type="Gradient" id="Gradient_4q1v5"]
 
@@ -40,7 +40,7 @@ shader_parameter/gradient = ExtResource("6_0qcnq")
 gradient = SubResource("Gradient_4q1v5")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jyy02"]
-shader = ExtResource("2_dqqup")
+shader = ExtResource("2_4pls1")
 shader_parameter/mix_amount = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_r63hx")
 
@@ -50,7 +50,7 @@ shader_parameter/gradient = SubResource("GradientTexture1D_r63hx")
 gradient = SubResource("Gradient_2cjxb")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t4t1v"]
-shader = ExtResource("2_dqqup")
+shader = ExtResource("2_4pls1")
 shader_parameter/mix_amount = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_byq8c")
 
@@ -60,7 +60,7 @@ shader_parameter/gradient = SubResource("GradientTexture1D_byq8c")
 gradient = SubResource("Gradient_8m3fh")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_efq0y"]
-shader = ExtResource("2_dqqup")
+shader = ExtResource("2_4pls1")
 shader_parameter/mix_amount = 1.0
 shader_parameter/gradient = SubResource("GradientTexture1D_vk5q2")
 
@@ -71,7 +71,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ma41s")
+script = ExtResource("1_bjg1c")
 
 [node name="Char1" type="Node2D" parent="."]
 position = Vector2(143, 144)

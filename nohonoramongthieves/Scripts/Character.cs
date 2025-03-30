@@ -7,6 +7,9 @@ public partial class Character
 	public string HeadSprite { get; set; }
 	public string BodySprite { get; set; }
 	public string TopSprite { get; set; }
+	public int Health { get; set; } = 100;
+	public int Damage { get; set; } = 5;
+	public int Defense { get; set; } = 0;
 
 	public Color HeadGradientColor { get; set; } = new Color(1, 1, 1, 1);
 	public Color BodyGradientColor { get; set; } = new Color(1, 1, 1, 1);

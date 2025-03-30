@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://cvgs30el5us4r"]
 
-[ext_resource type="Script" path="res://Scripts/InBetweenScene.cs" id="1_g86ia"]
-[ext_resource type="Texture2D" uid="uid://b6nbs47er0gew" path="res://Assets/DecisionImages/Gemini_Blades.jpg" id="1_jqexr"]
-[ext_resource type="PackedScene" uid="uid://bgkf20hp3viwq" path="res://CharacterDisplayScene.tscn" id="3_t6d55"]
+[ext_resource type="Script" path="res://Scripts/InBetweenScene.cs" id="1_l5alr"]
+[ext_resource type="Texture2D" uid="uid://b6nbs47er0gew" path="res://Assets/DecisionImages/Gemini_Blades.jpg" id="2_in7uf"]
+[ext_resource type="PackedScene" uid="uid://bgkf20hp3viwq" path="res://Scenes/CharacterDisplayScene.tscn" id="3_ea0at"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ga745"]
 
@@ -24,7 +24,7 @@ offset_right = 1.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_g86ia")
+script = ExtResource("1_l5alr")
 ButtonCount = 3
 ButtonIcons = Array[Texture2D]([SubResource("CompressedTexture2D_ga745"), SubResource("CompressedTexture2D_kp1qu"), SubResource("CompressedTexture2D_hmnek")])
 
@@ -63,7 +63,7 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 1290.0
 offset_bottom = 730.0
-texture = ExtResource("1_jqexr")
+texture = ExtResource("2_in7uf")
 expand_mode = 1
 stretch_mode = 5
 
@@ -89,12 +89,12 @@ icon_alignment = 1
 vertical_icon_alignment = 2
 expand_icon = true
 
-[node name="CharacterDisplay" parent="HBoxContainer/GridContainer/CharacterSelector" instance=ExtResource("3_t6d55")]
+[node name="CharacterDisplay" parent="HBoxContainer/GridContainer/CharacterSelector" instance=ExtResource("3_ea0at")]
 position = Vector2(21, 33)
 scale = Vector2(4, 4)
 CharacterIndex = 1
 
-[node name="CharacterSelector" type="Button" parent="."]
+[node name="NextButton" type="Button" parent="."]
 custom_minimum_size = Vector2(100, 200)
 layout_mode = 2
 offset_left = 1682.0

@@ -99,7 +99,7 @@ private void SaveAndGoToNextScene()
 		
 		GD.Print("Changing Scene");
 
-		GetTree().ChangeSceneToFile("res://InBetweenScene.tscn");
+		SceneManager.Instance.NextScene();
 	}
 
 private void ChangeSprite(int index, string type, int direction, TextureRect spriteNode)

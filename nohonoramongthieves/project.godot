@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="NoHonorAmongThieves"
-run/main_scene="res://CharacterCreation.tscn"
+run/main_scene="res://Scenes/CharacterCreation.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
+SceneManager="*res://Scripts/SceneManager.cs"
 GlobalCharacter="*res://Scripts/GlobalCharacterManager.cs"
 
 [display]
