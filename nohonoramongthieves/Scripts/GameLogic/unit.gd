@@ -36,8 +36,9 @@ var units
 
 ## Gameplay 
 @export var max_hp:= 10
-var hp = max_hp
+var hp
 @export var dmg := 3
+var dmg_bonus = 0
 @export var defense := 1
 # Reichweite der Einheit
 @export var move_range := 2
@@ -50,6 +51,7 @@ var in_move_range = []
 var in_attack_range = []
 
 func _ready() -> void:
+	hp = max_hp
 	path_follow.loop = false
 	update_units()
 	pass
@@ -65,6 +67,12 @@ func current_pos_to_tml():
 	var gb_pos = Vector2i(x_coord, y_coord)
 	var tml_pos = gameboard.grid_to_tml_coords(gb_pos)
 	global_position = tml.map_to_local(tml_pos)
+
+
+## TODO: aufrufen wenn hp < 0
+## Löscht komplette Node bei besiegen der Node
+func on_death():
+	queue_free()
 
 
 func on_game_board_matrix_ready(value: Variant) -> void:
@@ -315,7 +323,7 @@ func get_shortest_path_to_enemy():
 		if unit.is_enemy != is_enemy and unit.hp > 0:
 			var enemy_id = coordinate_to_id(unit.x_coord, unit.y_coord)
 			var path_to_unit = astar.get_point_path(id, enemy_id)
-			if shortest_path == [] or len(shortest_path) > len(path_to_unit):
+			if shortest_path.is_empty()  or len(shortest_path) > len(path_to_unit):
 				target_unit = unit
 				shortest_path = path_to_unit
 	
@@ -341,21 +349,13 @@ func get_moves_left():
 func wait_for_next_turn():
 	has_moved = true
 
-func attack_unit(enemy: Unit):
-	# TODO: Unit auf inaktiv setzen
-	has_moved = true
-	enemy.get_damaged(dmg)
+func heal_self(healed_hp):
+	hp += healed_hp
+	if hp > max_hp:
+		hp = max_hp
 
-
-func get_damaged(atk):
-	hp -= atk - defense
-	if hp < 0:
-		hp = 0
-		
-	if hp == 0:
-		# TODO: Unit tot definieren
-		pass
-
+func gain_damage_for_next_turn(bonus):
+	dmg_bonus = bonus
 
 func show_range():
 	get_cells_in_range()

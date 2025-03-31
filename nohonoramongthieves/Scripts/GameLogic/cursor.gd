@@ -2,12 +2,16 @@ extends AnimatedSprite2D
 
 @onready var tml = $"../Map"
 @onready var overlay = $"../UnitOverlay"
+@onready var path_map = $"../UnitPath"
 @onready var gameboard = $"../../GameBoard"
 @onready var unit_manager = $"../Units"
 @export var start_x = 1
 @export var start_y = 1
 var x_pos = start_x
 var y_pos = start_y
+var last_x = start_x
+var last_y = start_y
+
 var all_units
 var my_units
 var enemies
@@ -28,6 +32,7 @@ var in_menu = false
 var can_select = false
 var can_select_target = false
 var can_select_enemy = false
+var help_path = false
 
 
 func _on_game_board_matrix_ready(value: Variant) -> void:
@@ -85,9 +90,13 @@ func unit_move_check_routine():
 		## TODO: mit gewünschten Input unit Feld angreifen lassen
 		if Input.is_action_just_pressed("ui_select"):
 			print("Einheit auf: ", selected_unit.x_coord, " ", selected_unit.y_coord, " attackiert: ", x_pos, " ", y_pos)
-			# selected_unit.move_to_enemy(x_pos, y_pos)
-			#unit_manager.move_unit(selected_unit, x_pos, y_pos)
 			emit_show_actions(selected_unit, x_pos, y_pos, false, true)
+			#if help_path:
+			#	unit_manager.move_unit(selected_unit, last_x, last_y)
+			#else:
+			#	unit_manager.move_unit(selected_unit, x_pos, y_pos)
+			## TODO Menü aufrufen
+			## selected_unit geht neben aktuelles Feld und greift an
 
 func move(direction: Vector2):
 	
@@ -104,8 +113,13 @@ func move(direction: Vector2):
 	if tile_id != 0:
 		return
 	
+	## Wenn bewegt wird, wird der Pfad gelöscht
+	path_map.clear()
+	
 	## Positionsänderung
 	global_position = tml.map_to_local(target_tile)
+	last_x = x_pos
+	last_y = y_pos
 	x_pos += direction.x
 	y_pos += direction.y
 	hovering_check()
@@ -138,6 +152,7 @@ func hovering_check():
 	can_select = false
 	can_select_target = false
 	can_select_enemy = false
+	help_path = false
 	
 	if !did_select_unit:
 		overlay.clear()
@@ -145,14 +160,6 @@ func hovering_check():
 	var hovered = get_hovered_unit()
 	if hovered == null:
 		emit_signal("remove_hovered_info")
-	
-	## Wenn die Einheit schon gezogen hat wird sie nicht mehr benutzt
-	if hovered != null:
-		if hovered != selected_unit:
-			emit_signal("remove_hovered_info")
-			emit_signal("show_hovered_info", hovered)
-		if hovered.has_moved:
-			return
 	
 	var pos_vec = Vector2i(x_pos, y_pos)
 
@@ -162,6 +169,11 @@ func hovering_check():
 			## Leeres Feld also nichts
 			#print("Leeres Feld")
 			return
+		
+		## Wenn die Einheit schon gezogen hat wird sie nicht mehr benutzt
+		if hovered.has_moved:
+			return
+		
 		## Auswählbare Einheit auf Feld
 		unit_manager.show_unit_range(hovered)
 		if !hovered.is_enemy:
@@ -176,7 +188,9 @@ func hovering_check():
 	## Eine Einheit ist bereits ausgewählt
 
 	if x_pos == selected_unit.x_coord and y_pos == selected_unit.y_coord:
-		print("Auf diesem Feld steht die Einheit")
+		#print("Auf diesem Feld steht die Einheit")
+		return
+	
 
 	## Array von Arrays zu Array von Vector2is
 	# TODO: in Unit alle 2d Arrays zu Vector2i
@@ -187,11 +201,13 @@ func hovering_check():
 	var test_attack = []
 	for i in selected_unit.in_attack_range:
 		test_attack.append(Vector2i(i[0], i[1]))
-		
+	
+	
 	if test_move.has(pos_vec):
 		## Unit geht Pfad und reset bools / selected units
 		can_select_target = true
-		#print("Feld erreichbar")
+		var path = selected_unit.get_path_to_destination(x_pos, y_pos)
+		path_map.path_to_tilemap(path)
 		return
 		
 	if hovered == null:
@@ -200,10 +216,17 @@ func hovering_check():
 	
 	## TODO: Vergleichsinfo anzeigen
 	
-	
 	if test_attack.has(pos_vec) and hovered.is_enemy:
 		## Unit geht neben das Feld und greift an und reset bools / selected units
 		can_select_enemy = true
+		
+		var path = selected_unit.get_path_to_destination(x_pos, y_pos)
+		
+		if test_move.has(Vector2i(last_x, last_y)):
+			path = selected_unit.get_path_to_destination(last_x, last_y)
+			help_path = true
+		
+		path_map.path_to_tilemap(path)
 		#print("Feld angreifbar")
 		return
 			
@@ -220,6 +243,7 @@ func select_unit(unit):
 	
 func reset_selection():
 	#print("Auswahl zurückgenommen")
+	path_map.clear()
 	if selected_unit != null:
 		unit_manager.clear_overlay()
 	did_select_unit = false
@@ -246,7 +270,6 @@ func _on_game_manager_enemy_turn() -> void:
 
 
 func _on_units_path_completed() -> void:
-	print("PATH_COMPLETED")
 	reset_selection()
 	is_active = true
 	emit_signal("update_board")
