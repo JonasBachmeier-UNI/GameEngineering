@@ -20,7 +20,8 @@ func _process(delta: float) -> void:
 func _on_cursor_show_hovered_info(unit: Variant) -> void:
 	if unit.get_instance_id() != selected_unit:
 		hovered_unit = unit.get_instance_id()
-		container.remove_child(hovered_unit_ui)
+		if container.is_ancestor_of(hovered_unit_ui):
+			container.remove_child(hovered_unit_ui)
 		container.add_child(hovered_unit_ui)
 		hovered_unit_ui.update_stats(unit)
 		if selected_unit != null:
@@ -40,4 +41,5 @@ func _on_cursor_remove_info() -> void:
 func _on_cursor_remove_hovered_info() -> void:
 	hovered_unit = null
 	selected_unit_ui.remove_border()
-	container.remove_child(hovered_unit_ui)
+	if container.is_ancestor_of(hovered_unit_ui):
+		container.remove_child(hovered_unit_ui)
