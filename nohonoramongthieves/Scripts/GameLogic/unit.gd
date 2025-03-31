@@ -123,9 +123,9 @@ func get_cells_in_range():
 	var move_count = 0
 	var x_test = x_coord
 	var y_test = y_coord
-	var check_next = [[[x_test, y_test]]]
+	var check_next = [[Vector2i(x_test, y_test)]]
 	
-	in_move_range.append([x_test, y_test])
+	in_move_range.append(Vector2i(x_test, y_test))
 	# schon geprüfte Felder
 	var checked = []
 	while move_count <= move_range - moved_count:
@@ -138,7 +138,7 @@ func get_cells_in_range():
 			var x_check = element[0]
 			var y_check = element[1]
 			
-			checked.append([x_check, y_check])
+			checked.append(Vector2i(x_check, y_check))
 		
 			var temp = get_possible_moves(x_check, y_check, move_count)
 			var reachable_temp = temp[0]
@@ -175,51 +175,51 @@ func get_possible_moves(x, y, move_count):
 		## Das untere Feld ist erreichbar
 		var grid_value = get_grid_value(x, y-1)
 		if (grid_value + move_count) <= move_range - moved_count:
-			reachable_neighbours.append([x, y-1])
+			reachable_neighbours.append(Vector2i(x, y-1))
 		## Das untere Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
 		elif grid_value < 999:
-			attackable_neighbours.append([x, y-1])
+			attackable_neighbours.append(Vector2i(x, y-1))
 		
 	## Ein Feld über dem untersuchten existiert
 	if y < max_y-1:
 		## Das obere Feld ist erreichbar
 		var grid_value = get_grid_value(x, y+1)
 		if (grid_value + move_count) <= move_range - moved_count:
-			reachable_neighbours.append([x, y+1])
+			reachable_neighbours.append(Vector2i(x, y+1))
 		## Das obere Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
 		elif grid_value < 999:
-			attackable_neighbours.append([x, y+1])
+			attackable_neighbours.append(Vector2i(x, y+1))
 	
 	## Ein Feld links neben dem untersuchten existiert
 	if x > 0:
 		var grid_value = get_grid_value(x-1, y)
 		## Das linke Feld ist erreichbar
 		if (grid_value + move_count) <= move_range - moved_count:
-			reachable_neighbours.append([x-1, y])
+			reachable_neighbours.append(Vector2i(x-1, y))
 		## Das linke Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
 		elif grid_value < 999:
-			attackable_neighbours.append([x-1, y])
+			attackable_neighbours.append(Vector2i(x-1, y))
 	
 	## Ein Feld links neben dem untersuchten existiert
 	if x < max_x - 1:
 		## Das rechte Feld ist erreichbar
 		var grid_value = get_grid_value(x+1, y)
 		if (grid_value + move_count) <= move_range - moved_count:
-			reachable_neighbours.append([x+1, y])
+			reachable_neighbours.append(Vector2i(x+1, y))
 		## Das rechte Feld ist nicht erreichbar, aber keine Wand
 		# Enemy = 500, Wand = 999, Loch = 1000
 		elif grid_value < 999:
-			attackable_neighbours.append([x+1, y])
+			attackable_neighbours.append(Vector2i(x+1, y))
 
 	return [reachable_neighbours, attackable_neighbours]
 	
 
 func get_path_to_destination(end_x: int, end_y: int):
 	
-	var destination = [end_x, end_y]
+	var destination = Vector2i(end_x, end_y)
 	
 	# nicht erreichbar
 	if !in_attack_range.has(destination) and !in_move_range.has(destination):

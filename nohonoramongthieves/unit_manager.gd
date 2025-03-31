@@ -152,6 +152,19 @@ func clear_overlay():
 	overlay.clear()
 
 
+func get_enemy_range():
+	var return_array = []
+	for unit in units:
+		if unit.is_enemy:
+			for field in unit.in_move_range:
+				if !return_array.has(field):
+					return_array.append(field)
+			for field in unit.in_attack_range:
+				if !return_array.has(field):
+					return_array.append(field)
+	return return_array
+
+
 ## TODO: Signals an game manager
 func check_one_side_empty():
 	get_units()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://b63yit1cu4gvl"]
+[gd_scene load_steps=73 format=4 uid="uid://b63yit1cu4gvl"]
 
 [ext_resource type="Script" path="res://Scripts/GameLogic/game_board.gd" id="1_pdsm0"]
 [ext_resource type="Texture2D" uid="uid://ch6p6faml6exn" path="res://assets/Tileset/cave.png" id="2_wyglw"]
@@ -21,7 +21,23 @@
 [ext_resource type="Texture2D" uid="uid://bbrpew1nl1j25" path="res://assets/UnitPath/unten_links.png" id="13_o5cxk"]
 [ext_resource type="Texture2D" uid="uid://bn1ebnxat3m4i" path="res://assets/UnitPath/unten_rechts.png" id="14_cpmau"]
 [ext_resource type="Script" path="res://unit_path.gd" id="15_78ek8"]
+[ext_resource type="Texture2D" uid="uid://b4ly0dmoh8hwg" path="res://assets/EnemyRange/blank.png" id="16_s78jy"]
+[ext_resource type="Texture2D" uid="uid://dd8wplp3isitm" path="res://assets/EnemyRange/left_border.png" id="17_wegem"]
+[ext_resource type="Texture2D" uid="uid://cykyohfc0dslk" path="res://assets/EnemyRange/left_up_right_border.png" id="18_sjdey"]
+[ext_resource type="Texture2D" uid="uid://1uvvlgfhjy6t" path="res://assets/EnemyRange/up_right_down_border.png" id="19_00klq"]
+[ext_resource type="Texture2D" uid="uid://ch1jemgj0dtw2" path="res://assets/EnemyRange/left_down_right_border.png" id="20_0j3s8"]
+[ext_resource type="Texture2D" uid="uid://cxhvlbjg2bwve" path="res://assets/EnemyRange/left_right.png" id="21_a71nr"]
+[ext_resource type="Texture2D" uid="uid://hoygsee0ypon" path="res://assets/EnemyRange/up_border.png" id="21_aoc61"]
 [ext_resource type="Script" path="res://inventory_manager.gd" id="22_dct3n"]
+[ext_resource type="Texture2D" uid="uid://b7rr585qnpl84" path="res://assets/EnemyRange/right_border.png" id="22_ehvo7"]
+[ext_resource type="Texture2D" uid="uid://cukkl4yxr0tqf" path="res://assets/EnemyRange/up_down.png" id="22_gpe0c"]
+[ext_resource type="Texture2D" uid="uid://btyknnu3qddvc" path="res://assets/EnemyRange/down_border.png" id="23_dd68p"]
+[ext_resource type="Texture2D" uid="uid://cy8dvv36nihte" path="res://assets/EnemyRange/left_up_border.png" id="24_6eyj0"]
+[ext_resource type="Texture2D" uid="uid://ccpfk2mb6susu" path="res://assets/EnemyRange/right_up_border.png" id="25_coiki"]
+[ext_resource type="Texture2D" uid="uid://dm86bgjbmn74o" path="res://assets/EnemyRange/right_down_border.png" id="26_q1fet"]
+[ext_resource type="Texture2D" uid="uid://27ssus04hpy6" path="res://assets/EnemyRange/left_down_border.png" id="27_ew4il"]
+[ext_resource type="Texture2D" uid="uid://dt50gvl0ynnq0" path="res://assets/EnemyRange/left_up_down_border.png" id="28_ioxeo"]
+[ext_resource type="Script" path="res://enemy_range_overlay.gd" id="31_5hn6m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r7elo"]
 resource_name = "walkable"
@@ -157,6 +173,83 @@ sources/7 = SubResource("TileSetAtlasSource_1urj3")
 sources/8 = SubResource("TileSetAtlasSource_neenn")
 sources/9 = SubResource("TileSetAtlasSource_pk2in")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3gj6g"]
+texture = ExtResource("16_s78jy")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dfn7i"]
+texture = ExtResource("17_wegem")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g8gld"]
+texture = ExtResource("18_sjdey")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0utu"]
+texture = ExtResource("19_00klq")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g4i8h"]
+texture = ExtResource("20_0j3s8")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ak0e"]
+texture = ExtResource("21_a71nr")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4kmsc"]
+texture = ExtResource("22_gpe0c")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c4c2q"]
+texture = ExtResource("21_aoc61")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yf0ya"]
+texture = ExtResource("22_ehvo7")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g4cle"]
+texture = ExtResource("23_dd68p")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hrx4"]
+texture = ExtResource("24_6eyj0")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lexhr"]
+texture = ExtResource("25_coiki")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fxify"]
+texture = ExtResource("26_q1fet")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2l2ol"]
+texture = ExtResource("27_ew4il")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x3wgo"]
+texture = ExtResource("28_ioxeo")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_4gt1h"]
+sources/0 = SubResource("TileSetAtlasSource_3gj6g")
+sources/1 = SubResource("TileSetAtlasSource_dfn7i")
+sources/2 = SubResource("TileSetAtlasSource_c4c2q")
+sources/3 = SubResource("TileSetAtlasSource_yf0ya")
+sources/4 = SubResource("TileSetAtlasSource_g4cle")
+sources/5 = SubResource("TileSetAtlasSource_5hrx4")
+sources/6 = SubResource("TileSetAtlasSource_lexhr")
+sources/7 = SubResource("TileSetAtlasSource_fxify")
+sources/8 = SubResource("TileSetAtlasSource_2l2ol")
+sources/9 = SubResource("TileSetAtlasSource_x3wgo")
+sources/10 = SubResource("TileSetAtlasSource_g8gld")
+sources/11 = SubResource("TileSetAtlasSource_j0utu")
+sources/12 = SubResource("TileSetAtlasSource_g4i8h")
+sources/13 = SubResource("TileSetAtlasSource_8ak0e")
+sources/14 = SubResource("TileSetAtlasSource_4kmsc")
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_kfbps"]
 animations = [{
 "frames": [{
@@ -191,6 +284,10 @@ tile_set = SubResource("TileSet_7516k")
 tile_set = SubResource("TileSet_5mwj0")
 script = ExtResource("15_78ek8")
 
+[node name="EnemyRangeOverlay" type="TileMapLayer" parent="GameBoard"]
+tile_set = SubResource("TileSet_4gt1h")
+script = ExtResource("31_5hn6m")
+
 [node name="Units" type="Node" parent="GameBoard"]
 script = ExtResource("5_177xh")
 
@@ -199,11 +296,13 @@ max_hp = 13
 move_range = 7
 
 [node name="Unit3" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
+is_enemy = true
 y_coord = 3
 
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
 x_coord = 3
+move_range = 2
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 sprite_frames = SubResource("SpriteFrames_kfbps")
@@ -223,8 +322,8 @@ script = ExtResource("22_dct3n")
 [connection signal="ai_move_done" from="GameBoard/Units" to="GameManager" method="_on_units_ai_move_done"]
 [connection signal="all_units_moved" from="GameBoard/Units" to="GameManager" method="_on_units_all_units_moved"]
 [connection signal="path_completed" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_path_completed"]
-[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
 [connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
+[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
 [connection signal="enemy_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_enemy_turn"]
 [connection signal="new_turn" from="GameManager" to="GameBoard/Units" method="_on_game_manager_new_turn"]
 [connection signal="player_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_player_turn"]
