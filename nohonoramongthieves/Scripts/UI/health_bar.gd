@@ -9,4 +9,5 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	value = unit.hp * 100 / unit.max_hp
+	#value = unit.hp * 100 / unit.max_hp
+	pass

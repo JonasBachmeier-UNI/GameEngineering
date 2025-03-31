@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4pjvplvk0gpv"]
+
+[ext_resource type="Script" path="res://scenes/UI/unit_info.gd" id="1_gy0tv"]
+[ext_resource type="Script" path="res://Scripts/UI/health_bar.gd" id="1_tk5tf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ud16t"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="Unit" type="PanelContainer"]
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ud16t")
+script = ExtResource("1_gy0tv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="CombatStats" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ATK" type="HBoxContainer" parent="HBoxContainer/MarginContainer/CombatStats"]
+layout_mode = 2
+
+[node name="ATK" type="Label" parent="HBoxContainer/MarginContainer/CombatStats/ATK"]
+layout_mode = 2
+text = "ATK"
+
+[node name="Stat" type="Label" parent="HBoxContainer/MarginContainer/CombatStats/ATK"]
+layout_mode = 2
+text = "3"
+
+[node name="DEF" type="HBoxContainer" parent="HBoxContainer/MarginContainer/CombatStats"]
+layout_mode = 2
+
+[node name="DEF" type="Label" parent="HBoxContainer/MarginContainer/CombatStats/DEF"]
+layout_mode = 2
+text = "DEF"
+
+[node name="Stat" type="Label" parent="HBoxContainer/MarginContainer/CombatStats/DEF"]
+layout_mode = 2
+text = "10
+"
+
+[node name="Seperator" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 20
+
+[node name="Health" type="VBoxContainer" parent="HBoxContainer/MarginContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="HP" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/Health"]
+layout_mode = 2
+
+[node name="HP" type="Label" parent="HBoxContainer/MarginContainer2/Health/HP"]
+layout_mode = 2
+text = "HP"
+
+[node name="CurrHP" type="Label" parent="HBoxContainer/MarginContainer2/Health/HP"]
+layout_mode = 2
+text = "7"
+
+[node name="seperator" type="Label" parent="HBoxContainer/MarginContainer2/Health/HP"]
+layout_mode = 2
+text = "/"
+
+[node name="MaxHP" type="Label" parent="HBoxContainer/MarginContainer2/Health/HP"]
+layout_mode = 2
+text = "10"
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/MarginContainer2/Health"]
+layout_mode = 2
+script = ExtResource("1_tk5tf")

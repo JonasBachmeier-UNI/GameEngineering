@@ -1,15 +1,17 @@
-[gd_scene load_steps=19 format=4 uid="uid://b63yit1cu4gvl"]
+[gd_scene load_steps=20 format=4 uid="uid://b63yit1cu4gvl"]
 
 [ext_resource type="Script" path="res://Scripts/GameLogic/game_board.gd" id="1_pdsm0"]
+[ext_resource type="PackedScene" uid="uid://db02ekgaf0l8q" path="res://scenes/UI/info_ui.tscn" id="1_tb53t"]
 [ext_resource type="Texture2D" uid="uid://ch6p6faml6exn" path="res://assets/Tileset/cave.png" id="2_wyglw"]
 [ext_resource type="Texture2D" uid="uid://bfseogyh6my87" path="res://assets/Unit/walkable_tile.png" id="3_p4v44"]
 [ext_resource type="Texture2D" uid="uid://dygywwf8t2fjm" path="res://assets/Unit/attackable_tile.png" id="4_kcg2a"]
 [ext_resource type="Texture2D" uid="uid://dl7vtvav0ny0r" path="res://assets/highlighted/highlight_tile.png" id="4_t07s4"]
 [ext_resource type="Script" path="res://unit_manager.gd" id="5_177xh"]
 [ext_resource type="Texture2D" uid="uid://c6peupm1b2ju4" path="res://assets/highlighted/tile_highlighted_2.png" id="5_ut7o1"]
-[ext_resource type="PackedScene" uid="uid://1tu0ew23kxa2" path="res://unit.tscn" id="6_0du6g"]
-[ext_resource type="Script" path="res://cursor.gd" id="6_qbh61"]
+[ext_resource type="PackedScene" uid="uid://1tu0ew23kxa2" path="res://scenes/unit.tscn" id="6_0du6g"]
+[ext_resource type="Script" path="res://Scripts/GameLogic/cursor.gd" id="6_qbh61"]
 [ext_resource type="Script" path="res://game_manager.gd" id="10_jqmi4"]
+[ext_resource type="PackedScene" uid="uid://bqhpora7apbhh" path="res://scenes/UI/action_select.tscn" id="11_6vcba"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r7elo"]
 resource_name = "walkable"
@@ -112,6 +114,27 @@ animations = [{
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 
+[node name="UI" type="Node" parent="."]
+
+[node name="InfoUI" parent="UI" instance=ExtResource("1_tb53t")]
+z_index = 200
+anchors_preset = 15
+anchor_top = 0.0
+offset_left = -144.0
+offset_top = -122.0
+offset_right = 255.0
+offset_bottom = -551.0
+grow_vertical = 2
+scale = Vector2(0.185281, 0.155476)
+
+[node name="ActionSelect" parent="UI" instance=ExtResource("11_6vcba")]
+visible = false
+offset_left = -74.0
+offset_top = -39.0
+offset_right = -74.0
+offset_bottom = -39.0
+scale = Vector2(0.0944048, 0.0936225)
+
 [node name="GameBoard" type="Node" parent="." node_paths=PackedStringArray("tml")]
 script = ExtResource("1_pdsm0")
 tml = NodePath("Map")
@@ -128,31 +151,38 @@ script = ExtResource("5_177xh")
 
 [node name="Unit" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 max_hp = 885
+defense = 2
 
 [node name="Unit3" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
 y_coord = 3
+dmg = 4
+defense = 5
 
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
 x_coord = 4
+dmg = 2
+defense = 0
 
 [node name="Unit4" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
 x_coord = 4
 y_coord = 3
+defense = 7
 
 [node name="Unit5" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
 x_coord = 4
 y_coord = 2
+dmg = 5
+defense = 55
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 sprite_frames = SubResource("SpriteFrames_kfbps")
 autoplay = "default"
 frame_progress = 0.149173
 script = ExtResource("6_qbh61")
-
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("10_jqmi4")
@@ -164,10 +194,14 @@ script = ExtResource("10_jqmi4")
 [connection signal="path_completed" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_path_completed"]
 [connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
+[connection signal="remove_hovered_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_hovered_info"]
+[connection signal="remove_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_info"]
+[connection signal="show_actions" from="GameBoard/Cursor" to="UI/ActionSelect" method="_on_cursor_show_actions"]
+[connection signal="show_hovered_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_show_hovered_info"]
+[connection signal="show_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_show_info"]
 [connection signal="enemy_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_enemy_turn"]
 [connection signal="new_turn" from="GameManager" to="GameBoard/Units" method="_on_game_manager_new_turn"]
 [connection signal="player_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_player_turn"]
-[connection signal="show_actions" from="GameBoard/Cursor" to="GameBoard" method="_on_cursor_show_actions"]
 
 [editable path="GameBoard/Units/Unit"]
 [editable path="GameBoard/Units/Unit2"]

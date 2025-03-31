@@ -13,7 +13,11 @@ var my_units
 var enemies
 
 signal update_board
-signal show_actions(x, y, unit_selected)
+signal show_info(unit)
+signal show_hovered_info(unit)
+signal remove_info()
+signal remove_hovered_info()
+signal show_actions(selected_unit, x, y, can_move, can_attack, can_wait, can_end_turn)
 
 var did_select_unit: bool = false
 var selected_unit = null
@@ -58,20 +62,23 @@ func unit_move_check_routine():
 		## TODO: select_unit() auf gewünschten Input
 		# TODO: testen
 		if Input.is_action_just_pressed("ui_select"):
-			select_unit(get_hovered_unit())
+			var unit = get_hovered_unit()
+			select_unit(unit)
+			#TODO: Instanciate Info Screen for selected unit here
+			emit_signal("show_info", unit)
 		
 	if did_select_unit:
 		## TODO: mit gewünschten Input reset_selection aufrufen
 		# TODO: testen
 		if Input.is_action_just_pressed("ui_cancel"):
+			print("called remove info")
+			emit_signal("remove_info")
 			reset_selection()
 	
 	if can_select_target:
 		## TODO: mit gewünschten Input unit bewegen
-		if Input.is_action_just_pressed("ui_select"):			
-			in_menu = true
-			## opens action_select
-			emit_signal("show_actions", x_pos, y_pos, false)
+		if Input.is_action_just_pressed("ui_select"):		
+			emit_show_actions(selected_unit, x_pos, y_pos, true)
 			pass
 			
 	if can_select_enemy:
@@ -79,9 +86,8 @@ func unit_move_check_routine():
 		if Input.is_action_just_pressed("ui_select"):
 			print("Einheit auf: ", selected_unit.x_coord, " ", selected_unit.y_coord, " attackiert: ", x_pos, " ", y_pos)
 			# selected_unit.move_to_enemy(x_pos, y_pos)
-			unit_manager.move_unit(selected_unit, x_pos, y_pos)
-			## TODO Menü aufrufen
-			## selected_unit geht neben aktuelles Feld und greift an
+			#unit_manager.move_unit(selected_unit, x_pos, y_pos)
+			emit_show_actions(selected_unit, x_pos, y_pos, false, true)
 
 func move(direction: Vector2):
 	
@@ -137,11 +143,14 @@ func hovering_check():
 		overlay.clear()
 	
 	var hovered = get_hovered_unit()
-	if hovered == null and !did_select_unit:
-		return
+	if hovered == null:
+		emit_signal("remove_hovered_info")
 	
 	## Wenn die Einheit schon gezogen hat wird sie nicht mehr benutzt
 	if hovered != null:
+		if hovered != selected_unit:
+			emit_signal("remove_hovered_info")
+			emit_signal("show_hovered_info", hovered)
 		if hovered.has_moved:
 			return
 	
@@ -149,7 +158,6 @@ func hovering_check():
 
 	## Noch keine Einheit ausgewählt
 	if !did_select_unit:
-		
 		if hovered == null:
 			## Leeres Feld also nichts
 			#print("Leeres Feld")
@@ -168,8 +176,7 @@ func hovering_check():
 	## Eine Einheit ist bereits ausgewählt
 
 	if x_pos == selected_unit.x_coord and y_pos == selected_unit.y_coord:
-		#print("Auf diesem Feld steht die Einheit")
-		return
+		print("Auf diesem Feld steht die Einheit")
 
 	## Array von Arrays zu Array von Vector2is
 	# TODO: in Unit alle 2d Arrays zu Vector2i
@@ -188,7 +195,7 @@ func hovering_check():
 		return
 		
 	if hovered == null:
-		#print("nicht erreichbar / angreifbar")
+		emit_signal("remove_hovered_info")
 		return
 	
 	## TODO: Vergleichsinfo anzeigen
@@ -217,8 +224,13 @@ func reset_selection():
 		unit_manager.clear_overlay()
 	did_select_unit = false
 	selected_unit = null
+	emit_signal("remove_info")
 	hovering_check()
 
+## Zwischenschritt, um das setzen der Button-verfügbarkeit zu vereinfachen
+func emit_show_actions(selected_unit, x, y, can_move=false, can_attack=false, can_wait=false, can_end_turn=false):
+	in_menu = true
+	emit_signal("show_actions", selected_unit, x, y, can_move, can_attack, can_wait, can_end_turn)
 
 func _on_game_manager_player_turn() -> void:
 	print("PLAYER TURN")
