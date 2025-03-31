@@ -83,14 +83,14 @@ func unit_move_check_routine():
 	if can_select_target:
 		## TODO: mit gewünschten Input unit bewegen
 		if Input.is_action_just_pressed("ui_select"):		
-			emit_show_actions(selected_unit, x_pos, y_pos, true)
+			emit_show_actions(selected_unit, null, x_pos, y_pos, true)
 			pass
 			
 	if can_select_enemy:
 		## TODO: mit gewünschten Input unit Feld angreifen lassen
 		if Input.is_action_just_pressed("ui_select"):
 			print("Einheit auf: ", selected_unit.x_coord, " ", selected_unit.y_coord, " attackiert: ", x_pos, " ", y_pos)
-			emit_show_actions(selected_unit, x_pos, y_pos, false, true)
+			emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, false, true)
 			#if help_path:
 			#	unit_manager.move_unit(selected_unit, last_x, last_y)
 			#else:
@@ -160,6 +160,12 @@ func hovering_check():
 	var hovered = get_hovered_unit()
 	if hovered == null:
 		emit_signal("remove_hovered_info")
+	
+	## Wenn die Einheit schon gezogen hat wird sie nicht mehr benutzt
+	if hovered != null:
+		if hovered != selected_unit:
+			emit_signal("remove_hovered_info")
+			emit_signal("show_hovered_info", hovered)
 	
 	var pos_vec = Vector2i(x_pos, y_pos)
 
@@ -252,9 +258,9 @@ func reset_selection():
 	hovering_check()
 
 ## Zwischenschritt, um das setzen der Button-verfügbarkeit zu vereinfachen
-func emit_show_actions(selected_unit, x, y, can_move=false, can_attack=false, can_wait=false, can_end_turn=false):
+func emit_show_actions(selected_unit, target_unit, x, y, can_move=false, can_attack=false, can_wait=false, can_end_turn=false):
 	in_menu = true
-	emit_signal("show_actions", selected_unit, x, y, can_move, can_attack, can_wait, can_end_turn)
+	emit_signal("show_actions", selected_unit, target_unit, x, y, can_move, can_attack, can_wait, can_end_turn)
 
 func _on_game_manager_player_turn() -> void:
 	print("PLAYER TURN")

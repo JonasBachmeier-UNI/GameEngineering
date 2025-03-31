@@ -61,7 +61,13 @@ layout_mode = 2
 text = "END TURN"
 alignment = 0
 
+[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "CANCEL"
+alignment = 0
+
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Move" to="." method="_on_move_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Attack" to="." method="_on_attack_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Wait" to="." method="_on_end_turn_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Wait" to="." method="_on_wait_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/End_Turn" to="." method="_on_end_turn_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
