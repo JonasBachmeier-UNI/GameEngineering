@@ -3,6 +3,7 @@ extends AnimatedSprite2D
 @onready var tml = $"../Map"
 @onready var overlay = $"../UnitOverlay"
 @onready var path_map = $"../UnitPath"
+@onready var enemy_range_map = $"../EnemyRangeOverlay"
 @onready var gameboard = $"../../GameBoard"
 @onready var unit_manager = $"../Units"
 @export var start_x = 1
@@ -50,6 +51,8 @@ func _process(delta: float) -> void:
 	## Cursor Movement TODO: vielleicht nur auf erreichbare gehen dürfen (wenn unit_selected)
 	movement_check_routine()
 	
+	enemy_overlay_routine()
+	
 func movement_check_routine():
 	if !in_menu:
 		if Input.is_action_just_pressed("ui_up"):
@@ -60,6 +63,13 @@ func movement_check_routine():
 			move(Vector2.LEFT)
 		elif Input.is_action_just_pressed("ui_right"):
 			move(Vector2.RIGHT)
+
+
+func enemy_overlay_routine():
+	if Input.is_action_just_pressed("ui_text_completion_replace"):
+		show_enemy_range()
+	if Input.is_action_just_released("ui_text_completion_replace"):
+		clear_enemy_range()
 
 
 func unit_move_check_routine():
@@ -197,19 +207,7 @@ func hovering_check():
 		#print("Auf diesem Feld steht die Einheit")
 		return
 	
-
-	## Array von Arrays zu Array von Vector2is
-	# TODO: in Unit alle 2d Arrays zu Vector2i
-	var test_move = []
-	for i in selected_unit.in_move_range:
-		test_move.append(Vector2i(i[0], i[1]))
-		
-	var test_attack = []
-	for i in selected_unit.in_attack_range:
-		test_attack.append(Vector2i(i[0], i[1]))
-	
-	
-	if test_move.has(pos_vec):
+	if selected_unit.in_move_range.has(pos_vec):
 		## Unit geht Pfad und reset bools / selected units
 		can_select_target = true
 		var path = selected_unit.get_path_to_destination(x_pos, y_pos)
@@ -222,13 +220,13 @@ func hovering_check():
 	
 	## TODO: Vergleichsinfo anzeigen
 	
-	if test_attack.has(pos_vec) and hovered.is_enemy:
+	if selected_unit.in_attack_range.has(pos_vec) and hovered.is_enemy:
 		## Unit geht neben das Feld und greift an und reset bools / selected units
 		can_select_enemy = true
 		
 		var path = selected_unit.get_path_to_destination(x_pos, y_pos)
 		
-		if test_move.has(Vector2i(last_x, last_y)):
+		if selected_unit.in_move_range.has(Vector2i(last_x, last_y)):
 			path = selected_unit.get_path_to_destination(last_x, last_y)
 			help_path = true
 		
@@ -261,6 +259,15 @@ func reset_selection():
 func emit_show_actions(selected_unit, target_unit, x, y, can_move=false, can_attack=false, can_wait=false, can_end_turn=false):
 	in_menu = true
 	emit_signal("show_actions", selected_unit, target_unit, x, y, can_move, can_attack, can_wait, can_end_turn)
+
+func show_enemy_range():
+	unit_manager.get_units()
+	var fields = unit_manager.get_enemy_range()
+	enemy_range_map.show_overlay_for_grid(fields)
+
+func clear_enemy_range():
+	enemy_range_map.clear()
+
 
 func _on_game_manager_player_turn() -> void:
 	print("PLAYER TURN")
