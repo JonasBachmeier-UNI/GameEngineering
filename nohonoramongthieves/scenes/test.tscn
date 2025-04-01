@@ -1,8 +1,9 @@
-[gd_scene load_steps=75 format=4 uid="uid://b63yit1cu4gvl"]
+[gd_scene load_steps=76 format=4 uid="uid://b63yit1cu4gvl"]
 
 [ext_resource type="Script" path="res://Scripts/GameLogic/game_board.gd" id="1_pdsm0"]
 [ext_resource type="PackedScene" uid="uid://db02ekgaf0l8q" path="res://scenes/UI/info_ui.tscn" id="1_tb53t"]
 [ext_resource type="Texture2D" uid="uid://ch6p6faml6exn" path="res://assets/Tileset/cave.png" id="2_wyglw"]
+[ext_resource type="PackedScene" uid="uid://pxd1mgvil82v" path="res://scenes/UI/attack_ui.tscn" id="3_gv87k"]
 [ext_resource type="Texture2D" uid="uid://bfseogyh6my87" path="res://assets/Unit/walkable_tile.png" id="3_p4v44"]
 [ext_resource type="Texture2D" uid="uid://dygywwf8t2fjm" path="res://assets/Unit/attackable_tile.png" id="4_kcg2a"]
 [ext_resource type="Texture2D" uid="uid://dl7vtvav0ny0r" path="res://assets/highlighted/highlight_tile.png" id="4_t07s4"]
@@ -292,6 +293,13 @@ offset_right = -74.0
 offset_bottom = -39.0
 scale = Vector2(0.0944048, 0.0936225)
 
+[node name="AttackUI" parent="UI" instance=ExtResource("3_gv87k")]
+visible = false
+z_index = 300
+offset_right = -1152.0
+offset_bottom = -648.0
+scale = Vector2(0.18, 0.18)
+
 [node name="GameBoard" type="Node" parent="." node_paths=PackedStringArray("tml")]
 script = ExtResource("1_pdsm0")
 tml = NodePath("Map")
@@ -356,12 +364,16 @@ script = ExtResource("10_jqmi4")
 [node name="InventoryManager" type="Node" parent="."]
 script = ExtResource("22_dct3n")
 
+[connection signal="show_attack_ui" from="UI/ActionSelect" to="UI/AttackUI" method="_on_show_attack_ui"]
+[connection signal="cancel_attack" from="UI/AttackUI" to="UI/ActionSelect" method="_on_cancel_attack"]
+[connection signal="confirm_attack" from="UI/AttackUI" to="UI/ActionSelect" method="_on_attack_confirmed"]
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Units" method="_on_game_board_matrix_ready"]
 [connection signal="matrix_ready" from="GameBoard" to="GameBoard/Cursor" method="_on_game_board_matrix_ready"]
 [connection signal="ai_move_done" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_ai_move_done"]
 [connection signal="ai_move_done" from="GameBoard/Units" to="GameManager" method="_on_units_ai_move_done"]
 [connection signal="all_units_moved" from="GameBoard/Units" to="GameManager" method="_on_units_all_units_moved"]
 [connection signal="path_completed" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_path_completed"]
+[connection signal="show_attack_ui" from="GameBoard/Units" to="UI/AttackUI" method="_on_show_attack_ui"]
 [connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
 [connection signal="remove_hovered_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_hovered_info"]

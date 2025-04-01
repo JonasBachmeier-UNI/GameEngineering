@@ -1,0 +1,91 @@
+[gd_scene load_steps=4 format=3 uid="uid://pxd1mgvil82v"]
+
+[ext_resource type="Theme" uid="uid://fl6fe5vcl7qu" path="res://themes/ingame_menu_theme.tres" id="1_obqec"]
+[ext_resource type="Script" path="res://Scripts/UI/attack_ui.gd" id="2_50m02"]
+[ext_resource type="PackedScene" uid="uid://dc6r7jpbt4elb" path="res://scenes/UI/health_bar.tscn" id="3_emufi"]
+
+[node name="AttackUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_obqec")
+script = ExtResource("2_50m02")
+
+[node name="Container" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.5
+offset_top = -250.0
+offset_right = 230.5
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_mode = 2
+
+[node name="Info" type="MarginContainer" parent="Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/Info"]
+layout_mode = 2
+alignment = 1
+
+[node name="Attacker" type="VBoxContainer" parent="Container/VBoxContainer/Info/HBoxContainer"]
+layout_mode = 2
+
+[node name="AttackerName" type="Label" parent="Container/VBoxContainer/Info/HBoxContainer/Attacker"]
+layout_mode = 2
+text = "Player"
+
+[node name="Health" parent="Container/VBoxContainer/Info/HBoxContainer/Attacker" instance=ExtResource("3_emufi")]
+layout_mode = 2
+
+[node name="Seperator" type="Control" parent="Container/VBoxContainer/Info/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Defender" type="VBoxContainer" parent="Container/VBoxContainer/Info/HBoxContainer"]
+layout_mode = 2
+
+[node name="DefenderName" type="Label" parent="Container/VBoxContainer/Info/HBoxContainer/Defender"]
+layout_mode = 2
+text = "Enemy"
+
+[node name="Health" parent="Container/VBoxContainer/Info/HBoxContainer/Defender" instance=ExtResource("3_emufi")]
+layout_mode = 2
+
+[node name="Seperator" type="Control" parent="Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="MarginContainer" parent="Container/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer/Buttons"]
+layout_mode = 2
+alignment = 1
+
+[node name="Cancel" type="Button" parent="Container/VBoxContainer/Buttons/HBoxContainer"]
+layout_mode = 2
+text = "CANCEL"
+
+[node name="Attack" type="Button" parent="Container/VBoxContainer/Buttons/HBoxContainer"]
+layout_mode = 2
+text = "ATTACK"
+
+[connection signal="pressed" from="Container/VBoxContainer/Buttons/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="Container/VBoxContainer/Buttons/HBoxContainer/Attack" to="." method="_on_attack_pressed"]

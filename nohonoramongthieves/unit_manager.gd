@@ -14,6 +14,8 @@ signal path_completed
 signal ai_move_done
 signal all_units_moved
 
+signal show_attack_ui(attacker, defender)
+
 ## TODO Menü passend anzeigen
 
 @export var speed = 70
@@ -132,18 +134,25 @@ func check_all_units_moved():
 			return
 	emit_signal("all_units_moved")
 
-
 func unit_attack(attacker, defender):
+	emit_signal("show_attack_ui", attacker, defender)
+	var attack_results = get_attack_result(attacker, defender)
+	var defender_hp = attack_results[1]
+	
+	if defender_hp == 0:
+		defender.on_death()
+		check_one_side_empty()
+
+func get_attack_result(attacker, defender):
 	var damage = attacker.dmg + attacker.dmg_bonus
 	attacker.dmg_bonus = 0
 	
 	defender.hp -= (damage - defender.defense)
+	
 	if defender.hp < 0:
 		defender.hp = 0
-	
-	if defender.hp == 0:
-		defender.on_death()
-		check_one_side_empty()
+		
+	return [damage, defender.hp]
 
 func show_unit_range(unit):
 	unit.show_range()

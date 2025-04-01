@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc6r7jpbt4elb"]
+
+[ext_resource type="Script" path="res://Scripts/UI/health_bar.gd" id="1_c6olg"]
+
+[node name="Health" type="VBoxContainer"]
+alignment = 1
+script = ExtResource("1_c6olg")
+
+[node name="HP" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HP" type="Label" parent="HP"]
+layout_mode = 2
+text = "HP"
+
+[node name="CurrHP" type="Label" parent="HP"]
+layout_mode = 2
+text = "7"
+
+[node name="seperator" type="Label" parent="HP"]
+layout_mode = 2
+text = "/"
+
+[node name="MaxHP" type="Label" parent="HP"]
+layout_mode = 2
+text = "10"
+
+[node name="HPBar" type="ProgressBar" parent="."]
+layout_mode = 2

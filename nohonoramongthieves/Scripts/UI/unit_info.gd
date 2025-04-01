@@ -1,12 +1,14 @@
 extends PanelContainer
 
-var maxhp
+var max_hp
 var hp
 var dmg
 var defense
 
-@onready var dmg_stat_label = $HBoxContainer/MarginContainer/CombatStats/ATK/Stat
-@onready var def_stat_label = $HBoxContainer/MarginContainer/CombatStats/DEF/Stat
+signal update_health(hp, maxhp)
+
+@onready var dmg_stat_label = $HBoxContainer/Stats/CombatStats/ATK/Stat
+@onready var def_stat_label = $HBoxContainer/Stats/CombatStats/DEF/Stat
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,12 +21,14 @@ func _process(delta: float) -> void:
 	pass
 
 func update_stats(unit):
+	print(unit)
 	dmg = unit.dmg
 	defense = unit.defense
 	hp = unit.hp
-	maxhp = unit.max_hp
+	max_hp = unit.max_hp
 	dmg_stat_label.text = str(dmg)
 	def_stat_label.text = str(defense)
+	emit_signal("update_health", hp, max_hp)
 
 func add_border():
 	var style_box: StyleBoxFlat = $".".get_theme_stylebox("panel")

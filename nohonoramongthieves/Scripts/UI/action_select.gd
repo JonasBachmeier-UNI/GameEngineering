@@ -9,6 +9,10 @@ var can_attack
 var selected_unit
 var target_unit
 
+signal show_attack_ui(attacker, defender)
+
+@onready var buttons = $PanelContainer/VBoxContainer.get_children()
+
 @onready var unit_manager = $"../../GameBoard/Units"
 @onready var game_manager = $"../../GameManager"
 @onready var cursor = $"../../GameBoard/Cursor"
@@ -21,10 +25,7 @@ func _notification(what):
 	if what == NOTIFICATION_VISIBILITY_CHANGED and visible:
 		$PanelContainer/VBoxContainer/Move.visible = can_move
 		$PanelContainer/VBoxContainer/Attack.visible = can_attack
-		for child in $PanelContainer/VBoxContainer.get_children():
-			if child.visible:
-				child.grab_focus()
-				break
+		focus_button()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -37,9 +38,18 @@ func _on_move_pressed() -> void:
 
 
 func _on_attack_pressed() -> void:
+	emit_signal("show_attack_ui", selected_unit, target_unit)
+	disable_buttons()
+
+func _on_attack_confirmed() -> void:
 	unit_manager.move_unit(selected_unit,x_pos, y_pos)
 	unit_manager.unit_attack(selected_unit, target_unit)
+	enable_buttons()
 	close_menu()
+
+func _on_cancel_attack() -> void:
+	for child in $PanelContainer/VBoxContainer.get_children():
+		enable_buttons()
 
 func _on_wait_pressed() -> void:
 	unit_manager.unit_wait(selected_unit)
@@ -63,3 +73,20 @@ func _on_cursor_show_actions(selected_unit: Variant, target_unit: Variant, x: Va
 func close_menu() -> void:
 	visible = false
 	cursor.in_menu = false
+
+func disable_buttons():
+	for button in buttons:
+		if button is Control:
+			button.disabled = true
+
+func enable_buttons():
+	for button in buttons:
+		if button is Control:
+			button.disabled = false
+	focus_button()
+
+func focus_button():
+	for button in buttons:
+			if button.visible:
+				button.grab_focus()
+				break
