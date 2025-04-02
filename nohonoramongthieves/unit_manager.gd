@@ -63,11 +63,9 @@ func create_astar():
 
 func move_unit(unit, new_x, new_y):
 	var grid_path = unit.get_path_to_destination(new_x, new_y)
-	print(grid_path)
 	var path = unit.get_global_positions_from_path(grid_path)
 	
 	if len(path) < 2:
-		print(path)
 		end_path_check()
 		return
 	
@@ -110,9 +108,7 @@ func ai_move(unit):
 	create_astar()
 	var ai_data = unit.get_shortest_path_to_enemy()
 	var shortest_path = ai_data[0]
-	print(shortest_path)
 	var target_unit = ai_data[1]
-	print(target_unit.hp)
 	
 	## Kein Pfad zu einem Gegner möglich
 	if target_unit == null:
