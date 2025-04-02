@@ -54,13 +54,13 @@ func ai_turn():
 
 func start_next_turn():
 	update_units()
-	emit_signal("new_turn")
 	turn_count += 1
 	for unit in units:
 		unit.moved_count = 0
 		unit.has_moved = false
 		unit.update_units()
 		unit.get_cells_in_range()
+	emit_signal("new_turn")
 		
 	if turn_count % 2 == 0:
 		## Player Turn

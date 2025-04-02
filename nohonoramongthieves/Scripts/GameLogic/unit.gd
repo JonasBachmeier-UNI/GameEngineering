@@ -220,7 +220,7 @@ func get_possible_moves(x, y, move_count):
 func get_path_to_destination(end_x: int, end_y: int):
 	
 	var destination = Vector2i(end_x, end_y)
-	
+	get_cells_in_range()
 	# nicht erreichbar
 	if !in_attack_range.has(destination) and !in_move_range.has(destination):
 		return []

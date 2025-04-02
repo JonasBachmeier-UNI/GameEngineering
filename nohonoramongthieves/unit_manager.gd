@@ -9,6 +9,9 @@ var base_grid = []
 var is_unit_moving = false
 var moving_unit = null
 var is_ai_move = false
+var attack_queued = false
+var defender
+
 signal unit_moves
 signal path_completed
 signal ai_move_done
@@ -36,10 +39,8 @@ func execute_movement(delta):
 	if moving_unit.path_follow.progress_ratio >= 1:
 		is_unit_moving = false
 		moving_unit.curve.clear_points()
-		emit_signal("path_completed")
-		if is_ai_move:
-			is_ai_move = false
-			emit_signal("ai_move_done")
+		
+		end_path_check()
 		return
 	
 	moving_unit.path_follow.progress += speed * delta
@@ -62,13 +63,12 @@ func create_astar():
 
 func move_unit(unit, new_x, new_y):
 	var grid_path = unit.get_path_to_destination(new_x, new_y)
+	print(grid_path)
 	var path = unit.get_global_positions_from_path(grid_path)
 	
 	if len(path) < 2:
-		emit_signal("path_completed")
-		if is_ai_move:
-			is_ai_move = false
-			emit_signal("ai_move_done")
+		print(path)
+		end_path_check()
 		return
 	
 	unit.set_path(path)
@@ -76,6 +76,21 @@ func move_unit(unit, new_x, new_y):
 	unit.update_position(grid_path[-1][0], grid_path[-1][1])
 	start_unit_movement(unit)
 	create_astar()
+
+func end_path_check():
+	if attack_queued:
+		unit_attack(moving_unit, defender)
+		attack_queued = false
+		emit_signal("path_completed")
+		if is_ai_move:
+			is_ai_move = false
+			emit_signal("ai_move_done")
+	
+	else:
+		emit_signal("path_completed")
+		if is_ai_move:
+			is_ai_move = false
+			emit_signal("ai_move_done")
 
 func start_unit_movement(unit):
 	moving_unit = unit
@@ -92,9 +107,12 @@ func enemy_ai_move(unit):
 
 func ai_move(unit):
 	unit.update_board()
+	create_astar()
 	var ai_data = unit.get_shortest_path_to_enemy()
 	var shortest_path = ai_data[0]
+	print(shortest_path)
 	var target_unit = ai_data[1]
+	print(target_unit.hp)
 	
 	## Kein Pfad zu einem Gegner möglich
 	if target_unit == null:
@@ -108,7 +126,8 @@ func ai_move(unit):
 		var dest_x = shortest_path[-1][0]
 		var dest_y = shortest_path[-1][1]
 		move_unit(unit, dest_x, dest_y)
-		unit_attack(unit, target_unit)
+		queue_attack(target_unit)
+		#unit_attack(unit, target_unit)
 		return
 	
 	## Keine Einheit ist angreifbar
@@ -133,9 +152,17 @@ func check_all_units_moved():
 	emit_signal("all_units_moved")
 
 
+func queue_attack(defending_unit):
+	attack_queued = true
+	defender = defending_unit
+
+
 func unit_attack(attacker, defender):
 	var damage = attacker.dmg + attacker.dmg_bonus
 	attacker.dmg_bonus = 0
+	
+	if damage < defender.defense:
+		return
 	
 	defender.hp -= (damage - defender.defense)
 	if defender.hp < 0:
@@ -168,7 +195,6 @@ func get_enemy_range():
 ## TODO: Signals an game manager
 func check_one_side_empty():
 	get_units()
-	print(units)
 	var enemies = []
 	var allies = []
 	
