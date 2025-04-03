@@ -19,6 +19,8 @@ var is_moving = false
 ## Geschwindigkeit auf Pfad
 @export var speed := 100.0
 
+@export var unit_name: String
+
 @export var x_coord: int
 @export var y_coord: int
 

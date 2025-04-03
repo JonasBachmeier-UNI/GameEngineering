@@ -28,6 +28,20 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	execute_movement(delta)
 
+func create_unit(unit_name, hp, dmg, defense, x, y):
+	var prefab = preload("res://unit.tscn")
+	var new_unit = prefab.instantiate()
+	new_unit.max_hp = hp
+	new_unit.hp = hp
+	new_unit.dmg = dmg
+	new_unit.defense = defense
+	new_unit.x_coord = x
+	new_unit.y_coord = y
+	new_unit.unit_name = unit_name
+	add_child(new_unit)
+	get_units()
+	update_unit_grids(base_grid)
+
 
 func get_units():
 	units = get_children().filter(func(unit): return unit.hp > 0)
