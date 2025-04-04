@@ -41,6 +41,6 @@ func close_menu() -> void:
 func _on_show_attack_ui(attacker: Variant, defender: Variant) -> void:
 	var attack_results = unit_manager.get_attack_result(attacker, defender)
 	attacker_health_ui.update_health_ui(attacker.hp, attacker.max_hp)
-	defender_health_ui.update_health_ui(defender.hp, defender.max_hp)
+	defender_health_ui.update_health_ui(defender.hp - attack_results, defender.max_hp)
 	visible = true
 	

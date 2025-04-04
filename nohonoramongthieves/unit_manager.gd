@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 	execute_movement(delta)
 
 func create_unit(unit_name, hp, dmg, defense, x, y):
-	var prefab = preload("res://unit.tscn")
+	var prefab = preload("res://scenes/unit.tscn")
 	var new_unit = prefab.instantiate()
 	new_unit.max_hp = hp
 	new_unit.hp = hp
@@ -80,9 +80,12 @@ func create_astar():
 func move_unit(unit, new_x, new_y):
 	var grid_path = unit.get_path_to_destination(new_x, new_y)
 	var path = unit.get_global_positions_from_path(grid_path)
+
+	moving_unit = unit
 	
 	if len(path) < 2:
 		end_path_check()
+		check_all_units_moved()
 		return
 	
 	unit.set_path(path)
@@ -90,6 +93,7 @@ func move_unit(unit, new_x, new_y):
 	unit.update_position(grid_path[-1][0], grid_path[-1][1])
 	start_unit_movement(unit)
 	create_astar()
+	check_all_units_moved()
 
 func end_path_check():
 	if attack_queued:
@@ -107,7 +111,6 @@ func end_path_check():
 			emit_signal("ai_move_done")
 
 func start_unit_movement(unit):
-	moving_unit = unit
 	clear_overlay()
 	is_unit_moving = true
 	unit.path_follow.progress = 0
@@ -137,8 +140,8 @@ func ai_move(unit):
 	if len(shortest_path) <= unit.get_moves_left() + 1:
 		var dest_x = shortest_path[-1][0]
 		var dest_y = shortest_path[-1][1]
-		move_unit(unit, dest_x, dest_y)
 		queue_attack(target_unit)
+		move_unit(unit, dest_x, dest_y)
 		#unit_attack(unit, target_unit)
 		return
 	
@@ -152,6 +155,7 @@ func ai_move(unit):
 
 func unit_wait(unit):
 	unit.wait_for_next_turn()
+	check_all_units_moved()
 
 
 ## TODO: passend einbauen
@@ -170,34 +174,36 @@ func queue_attack(defending_unit):
 
 
 func unit_attack(attacker, defender):
-	emit_signal("show_attack_ui", attacker, defender)
-	var attack_results = get_attack_result(attacker, defender)
-	var defender_hp = attack_results[1]
+	var attack_result = get_attack_result(attacker, defender)
+	defender.hp -= attack_result
 	
-	if defender_hp == 0:
+	if defender.hp <= 0:
+		defender.hp = 0
 		defender.on_death()
 		check_one_side_empty()
+
+	attacker.has_moved = true
 
 func get_attack_result(attacker, defender):
 	var damage = attacker.dmg + attacker.dmg_bonus
 	attacker.dmg_bonus = 0
 	
+	# if attack result is negative, the unit would heal, so we return 0
 	if damage < defender.defense:
-		return
+		return 0
+	var result = (damage - defender.defense)
 	
-	defender.hp -= (damage - defender.defense)
+	# if the attack kills the defender, the defenders hp is the resulting damage
+	if result > defender.hp:
+		return defender.hp
 	
-	if defender.hp < 0:
-		defender.hp = 0
-		
-	return [damage, defender.hp]
+	return result
 
 func show_unit_range(unit):
 	unit.show_range()
 
 func clear_overlay():
 	overlay.clear()
-
 
 func get_enemy_range():
 	var return_array = []

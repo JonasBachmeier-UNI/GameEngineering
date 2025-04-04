@@ -21,7 +21,6 @@ func _process(delta: float) -> void:
 	pass
 
 func update_stats(unit):
-	print(unit)
 	dmg = unit.dmg
 	defense = unit.defense
 	hp = unit.hp

@@ -86,27 +86,22 @@ func unit_move_check_routine():
 		## TODO: mit gewünschten Input reset_selection aufrufen
 		# TODO: testen
 		if Input.is_action_just_pressed("ui_cancel"):
-			print("called remove info")
 			emit_signal("remove_info")
 			reset_selection()
 	
 	if can_select_target:
 		## TODO: mit gewünschten Input unit bewegen
 		if Input.is_action_just_pressed("ui_select"):		
-			emit_show_actions(selected_unit, null, x_pos, y_pos, true)
+			emit_show_actions(selected_unit, null, x_pos, y_pos, last_x, last_y, true, false, true, true)
 			pass
 			
 	if can_select_enemy:
 		## TODO: mit gewünschten Input unit Feld angreifen lassen
 		if Input.is_action_just_pressed("ui_select"):
-			print("Einheit auf: ", selected_unit.x_coord, " ", selected_unit.y_coord, " attackiert: ", x_pos, " ", y_pos)
-			emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, false, true)
-			#if help_path:
-			#	unit_manager.move_unit(selected_unit, last_x, last_y)
-			#else:
-			#	unit_manager.move_unit(selected_unit, x_pos, y_pos)
-			## TODO Menü aufrufen
-			## selected_unit geht neben aktuelles Feld und greift an
+			if help_path:
+				emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, last_x, last_y, false, true)
+			else:
+				emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, x_pos, y_pos, false, true)
 
 func move(direction: Vector2):
 	
@@ -239,7 +234,6 @@ func hovering_check():
 	
 
 func select_unit(unit):
-	print("Einheit ausgewählt")
 	did_select_unit = true
 	selected_unit = unit
 	unit_manager.show_unit_range(selected_unit)
@@ -256,9 +250,9 @@ func reset_selection():
 	hovering_check()
 
 ## Zwischenschritt, um das setzen der Button-verfügbarkeit zu vereinfachen
-func emit_show_actions(selected_unit, target_unit, x, y, can_move=false, can_attack=false, can_wait=false, can_end_turn=false):
+func emit_show_actions(selected_unit, target_unit, x, y, last_x, last_y, can_move=false, can_attack=false, can_wait=false, can_end_turn=false):
 	in_menu = true
-	emit_signal("show_actions", selected_unit, target_unit, x, y, can_move, can_attack, can_wait, can_end_turn)
+	emit_signal("show_actions", selected_unit, target_unit, x, y, last_x, last_y, can_move, can_attack, can_wait, can_end_turn)
 
 func show_enemy_range():
 	unit_manager.get_units()

@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dc6r7jpbt4elb"]
+[gd_scene load_steps=4 format=3 uid="uid://dc6r7jpbt4elb"]
 
 [ext_resource type="Script" path="res://Scripts/UI/health_bar.gd" id="1_c6olg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qk6j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_utsdp"]
+bg_color = Color(1, 0, 0, 1)
 
 [node name="Health" type="VBoxContainer"]
 alignment = 1
@@ -27,3 +32,5 @@ text = "10"
 
 [node name="HPBar" type="ProgressBar" parent="."]
 layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_4qk6j")
+theme_override_styles/fill = SubResource("StyleBoxFlat_utsdp")
