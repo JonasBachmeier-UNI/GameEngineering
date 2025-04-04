@@ -19,6 +19,8 @@ var is_moving = false
 ## Geschwindigkeit auf Pfad
 @export var speed := 100.0
 
+@export var unit_name: String
+
 @export var x_coord: int
 @export var y_coord: int
 
@@ -220,7 +222,7 @@ func get_possible_moves(x, y, move_count):
 func get_path_to_destination(end_x: int, end_y: int):
 	
 	var destination = Vector2i(end_x, end_y)
-	
+	get_cells_in_range()
 	# nicht erreichbar
 	if !in_attack_range.has(destination) and !in_move_range.has(destination):
 		return []
