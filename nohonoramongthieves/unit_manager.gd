@@ -78,6 +78,7 @@ func create_astar():
 func move_unit(unit, new_x, new_y):
 	var grid_path = unit.get_path_to_destination(new_x, new_y)
 	var path = unit.get_global_positions_from_path(grid_path)
+	moving_unit = unit
 	
 	if len(path) < 2:
 		end_path_check()
