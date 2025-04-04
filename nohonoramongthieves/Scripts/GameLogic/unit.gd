@@ -245,9 +245,13 @@ func get_path_to_destination(end_x: int, end_y: int):
 
 
 func get_grid_value(x, y):
+	if y > len(grid) or y < 0 or x > len(grid[0] or x < 0):
+		return
 	return grid[y][x]
 	
 func set_grid_value(x, y, value):
+	if y > len(grid) or y < 0 or x > len(grid[0] or x < 0):
+		return
 	grid[y][x] = value
 
 	
@@ -350,6 +354,30 @@ func get_moves_left():
 
 func wait_for_next_turn():
 	has_moved = true
+
+
+func is_next_to_enemy():
+	if get_grid_value(x_coord + 1, y_coord) == ENEMY_POSITION_VALUE:
+		return true
+	if get_grid_value(x_coord - 1, y_coord) == ENEMY_POSITION_VALUE:
+		return true
+	if get_grid_value(x_coord, y_coord + 1) == ENEMY_POSITION_VALUE:
+		return true
+	if get_grid_value(x_coord, y_coord - 1) == ENEMY_POSITION_VALUE:
+		return true
+	return false
+
+func is_next_to_unit(unit):
+	if unit.x_coord == x_coord and unit.y_coord == y_coord + 1:
+		return true
+	if unit.x_coord == x_coord and unit.y_coord == y_coord - 1:
+		return true
+	if unit.x_coord == x_coord + 1 and unit.y_coord == y_coord:
+		return true
+	if unit.x_coord == x_coord - 1 and unit.y_coord == y_coord:
+		return true
+	return true
+
 
 func heal_self(healed_hp):
 	hp += healed_hp
