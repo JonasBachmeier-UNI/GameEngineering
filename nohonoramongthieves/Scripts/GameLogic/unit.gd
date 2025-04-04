@@ -245,12 +245,12 @@ func get_path_to_destination(end_x: int, end_y: int):
 
 
 func get_grid_value(x, y):
-	if y > len(grid) or y < 0 or x > len(grid[0] or x < 0):
+	if y > len(grid) or y < 0 or x > len(grid[0]) or x < 0:
 		return
 	return grid[y][x]
 	
 func set_grid_value(x, y, value):
-	if y > len(grid) or y < 0 or x > len(grid[0] or x < 0):
+	if y > len(grid) or y < 0 or x > len(grid[0]) or x < 0:
 		return
 	grid[y][x] = value
 
