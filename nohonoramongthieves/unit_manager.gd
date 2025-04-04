@@ -82,7 +82,7 @@ func move_unit(unit, new_x, new_y):
 	var path = unit.get_global_positions_from_path(grid_path)
 
 	moving_unit = unit
-	
+
 	if len(path) < 2:
 		end_path_check()
 		check_all_units_moved()
@@ -97,7 +97,8 @@ func move_unit(unit, new_x, new_y):
 
 func end_path_check():
 	if attack_queued:
-		unit_attack(moving_unit, defender)
+		if moving_unit.is_next_to_unit(defender):
+			unit_attack(moving_unit, defender)
 		attack_queued = false
 		emit_signal("path_completed")
 		if is_ai_move:
@@ -141,11 +142,9 @@ func ai_move(unit):
 		var dest_x = shortest_path[-1][0]
 		var dest_y = shortest_path[-1][1]
 
+		queue_attack(target_unit)
 		move_unit(unit, dest_x, dest_y)
 		
-		if unit.is_next_to_unit(target_unit):
-			queue_attack(target_unit)
-
 		#unit_attack(unit, target_unit)
 		return
 	

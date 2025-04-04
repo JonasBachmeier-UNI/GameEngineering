@@ -376,7 +376,7 @@ func is_next_to_unit(unit):
 		return true
 	if unit.x_coord == x_coord - 1 and unit.y_coord == y_coord:
 		return true
-	return true
+	return false
 
 
 func heal_self(healed_hp):
