@@ -140,8 +140,12 @@ func ai_move(unit):
 	if len(shortest_path) <= unit.get_moves_left() + 1:
 		var dest_x = shortest_path[-1][0]
 		var dest_y = shortest_path[-1][1]
-		queue_attack(target_unit)
+
 		move_unit(unit, dest_x, dest_y)
+		
+		if unit.is_next_to_unit(target_unit):
+			queue_attack(target_unit)
+
 		#unit_attack(unit, target_unit)
 		return
 	
