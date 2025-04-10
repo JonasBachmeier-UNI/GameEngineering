@@ -82,6 +82,7 @@ func unit_move_check_routine():
 			select_unit(unit)
 			#TODO: Instanciate Info Screen for selected unit here
 			emit_signal("show_info", unit)
+			hovering_check()
 			return
 		
 	if did_select_unit:
