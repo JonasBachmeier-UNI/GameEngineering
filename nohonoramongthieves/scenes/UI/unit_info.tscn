@@ -23,6 +23,10 @@ theme_override_constants/margin_left = 20
 layout_mode = 2
 alignment = 1
 
+[node name="Label" type="Label" parent="HBoxContainer/Stats/CombatStats"]
+layout_mode = 2
+text = "NAME"
+
 [node name="ATK" type="HBoxContainer" parent="HBoxContainer/Stats/CombatStats"]
 layout_mode = 2
 

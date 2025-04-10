@@ -333,29 +333,34 @@ script = ExtResource("31_5hn6m")
 script = ExtResource("5_177xh")
 
 [node name="Unit" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
+unit_name = "Bob"
 max_hp = 1000
 defense = 0
 move_range = 7
 
 [node name="Unit3" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
+unit_name = "Bob 2"
 y_coord = 2
 dmg = 4
 defense = 4
 
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
+unit_name = "Bab"
 x_coord = 4
 dmg = 2
 defense = 0
 
 [node name="Unit4" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
+unit_name = "Amadeus"
 x_coord = 4
 y_coord = 3
 defense = 7
 
 [node name="Unit5" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
+unit_name = "Sabrina"
 x_coord = 4
 y_coord = 2
 dmg = 5

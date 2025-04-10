@@ -46,6 +46,7 @@ var dmg_bonus = 0
 @export var move_range := 2
 var moved_count = 0
 
+
 # Tiles, die erreicht werden können
 # Startfeld drin?
 var in_move_range = []

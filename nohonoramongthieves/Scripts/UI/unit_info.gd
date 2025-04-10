@@ -1,6 +1,7 @@
 extends PanelContainer
 
 var max_hp
+var unit_name
 var hp
 var dmg
 var defense
@@ -9,6 +10,7 @@ signal update_health(hp, maxhp)
 
 @onready var dmg_stat_label = $HBoxContainer/Stats/CombatStats/ATK/Stat
 @onready var def_stat_label = $HBoxContainer/Stats/CombatStats/DEF/Stat
+@onready var name_label = $HBoxContainer/Stats/CombatStats/Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,8 +27,10 @@ func update_stats(unit):
 	defense = unit.defense
 	hp = unit.hp
 	max_hp = unit.max_hp
+	unit_name = unit.unit_name
 	dmg_stat_label.text = str(dmg)
 	def_stat_label.text = str(defense)
+	name_label.text = unit_name
 	emit_signal("update_health", hp, max_hp)
 
 func add_border():
