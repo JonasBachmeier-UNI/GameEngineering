@@ -92,6 +92,7 @@ func on_game_board_matrix_ready(value: Variant) -> void:
 
 ## Setzt Gegner und Verbündete auf das Grid
 func update_board():
+	update_units()
 	grid = base_grid.duplicate(true)
 	var enemy_positions = []
 	var ally_positions = []

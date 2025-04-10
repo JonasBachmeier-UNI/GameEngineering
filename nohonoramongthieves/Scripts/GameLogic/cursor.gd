@@ -303,3 +303,7 @@ func _on_units_path_completed() -> void:
 
 func _on_units_unit_moves() -> void:
 	is_active = false
+
+
+func _on_units_reset_info() -> void:
+	reset_selection()

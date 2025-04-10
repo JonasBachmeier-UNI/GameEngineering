@@ -16,6 +16,7 @@ signal unit_moves
 signal path_completed
 signal ai_move_done
 signal all_units_moved
+signal reset_info
 
 signal show_attack_ui(attacker, defender)
 
@@ -184,6 +185,7 @@ func unit_attack(attacker, defender):
 	if defender.hp <= 0:
 		defender.hp = 0
 		defender.on_death()
+		emit_signal("reset_info")
 		check_one_side_empty()
 
 	attacker.has_moved = true
