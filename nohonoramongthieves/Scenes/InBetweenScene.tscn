@@ -1,17 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://cvgs30el5us4r"]
+[gd_scene load_steps=6 format=3 uid="uid://cvgs30el5us4r"]
 
 [ext_resource type="Script" path="res://Scripts/InBetweenScene.cs" id="1_l5alr"]
 [ext_resource type="Texture2D" uid="uid://b6nbs47er0gew" path="res://Assets/DecisionImages/Gemini_Blades.jpg" id="2_in7uf"]
 [ext_resource type="PackedScene" uid="uid://bgkf20hp3viwq" path="res://Scenes/CharacterDisplayScene.tscn" id="3_ea0at"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ga745"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kp1qu"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hmnek"]
-
 [sub_resource type="ButtonGroup" id="ButtonGroup_prs44"]
 allow_unpress = true
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ga745"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -26,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l5alr")
 ButtonCount = 3
-ButtonIcons = Array[Texture2D]([SubResource("CompressedTexture2D_ga745"), SubResource("CompressedTexture2D_kp1qu"), SubResource("CompressedTexture2D_hmnek")])
+selectedScenario = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

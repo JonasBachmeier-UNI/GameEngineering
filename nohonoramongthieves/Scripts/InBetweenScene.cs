@@ -7,8 +7,7 @@ public enum Scenario
 	Malus, // Scenario 1
 	Bonus, // Scenario 2
 	SRetten, // Scenario 3
-	MalusBonus, // Scenario 4
-	CRetten // Scenario 5
+	CRetten // Scenario 4
 }
 
 public partial class InBetweenScene : Control 
@@ -16,15 +15,21 @@ public partial class InBetweenScene : Control
 	[Export(PropertyHint.Range, "2,6")]
 	
 	public int ButtonCount = 6;
+	
+	[Export]
+	public Scenario selectedScenario = Scenario.Malus;
 
 	private GridContainer _gridContainer;
 	private ButtonGroup _btnGroup;
 	private Button _templateButton;
 	private Button _nextButton;
+	private RichTextLabel _scenarioDescriptionLabel;
+	private TextureRect _scenarioImage;
 	private List<Button> _buttons = new List<Button>();
 	public int selectedCharacterIndex = 0;
+	private int sacrificingCharacterIndex = -1;
+	private int rescuingCharacterIndex = -1;
 
-	[Export] public Texture2D[] ButtonIcons;
 	
 	 public override void _Ready()
 	{
@@ -33,9 +38,13 @@ public partial class InBetweenScene : Control
 		_nextButton = GetNode<Button>("NextButton");
 		_nextButton.Pressed += () => OnNextButtonPressed();
 		_btnGroup = new ButtonGroup();
+		_scenarioDescriptionLabel = GetNode<VBoxContainer>("VBoxContainer").GetNode<Panel>("Panel").GetNode<RichTextLabel>("RichTextLabel");
+		_scenarioImage = GetNode<TextureRect>("TextureRect");
 
 		_templateButton.Visible = false; // Hide the template button
 
+		InitializeScenario();
+		
 		UpdateButtons();
 		
 		for (int i = 0; i < GlobalCharacterManager.Instance.Characters.Count ; i++) {
@@ -43,6 +52,7 @@ public partial class InBetweenScene : Control
 		}
 	}
 
+	/*
 	private void UpdateButtons()
 	{
 		int currentCount = _buttons.Count;
@@ -91,6 +101,165 @@ public partial class InBetweenScene : Control
 
 		// Keep only the necessary amount of buttons
 		_buttons.RemoveRange(ButtonCount, _buttons.Count - ButtonCount);
+	} */
+	
+	private void UpdateButtons()
+	{
+		// Clear existing buttons
+		foreach (Button btn in _buttons)
+		{
+			_gridContainer.RemoveChild(btn);
+			btn.QueueFree();
+		}
+		_buttons.Clear();
+		
+		// Determine which characters to show based on scenario
+		List<int> characterIndicesToShow = new List<int>();
+		
+		if (selectedScenario == Scenario.SRetten || selectedScenario == Scenario.CRetten)
+		{
+			// For Retten scenarios, we only show the victim to be saved and sacrificial character
+			if (sacrificingCharacterIndex >= 0)
+				characterIndicesToShow.Add(sacrificingCharacterIndex);
+			
+			if (rescuingCharacterIndex >= 0)
+				characterIndicesToShow.Add(rescuingCharacterIndex);
+		}
+		else
+		{
+			// For other scenarios, show all characters up to ButtonCount
+			for (int i = 0; i < Math.Min(ButtonCount, GlobalCharacterManager.Instance.Characters.Count); i++)
+			{
+				characterIndicesToShow.Add(i);
+			}
+		}
+		
+		// Create buttons for the characters we want to show
+		foreach (int charIndex in characterIndicesToShow)
+		{
+			// Clone the template button
+			Button btn = (Button)_templateButton.Duplicate();
+			btn.ButtonGroup = _btnGroup;
+			_gridContainer.AddChild(btn);
+			_buttons.Add(btn);
+			
+			int value = charIndex;
+			btn.Pressed += () => OnButtonPressed(value);
+
+			// Load character display
+			CharacterDisplay display = btn.GetNode<CharacterDisplay>("CharacterDisplay");
+			display.LoadCharacter(charIndex);
+			
+			// Update button text
+			Character character = GlobalCharacterManager.Instance.GetCharacter(charIndex);
+			
+			// Add special role label if needed
+			if (charIndex == sacrificingCharacterIndex)
+			{
+				btn.Text = character.Name + " (Opfer)";
+				btn.Modulate = new Color(1, 0.7f, 0.7f); // Reddish tint
+			}
+			else if (charIndex == rescuingCharacterIndex)
+			{
+				btn.Text = character.Name + " (Retter)";
+				btn.Modulate = new Color(0.7f, 1, 0.7f); // Greenish tint
+			}
+			else
+			{
+				btn.Text = character.Name;
+			}
+			
+			btn.Visible = true;
+		}
+	}
+	
+	private void InitializeScenario()
+	{
+		Random random = new Random();
+
+		// Select random characters for each role based on scenario
+		if (selectedScenario == Scenario.SRetten || selectedScenario == Scenario.CRetten)
+		{
+			// Make sure we have at least 3 characters to choose from for scenarios that need multiple roles
+			if (GlobalCharacterManager.Instance.Characters.Count >= 3)
+			{
+				// First, randomly select a sacrificing character
+				sacrificingCharacterIndex = random.Next(0, GlobalCharacterManager.Instance.Characters.Count);
+				
+				// Then, select a rescuing character different from the sacrificing one
+				do
+				{
+					rescuingCharacterIndex = random.Next(0, GlobalCharacterManager.Instance.Characters.Count);
+				} while (rescuingCharacterIndex == sacrificingCharacterIndex);
+				
+				// Ensure the player doesn't select either of these special characters
+				if (selectedCharacterIndex == sacrificingCharacterIndex || selectedCharacterIndex == rescuingCharacterIndex)
+				{
+					// Reset selection if it conflicts
+					selectedCharacterIndex = -1;
+				}
+			}
+			else if (GlobalCharacterManager.Instance.Characters.Count == 2)
+			{
+				// With only 2 characters, one must be the sacrificing character, the other will be selectable
+				sacrificingCharacterIndex = random.Next(0, GlobalCharacterManager.Instance.Characters.Count);
+				rescuingCharacterIndex = -1; // Not enough characters for both roles
+			}
+		}
+		
+		// Update scenario description
+		UpdateScenarioDescription();
+	}
+	
+	private void UpdateScenarioDescription()
+	{
+		if (_scenarioDescriptionLabel == null)
+			return;
+			
+		string description = "";
+		
+		switch (selectedScenario)
+		{
+			case Scenario.Malus:
+				description = "Ihr betretet einen schmalen Gang auf dem Weg tiefer in die Schatzkammer, dessen Wände von kunstvoll gearbeiteten Platten bedeckt ist. Abgelenkt von der Verzierung merkt ihr nicht wie einer von euch auf eine Druckplatte tritt. Plötzlich aktiviert sich ein mechanisches System – scharfe Klingen drohen, eine tödliche Falle für unsere Helden zu werden. Nur ein schneller Eingriff kann diese Gefahr bannen, doch die klingen springen bereits aus der Wand. Der Character der die Falle entschärft verliert 15 HP.";
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Blades.jpg");
+				break;
+				
+			case Scenario.Bonus:
+				description = "In einem verborgenen Nischenraum der Schatzkammer entdeckt ihr einen schimmernden Trank, der in einem alten, mit mystischen Symbolen verzierten Gefäß ruht. Ein Stück pergament neben dem Trank spezifiziert, wie der Trank genutz wurde um heldenhafte Stärke hervorzubringen. Der Trank verleiht einem Character Stärke und lässt ihn mit doppelt so viel Schaden angeifen.";
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Trank.jpg");
+				break;
+				
+			case Scenario.SRetten:
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_FallenFloor.jpg");
+				if (sacrificingCharacterIndex >= 0 && rescuingCharacterIndex >= 0)
+				{
+					string sacrificeName = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex).Name;
+					string rescueName = GlobalCharacterManager.Instance.GetCharacter(rescuingCharacterIndex).Name;
+					description = $"Ihr betretet einen Raum, in dem der Boden aus loser, bröckelnder Steinfliese besteht. Ein lauter Knall und das Krachen von zerbrechendem Stein hallen durch den Raum. {sacrificeName} gerät ins Straucheln, der Boden gibt nach und droht, ihn in die Tiefe zu stürzen. Vor euch steht eine herzzereißende Wahl: {rescueName} steht neben dem Geschehnis und könnte {sacrificeName} retten indem er ihn in letzter Sekunde an sich zieht, doch durch das Momentum würde {rescueName} vermutlich selbst in die Tiefe stürzen. Wen möchtest du retten?";
+				}
+				else
+				{
+					description = "A character will sacrifice themselves to save another.";
+				}
+				break;
+				
+			case Scenario.CRetten:
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Szepter.jpg");
+				if (sacrificingCharacterIndex >= 0 && rescuingCharacterIndex >= 0)
+				{
+					string sacrificeName = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex).Name;
+					string rescueName = GlobalCharacterManager.Instance.GetCharacter(rescuingCharacterIndex).Name;
+					description = $"Ihr betretet einen geheimnisvollen Raum, in dessen Zentrum ein uralter Altar thront, umgeben von schimmernden Runen und einem unheimlich pulsierenden Licht. Plötzlich wird {sacrificeName} von einem Art Zepter attakiert. Es dicht gebündelter Strahl kommt aus dem Zepter und scheint die Lebensenergie von {sacrificeName} auszusaugen. {rescueName} steht in der nähe des Zepters und könnte sich zwischen das Zepter und {sacrificeName} in den Strahl werfen, um ihn/sie zu retten. Das würde {rescueName} töten aber {sacrificeName} retten. Wen rettest du?";
+				}
+				else
+				{
+					description = "A character will sacrifice themselves to save the one you select.";
+				}
+				break;
+		}
+		
+		_scenarioDescriptionLabel.Text = description;
 	}
 
 	private void OnButtonPressed(int value)
@@ -115,10 +284,6 @@ public partial class InBetweenScene : Control
 
 			case Scenario.SRetten:
 				HandleSRettenScenario();
-				break;
-
-			case Scenario.MalusBonus:
-				HandleMalusBonusScenario();
 				break;
 
 			case Scenario.CRetten:
@@ -161,24 +326,9 @@ public partial class InBetweenScene : Control
 		GD.Print(sacrificingCharacter.Name + " sacrificed themselves to save " + characterToSave.Name + "!");
 	}
 
-	private void HandleMalusBonusScenario()
-	{
-		// Scenario 4: One character loses 10 HP and another gains 15 HP
-		int characterToLoseHPIndex = GetSelectedCharacterIndex();
-		Character characterToLoseHP = GlobalCharacterManager.Instance.GetCharacter(characterToLoseHPIndex);
-		characterToLoseHP.Health -= 10;
-
-		/*
-		int characterToGainHPIndex = GetOtherCharacterIndex(characterToLoseHPIndex);
-		Character characterToGainHP = GlobalCharacterManager.Instance.GetCharacter(characterToGainHPIndex);
-		characterToGainHP.Health += 15;
-
-		GD.Print(characterToLoseHP.Name + " lost 10 HP and " + characterToGainHP.Name + " gained 15 HP from the artifact!"); */
-	}
-
 	private void HandleCRettenScenario()
 	{
-		// Scenario 5: Character [C] is saved by [S] sacrificing themselves
+		// Scenario 4: Character [C] is saved by [S] sacrificing themselves
 		int characterToSaveIndex = GetSelectedCharacterIndex();
 		Character characterToSave = GlobalCharacterManager.Instance.GetCharacter(characterToSaveIndex);
 		int sacrificingCharacterIndex = GetOtherCharacterIndex(characterToSaveIndex);
