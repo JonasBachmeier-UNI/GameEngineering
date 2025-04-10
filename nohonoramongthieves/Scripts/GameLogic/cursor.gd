@@ -33,6 +33,7 @@ var in_menu = false
 var can_select = false
 var can_select_target = false
 var can_select_enemy = false
+var hovering_on_selected = false
 var help_path = false
 
 
@@ -81,6 +82,7 @@ func unit_move_check_routine():
 			select_unit(unit)
 			#TODO: Instanciate Info Screen for selected unit here
 			emit_signal("show_info", unit)
+			return
 		
 	if did_select_unit:
 		## TODO: mit gewünschten Input reset_selection aufrufen
@@ -89,11 +91,16 @@ func unit_move_check_routine():
 			emit_signal("remove_info")
 			reset_selection()
 	
+	if hovering_on_selected:
+		if Input.is_action_just_pressed("ui_select"):		
+			emit_show_actions(selected_unit, null, x_pos, y_pos, last_x, last_y, false, false, true)
+			return
+	
 	if can_select_target:
 		## TODO: mit gewünschten Input unit bewegen
 		if Input.is_action_just_pressed("ui_select"):		
-			emit_show_actions(selected_unit, null, x_pos, y_pos, last_x, last_y, true, false, true, true)
-			pass
+			emit_show_actions(selected_unit, null, x_pos, y_pos, last_x, last_y, true)
+			return
 			
 	if can_select_enemy:
 		## TODO: mit gewünschten Input unit Feld angreifen lassen
@@ -102,6 +109,11 @@ func unit_move_check_routine():
 				emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, last_x, last_y, false, true)
 			else:
 				emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, x_pos, y_pos, false, true)
+			return
+	if Input.is_action_just_pressed("ui_select"):
+		print("test")
+		emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, x_pos, y_pos, false, false, false, true)
+
 
 func move(direction: Vector2):
 	
@@ -157,6 +169,7 @@ func hovering_check():
 	can_select = false
 	can_select_target = false
 	can_select_enemy = false
+	hovering_on_selected = false
 	help_path = false
 	
 	if !did_select_unit:
@@ -171,6 +184,8 @@ func hovering_check():
 		if hovered != selected_unit:
 			emit_signal("remove_hovered_info")
 			emit_signal("show_hovered_info", hovered)
+		else:
+			hovering_on_selected = true
 	
 	var pos_vec = Vector2i(x_pos, y_pos)
 
@@ -265,6 +280,7 @@ func clear_enemy_range():
 
 func _on_game_manager_player_turn() -> void:
 	print("PLAYER TURN")
+	$"../../UI/Phase".text = "Player Turn"
 	is_active = true
 	visible = true
 	hovering_check()
@@ -272,6 +288,7 @@ func _on_game_manager_player_turn() -> void:
 
 func _on_game_manager_enemy_turn() -> void:
 	print("ENEMY TURN")
+	$"../../UI/Phase".text = "Enemy Turn"
 	is_active = false
 	visible = false
 

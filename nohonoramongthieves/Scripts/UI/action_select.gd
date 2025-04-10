@@ -30,7 +30,7 @@ func _notification(what):
 		$PanelContainer/VBoxContainer/Move.visible = can_move
 		$PanelContainer/VBoxContainer/Attack.visible = can_attack
 		$PanelContainer/VBoxContainer/Wait.visible = can_wait
-		$PanelContainer/VBoxContainer/End_Turn.visible = can_attack
+		$PanelContainer/VBoxContainer/End_Turn.visible = can_end_turn
 		focus_button()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -52,6 +52,7 @@ func ai_turn():
 		start_next_turn()
 
 
+# Do animation before this
 func start_next_turn():
 	update_units()
 	turn_count += 1
@@ -66,6 +67,7 @@ func start_next_turn():
 		## Player Turn
 		is_player_turn = true
 		emit_signal("player_turn")
+		
 	else:
 		## AI Turn
 		is_player_turn = false

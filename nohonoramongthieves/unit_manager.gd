@@ -110,6 +110,7 @@ func end_path_check():
 		if is_ai_move:
 			is_ai_move = false
 			emit_signal("ai_move_done")
+	check_all_units_moved()
 
 func start_unit_movement(unit):
 	clear_overlay()
