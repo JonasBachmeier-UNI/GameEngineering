@@ -59,6 +59,7 @@ func _on_cancel_attack():
 
 func _on_wait_pressed():
 	unit_manager.unit_wait(selected_unit)
+	cursor.reset_selection()
 	close_menu()
 
 func _on_end_turn_pressed():
