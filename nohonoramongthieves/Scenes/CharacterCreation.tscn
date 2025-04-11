@@ -1,0 +1,458 @@
+[gd_scene load_steps=19 format=3 uid="uid://sx4ci77own1c"]
+
+[ext_resource type="Script" path="res://Scripts/CharacterManager.cs" id="1_bjg1c"]
+[ext_resource type="Shader" path="res://Character.gdshader" id="2_4pls1"]
+[ext_resource type="Texture2D" uid="uid://bxuv2mby4usf3" path="res://Gradient/black_white_Gradient.tres" id="3_awcd2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2coaq"]
+shader = ExtResource("2_4pls1")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = ExtResource("3_awcd2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4tjin"]
+shader = ExtResource("2_4pls1")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = ExtResource("3_awcd2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yx3pk"]
+shader = ExtResource("2_4pls1")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = ExtResource("3_awcd2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_upcw5"]
+shader = ExtResource("2_4pls1")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = ExtResource("3_awcd2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bnj7i"]
+shader = ExtResource("2_4pls1")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = ExtResource("3_awcd2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5atls"]
+shader = ExtResource("2_4pls1")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = ExtResource("3_awcd2")
+
+[sub_resource type="Gradient" id="Gradient_4q1v5"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_r63hx"]
+gradient = SubResource("Gradient_4q1v5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyy02"]
+shader = ExtResource("2_4pls1")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_r63hx")
+
+[sub_resource type="Gradient" id="Gradient_2cjxb"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_byq8c"]
+gradient = SubResource("Gradient_2cjxb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t4t1v"]
+shader = ExtResource("2_4pls1")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_byq8c")
+
+[sub_resource type="Gradient" id="Gradient_8m3fh"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vk5q2"]
+gradient = SubResource("Gradient_8m3fh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_efq0y"]
+shader = ExtResource("2_4pls1")
+shader_parameter/mix_amount = 1.0
+shader_parameter/gradient = SubResource("GradientTexture1D_vk5q2")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bjg1c")
+
+[node name="Char1" type="Node2D" parent="."]
+position = Vector2(143, 144)
+metadata/id = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Char1"]
+offset_top = -38.0
+offset_right = 100.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Char1/VBoxContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="LineEdit" type="LineEdit" parent="Char1/VBoxContainer"]
+layout_mode = 2
+
+[node name="Container" type="Container" parent="Char1"]
+offset_left = -100.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 400.0
+
+[node name="Top" type="TextureRect" parent="Char1/Container"]
+z_index = 5
+texture_filter = 3
+material = SubResource("ShaderMaterial_2coaq")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Head" type="TextureRect" parent="Char1/Container"]
+z_index = 4
+texture_filter = 3
+material = SubResource("ShaderMaterial_4tjin")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Body" type="TextureRect" parent="Char1/Container"]
+z_index = 3
+texture_filter = 3
+material = SubResource("ShaderMaterial_yx3pk")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HBoxContainer0" type="HBoxContainer" parent="Char1"]
+z_index = 3
+offset_left = 218.0
+offset_top = 103.0
+offset_right = 289.0
+offset_bottom = 134.0
+size_flags_stretch_ratio = 0.0
+alignment = 1
+
+[node name="Button_LL" type="Button" parent="Char1/HBoxContainer0"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 0
+text = "<"
+
+[node name="Button_LR" type="Button" parent="Char1/HBoxContainer0"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 0
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char1/HBoxContainer0"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="Char1"]
+z_index = 2
+offset_left = 217.0
+offset_top = 249.0
+offset_right = 288.0
+offset_bottom = 280.0
+alignment = 1
+
+[node name="Button_HL" type="Button" parent="Char1/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = "<"
+
+[node name="Button_HR" type="Button" parent="Char1/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char1/HBoxContainer1"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Char1"]
+z_index = 1
+offset_left = 217.0
+offset_top = 372.0
+offset_right = 288.0
+offset_bottom = 403.0
+alignment = 1
+
+[node name="Button_BL" type="Button" parent="Char1/HBoxContainer2"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 8
+text = "<"
+
+[node name="Button_BR" type="Button" parent="Char1/HBoxContainer2"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 8
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char1/HBoxContainer2"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="NextSceneButton" type="Button" parent="."]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 0
+offset_left = 1729.0
+offset_top = 953.0
+offset_right = 1789.0
+offset_bottom = 984.0
+text = "Weiter"
+
+[node name="Char2" type="Node2D" parent="."]
+position = Vector2(822, 144)
+metadata/id = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Char2"]
+offset_top = -38.0
+offset_right = 100.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Char2/VBoxContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="LineEdit" type="LineEdit" parent="Char2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Container" type="Container" parent="Char2"]
+offset_left = -100.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 400.0
+
+[node name="Top" type="TextureRect" parent="Char2/Container"]
+z_index = 5
+texture_filter = 3
+material = SubResource("ShaderMaterial_upcw5")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Head" type="TextureRect" parent="Char2/Container"]
+z_index = 4
+texture_filter = 3
+material = SubResource("ShaderMaterial_bnj7i")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Body" type="TextureRect" parent="Char2/Container"]
+z_index = 3
+texture_filter = 3
+material = SubResource("ShaderMaterial_5atls")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HBoxContainer0" type="HBoxContainer" parent="Char2"]
+z_index = 3
+offset_left = 218.0
+offset_top = 103.0
+offset_right = 289.0
+offset_bottom = 134.0
+size_flags_stretch_ratio = 0.0
+alignment = 1
+
+[node name="Button_LL" type="Button" parent="Char2/HBoxContainer0"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 0
+text = "<"
+
+[node name="Button_LR" type="Button" parent="Char2/HBoxContainer0"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 0
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char2/HBoxContainer0"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="Char2"]
+z_index = 2
+offset_left = 217.0
+offset_top = 249.0
+offset_right = 288.0
+offset_bottom = 280.0
+alignment = 1
+
+[node name="Button_HL" type="Button" parent="Char2/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = "<"
+
+[node name="Button_HR" type="Button" parent="Char2/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char2/HBoxContainer1"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Char2"]
+z_index = 1
+offset_left = 217.0
+offset_top = 372.0
+offset_right = 288.0
+offset_bottom = 403.0
+alignment = 1
+
+[node name="Button_BL" type="Button" parent="Char2/HBoxContainer2"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 8
+text = "<"
+
+[node name="Button_BR" type="Button" parent="Char2/HBoxContainer2"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 8
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char2/HBoxContainer2"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="Char3" type="Node2D" parent="."]
+position = Vector2(1393, 144)
+metadata/id = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Char3"]
+offset_top = -38.0
+offset_right = 100.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Char3/VBoxContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="LineEdit" type="LineEdit" parent="Char3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Container" type="Container" parent="Char3"]
+offset_left = -100.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 400.0
+
+[node name="Top" type="TextureRect" parent="Char3/Container"]
+z_index = 5
+texture_filter = 3
+material = SubResource("ShaderMaterial_jyy02")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Head" type="TextureRect" parent="Char3/Container"]
+z_index = 4
+texture_filter = 3
+material = SubResource("ShaderMaterial_t4t1v")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Body" type="TextureRect" parent="Char3/Container"]
+z_index = 3
+texture_filter = 3
+material = SubResource("ShaderMaterial_efq0y")
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HBoxContainer0" type="HBoxContainer" parent="Char3"]
+z_index = 3
+offset_left = 218.0
+offset_top = 103.0
+offset_right = 289.0
+offset_bottom = 134.0
+size_flags_stretch_ratio = 0.0
+alignment = 1
+
+[node name="Button_LL" type="Button" parent="Char3/HBoxContainer0"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 0
+text = "<"
+
+[node name="Button_LR" type="Button" parent="Char3/HBoxContainer0"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 0
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char3/HBoxContainer0"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="Char3"]
+z_index = 2
+offset_left = 217.0
+offset_top = 249.0
+offset_right = 288.0
+offset_bottom = 280.0
+alignment = 1
+
+[node name="Button_HL" type="Button" parent="Char3/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = "<"
+
+[node name="Button_HR" type="Button" parent="Char3/HBoxContainer1"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 4
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char3/HBoxContainer1"]
+layout_mode = 2
+text = " C "
+edit_alpha = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Char3"]
+z_index = 1
+offset_left = 217.0
+offset_top = 372.0
+offset_right = 288.0
+offset_bottom = 403.0
+alignment = 1
+
+[node name="Button_BL" type="Button" parent="Char3/HBoxContainer2"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 8
+text = "<"
+
+[node name="Button_BR" type="Button" parent="Char3/HBoxContainer2"]
+z_index = 10
+layout_mode = 2
+size_flags_vertical = 8
+text = ">"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Char3/HBoxContainer2"]
+layout_mode = 2
+text = " C "
+edit_alpha = false

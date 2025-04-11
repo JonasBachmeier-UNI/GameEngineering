@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=3 uid="uid://bgkf20hp3viwq"]
+
+[ext_resource type="Script" path="res://Scripts/CharacterDisplay.cs" id="1_u22o8"]
+
+[sub_resource type="Shader" id="Shader_efdlt"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D gradient: hint_default_black;
+uniform float mix_amount = 1.0;
+
+void fragment()
+{
+	vec4 input_color = texture(TEXTURE, UV);
+	float grayscale_value = dot(input_color.rgb, vec3(0.299, 0.587, 0.114));
+	vec3 sampled_color = texture(gradient, vec2(grayscale_value, 0.0)).rgb;
+
+	COLOR.rgb = mix(input_color.rgb,sampled_color, mix_amount);
+	COLOR.a = input_color.a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_waerl"]
+shader = SubResource("Shader_efdlt")
+shader_parameter/mix_amount = 1.0
+
+[sub_resource type="Shader" id="Shader_reotc"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D gradient: hint_default_black;
+uniform float mix_amount = 1.0;
+
+void fragment()
+{
+	vec4 input_color = texture(TEXTURE, UV);
+	float grayscale_value = dot(input_color.rgb, vec3(0.299, 0.587, 0.114));
+	vec3 sampled_color = texture(gradient, vec2(grayscale_value, 0.0)).rgb;
+
+	COLOR.rgb = mix(input_color.rgb,sampled_color, mix_amount);
+	COLOR.a = input_color.a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f7r5c"]
+shader = SubResource("Shader_reotc")
+shader_parameter/mix_amount = 1.0
+
+[sub_resource type="Shader" id="Shader_oc82j"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D gradient: hint_default_black;
+uniform float mix_amount = 1.0;
+
+void fragment()
+{
+	vec4 input_color = texture(TEXTURE, UV);
+	float grayscale_value = dot(input_color.rgb, vec3(0.299, 0.587, 0.114));
+	vec3 sampled_color = texture(gradient, vec2(grayscale_value, 0.0)).rgb;
+
+	COLOR.rgb = mix(input_color.rgb,sampled_color, mix_amount);
+	COLOR.a = input_color.a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cmf6r"]
+shader = SubResource("Shader_oc82j")
+shader_parameter/mix_amount = 1.0
+
+[node name="CharacterDisplay" type="Node2D"]
+script = ExtResource("1_u22o8")
+
+[node name="HeadSprite" type="TextureRect" parent="."]
+z_index = 4
+texture_filter = 3
+material = SubResource("ShaderMaterial_waerl")
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 3
+stretch_mode = 5
+
+[node name="BodySprite" type="TextureRect" parent="."]
+z_index = 3
+texture_filter = 3
+material = SubResource("ShaderMaterial_f7r5c")
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TopSprite" type="TextureRect" parent="."]
+z_index = 5
+texture_filter = 3
+material = SubResource("ShaderMaterial_cmf6r")
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 3
+stretch_mode = 5
