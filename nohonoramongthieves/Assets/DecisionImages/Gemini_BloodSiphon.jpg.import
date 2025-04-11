@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://pcqehesutgnb"
-path="res://.godot/imported/Gemini_BloodSiphon.jpg-4940f9e6282456efb8ef3cb0160a25fb.ctex"
+path="res://.godot/imported/Gemini_BloodSiphon.jpg-747a34333f8686aacbabe642e6e8efda.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/DecisionImages/Gemini_BloodSiphon.jpg"
-dest_files=["res://.godot/imported/Gemini_BloodSiphon.jpg-4940f9e6282456efb8ef3cb0160a25fb.ctex"]
+source_file="res://assets/DecisionImages/Gemini_BloodSiphon.jpg"
+dest_files=["res://.godot/imported/Gemini_BloodSiphon.jpg-747a34333f8686aacbabe642e6e8efda.ctex"]
 
 [params]
 

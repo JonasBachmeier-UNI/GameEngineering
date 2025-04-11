@@ -26,6 +26,7 @@ public partial class SceneManager : Node
 		// Manually populate the scenePaths array with scene paths (strings)
 		scenePaths.Add("res://Scenes/CharacterCreation.tscn");
 		scenePaths.Add("res://Scenes/InBetweenScene.tscn");
+		scenePaths.Add("res://Scenes/test.tscn");
 		scenePaths.Add("res://Scenes/CharacterCreation.tscn");
 
 		if (scenePaths.Count == 0)

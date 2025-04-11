@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbsmredcrfyo3"
-path="res://.godot/imported/Gemini_Szepter.jpg-9306d39ff866f32bce758b1439840415.ctex"
+path="res://.godot/imported/Gemini_Szepter.jpg-652ce7b2d9f47427e3f878fecb8d9c49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/DecisionImages/Gemini_Szepter.jpg"
-dest_files=["res://.godot/imported/Gemini_Szepter.jpg-9306d39ff866f32bce758b1439840415.ctex"]
+source_file="res://assets/DecisionImages/Gemini_Szepter.jpg"
+dest_files=["res://.godot/imported/Gemini_Szepter.jpg-652ce7b2d9f47427e3f878fecb8d9c49.ctex"]
 
 [params]
 

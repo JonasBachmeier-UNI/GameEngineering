@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvgs30el5us4r"]
 
 [ext_resource type="Script" path="res://Scripts/InBetweenScene.cs" id="1_l5alr"]
-[ext_resource type="Texture2D" uid="uid://b6nbs47er0gew" path="res://Assets/DecisionImages/Gemini_Blades.jpg" id="2_in7uf"]
-[ext_resource type="PackedScene" uid="uid://bgkf20hp3viwq" path="res://Scenes/CharacterDisplayScene.tscn" id="3_ea0at"]
+[ext_resource type="Texture2D" uid="uid://b6nbs47er0gew" path="res://assets/DecisionImages/Gemini_Blades.jpg" id="2_in7uf"]
+[ext_resource type="PackedScene" uid="uid://bgkf20hp3viwq" path="res://scenes/CharacterDisplayScene.tscn" id="3_ea0at"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_prs44"]
 allow_unpress = true
