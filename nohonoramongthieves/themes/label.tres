@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://b4p2ej8sbaj16"]
+
+[ext_resource type="FontFile" uid="uid://ci0r61yd7sttk" path="res://assets/linux_libertine/LinLibertine_R.ttf" id="1_cfpnx"]
+
+[resource]
+font = ExtResource("1_cfpnx")
+font_size = 160
+shadow_size = 2
+shadow_color = Color(0.152941, 0.152941, 0.152941, 0.627451)

@@ -272,41 +272,63 @@ animations = [{
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 
-[node name="UI" type="Node" parent="."]
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -135.0
+offset_right = 240.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="InfoUI" parent="UI" instance=ExtResource("1_tb53t")]
 z_index = 200
-anchors_preset = 15
-anchor_top = 0.0
-offset_left = -144.0
-offset_top = -122.0
-offset_right = 255.0
-offset_bottom = -551.0
-grow_vertical = 2
-scale = Vector2(0.185281, 0.155476)
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="ActionSelect" parent="UI" instance=ExtResource("11_6vcba")]
 visible = false
-offset_left = -74.0
-offset_top = -39.0
-offset_right = -74.0
-offset_bottom = -39.0
-scale = Vector2(0.0944048, 0.0936225)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0395833
+anchor_top = 0.0962963
+anchor_right = 0.0395833
+anchor_bottom = 0.0962963
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.235, 0.235)
+metadata/_edit_use_anchors_ = true
 
 [node name="AttackUI" parent="UI" instance=ExtResource("3_gv87k")]
 visible = false
 z_index = 300
-offset_right = -1152.0
-offset_bottom = -648.0
-scale = Vector2(0.18, 0.18)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+scale = Vector2(0.255, 0.255)
 
 [node name="Phase" type="Label" parent="UI"]
 z_index = 1
-offset_left = -18.0
-offset_top = -46.0
-offset_right = 81.0
-offset_bottom = -23.0
-scale = Vector2(0.369037, 0.354844)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.0
+offset_right = 76.0
+offset_bottom = 23.0
+grow_horizontal = 2
+scale = Vector2(0.465, 0.465)
 size_flags_horizontal = 4
 text = "Player Phase"
 
