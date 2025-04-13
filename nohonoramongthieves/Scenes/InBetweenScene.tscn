@@ -22,7 +22,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l5alr")
 ButtonCount = 3
-selectedScenario = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

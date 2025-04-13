@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://nq53xq5u4lis"]
+
+[ext_resource type="Script" path="res://Scripts/CharacterSummary.cs" id="1_7npgl"]
+[ext_resource type="PackedScene" uid="uid://bgkf20hp3viwq" path="res://scenes/CharacterDisplayScene.tscn" id="1_g71w8"]
+
+[node name="CharacterSummary" type="Node2D"]
+script = ExtResource("1_7npgl")
+
+[node name="CharacterDisplay" parent="." instance=ExtResource("1_g71w8")]
+position = Vector2(283, 355)
+scale = Vector2(3, 3)
+
+[node name="CharacterDisplay2" parent="." instance=ExtResource("1_g71w8")]
+position = Vector2(454, 355)
+scale = Vector2(3, 3)
+CharacterIndex = 1
+
+[node name="CharacterDisplay3" parent="." instance=ExtResource("1_g71w8")]
+position = Vector2(638, 355)
+scale = Vector2(3, 3)
+CharacterIndex = 2
+
+[node name="CharacterDisplay4" parent="." instance=ExtResource("1_g71w8")]
+position = Vector2(1278, 353)
+scale = Vector2(3, 3)
+CharacterIndex = 3
+
+[node name="CharacterDisplay5" parent="." instance=ExtResource("1_g71w8")]
+position = Vector2(1440, 352)
+scale = Vector2(3, 3)
+CharacterIndex = 4
+
+[node name="CharacterDisplay6" parent="." instance=ExtResource("1_g71w8")]
+position = Vector2(1619, 351)
+scale = Vector2(3, 3)
+CharacterIndex = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 421.0
+offset_top = 299.0
+offset_right = 696.0
+offset_bottom = 339.0
+text = "Dein selbst erstelltes Team"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = 1440.0
+offset_top = 298.0
+offset_right = 1715.0
+offset_bottom = 338.0
+text = "Deine Unterstützung"
+
+[node name="Next" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 50)
+offset_left = 1766.0
+offset_top = 944.0
+offset_right = 1828.0
+offset_bottom = 975.0
+text = "Weiter"

@@ -16,7 +16,6 @@ public partial class InBetweenScene : Control
 	
 	public int ButtonCount = 6;
 	
-	[Export]
 	public Scenario selectedScenario = Scenario.Malus;
 
 	private GridContainer _gridContainer;
@@ -40,8 +39,11 @@ public partial class InBetweenScene : Control
 		_btnGroup = new ButtonGroup();
 		_scenarioDescriptionLabel = GetNode<VBoxContainer>("VBoxContainer").GetNode<Panel>("Panel").GetNode<RichTextLabel>("RichTextLabel");
 		_scenarioImage = GetNode<TextureRect>("TextureRect");
+		selectedScenario = (Scenario)Enum.GetValues(typeof(Scenario)).GetValue(SceneManager.Instance.GetCurrentScenarioId());
 
-		_templateButton.Visible = false; // Hide the template button
+		_templateButton.Visible = false;
+		
+		ButtonCount = GlobalCharacterManager.Instance.Characters.Count;
 
 		InitializeScenario();
 		
