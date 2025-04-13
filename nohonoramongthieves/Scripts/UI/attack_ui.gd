@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 
 func _notification(what):
 	if what == NOTIFICATION_VISIBILITY_CHANGED and visible:
-		cancel_button.grab_focus()
+		attack_button.grab_focus()
 	
 
 func _on_cancel_pressed() -> void:

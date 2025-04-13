@@ -1,14 +1,14 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://fl6fe5vcl7qu"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://d6to6rw8qtjb"]
 
-[ext_resource type="FontFile" uid="uid://qbsoy138snws" path="res://assets/linux_libertine/LinLibertine_RB.ttf" id="1_7h1lt"]
-[ext_resource type="Texture2D" uid="uid://sm5yc6365n5u" path="res://assets/Unbenannt.png" id="2_eg1qb"]
-[ext_resource type="FontFile" uid="uid://ci0r61yd7sttk" path="res://assets/linux_libertine/LinLibertine_R.ttf" id="3_pcufb"]
+[ext_resource type="FontFile" uid="uid://qbsoy138snws" path="res://assets/linux_libertine/LinLibertine_RB.ttf" id="1_pfi1i"]
+[ext_resource type="Texture2D" uid="uid://sm5yc6365n5u" path="res://assets/Unbenannt.png" id="2_tigth"]
+[ext_resource type="FontFile" uid="uid://ci0r61yd7sttk" path="res://assets/linux_libertine/LinLibertine_R.ttf" id="3_pbl6p"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1abgs"]
 texture_margin_left = 40.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7nti"]
-texture = ExtResource("2_eg1qb")
+texture = ExtResource("2_tigth")
 texture_margin_left = 40.0
 axis_stretch_vertical = 1
 
@@ -50,15 +50,15 @@ Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_pressed_color = Color(0.314316, 0.314316, 0.314316, 1)
 Button/colors/font_pressed_color = Color(0.462291, 0.462291, 0.462291, 1)
 Button/font_sizes/font_size = 36
-Button/fonts/font = ExtResource("1_7h1lt")
+Button/fonts/font = ExtResource("1_pfi1i")
 Button/styles/disabled = SubResource("StyleBoxTexture_1abgs")
 Button/styles/focus = SubResource("StyleBoxTexture_j7nti")
 Button/styles/hover = SubResource("StyleBoxTexture_gqjs4")
 Button/styles/normal = SubResource("StyleBoxTexture_1abgs")
 Button/styles/pressed = SubResource("StyleBoxTexture_dowgu")
 Label/colors/font_color = Color(0, 0, 0, 1)
-Label/font_sizes/font_size = 12
-Label/fonts/font = ExtResource("3_pcufb")
+Label/font_sizes/font_size = 35
+Label/fonts/font = ExtResource("3_pbl6p")
 MarginContainer/constants/margin_bottom = 4
 MarginContainer/constants/margin_left = 13
 MarginContainer/constants/margin_right = 13

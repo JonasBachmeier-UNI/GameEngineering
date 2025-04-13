@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://pxd1mgvil82v"]
 
-[ext_resource type="Theme" uid="uid://fl6fe5vcl7qu" path="res://themes/ingame_menu_theme.tres" id="1_obqec"]
+[ext_resource type="Theme" uid="uid://d6to6rw8qtjb" path="res://themes/attack_menu_theme.tres" id="1_8vrvd"]
 [ext_resource type="Script" path="res://Scripts/UI/attack_ui.gd" id="2_50m02"]
 [ext_resource type="PackedScene" uid="uid://dc6r7jpbt4elb" path="res://scenes/UI/health_bar.tscn" id="3_emufi"]
 
@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme = ExtResource("1_obqec")
+theme = ExtResource("1_8vrvd")
 script = ExtResource("2_50m02")
 
 [node name="Container" type="PanelContainer" parent="."]
@@ -50,6 +50,7 @@ text = "Player"
 
 [node name="Health" parent="Container/VBoxContainer/Info/HBoxContainer/Attacker" instance=ExtResource("3_emufi")]
 layout_mode = 2
+theme = ExtResource("1_8vrvd")
 
 [node name="Seperator" type="Control" parent="Container/VBoxContainer/Info/HBoxContainer"]
 layout_mode = 2
@@ -64,6 +65,7 @@ text = "Enemy"
 
 [node name="Health" parent="Container/VBoxContainer/Info/HBoxContainer/Defender" instance=ExtResource("3_emufi")]
 layout_mode = 2
+theme = ExtResource("1_8vrvd")
 
 [node name="Seperator" type="Control" parent="Container/VBoxContainer"]
 layout_mode = 2
@@ -79,13 +81,13 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 alignment = 1
 
-[node name="Cancel" type="Button" parent="Container/VBoxContainer/Buttons/HBoxContainer"]
-layout_mode = 2
-text = "CANCEL"
-
 [node name="Attack" type="Button" parent="Container/VBoxContainer/Buttons/HBoxContainer"]
 layout_mode = 2
 text = "ATTACK"
 
-[connection signal="pressed" from="Container/VBoxContainer/Buttons/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
+[node name="Cancel" type="Button" parent="Container/VBoxContainer/Buttons/HBoxContainer"]
+layout_mode = 2
+text = "CANCEL"
+
 [connection signal="pressed" from="Container/VBoxContainer/Buttons/HBoxContainer/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Container/VBoxContainer/Buttons/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
