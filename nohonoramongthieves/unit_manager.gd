@@ -19,6 +19,7 @@ signal all_units_moved
 signal reset_info
 
 signal show_attack_ui(attacker, defender)
+signal attack_start
 
 ## TODO Menü passend anzeigen
 
@@ -99,7 +100,8 @@ func move_unit(unit, new_x, new_y):
 func end_path_check():
 	if attack_queued:
 		if moving_unit.is_next_to_unit(defender):
-			unit_attack(moving_unit, defender)
+			start_attack(moving_unit, defender)
+			return
 		attack_queued = false
 		emit_signal("path_completed")
 		if is_ai_move:
@@ -112,6 +114,19 @@ func end_path_check():
 			is_ai_move = false
 			emit_signal("ai_move_done")
 	check_all_units_moved()
+
+
+## TODO: nach Animation aufrufen
+## TODO: testen
+func attack_started():
+	unit_attack(moving_unit, defender)
+	attack_queued = false
+	emit_signal("path_completed")
+	if is_ai_move:
+		is_ai_move = false
+		emit_signal("ai_move_done")
+	check_all_units_moved()
+
 
 func start_unit_movement(unit):
 	clear_overlay()
@@ -176,6 +191,10 @@ func check_all_units_moved():
 func queue_attack(defending_unit):
 	attack_queued = true
 	defender = defending_unit
+
+
+func start_attack(attacker, defender):
+	emit_signal("attack_start")
 
 
 func unit_attack(attacker, defender):
