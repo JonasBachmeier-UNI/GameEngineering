@@ -20,6 +20,7 @@ var is_moving = false
 @export var speed := 100.0
 
 @export var unit_name: String
+@export var id := -1
 
 @export var x_coord: int
 @export var y_coord: int

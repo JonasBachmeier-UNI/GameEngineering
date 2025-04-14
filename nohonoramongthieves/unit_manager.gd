@@ -11,6 +11,7 @@ var moving_unit = null
 var is_ai_move = false
 var attack_queued = false
 var defender
+var attacker
 
 signal unit_moves
 signal path_completed
@@ -32,9 +33,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	execute_movement(delta)
 
-func create_unit(unit_name, hp, dmg, defense, x, y):
+func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	var prefab = preload("res://scenes/unit.tscn")
 	var new_unit = prefab.instantiate()
+	new_unit.id = unit_id
 	new_unit.max_hp = hp
 	new_unit.hp = hp
 	new_unit.dmg = dmg
@@ -119,7 +121,7 @@ func end_path_check():
 ## TODO: nach Animation aufrufen
 ## TODO: testen
 func attack_started():
-	unit_attack(moving_unit, defender)
+	unit_attack(attacker, defender)
 	attack_queued = false
 	emit_signal("path_completed")
 	if is_ai_move:
@@ -193,7 +195,9 @@ func queue_attack(defending_unit):
 	defender = defending_unit
 
 
-func start_attack(attacker, defender):
+func start_attack(attacking_unit, defending_unit):
+	attacker = attacking_unit
+	defender = defending_unit
 	emit_signal("attack_start")
 
 
