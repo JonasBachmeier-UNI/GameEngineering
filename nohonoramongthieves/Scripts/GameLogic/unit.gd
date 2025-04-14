@@ -4,10 +4,15 @@ extends Path2D
 const ID_CONVERT_MULT = 100
 const ENEMY_POSITION_VALUE = 500
 
+signal calculate_attack
+
 @onready var tml = $"../../Map"
 @onready var overlay = $"../../UnitOverlay"
 @onready var gameboard = $"../../../GameBoard"
 @onready var path_follow = $"PathFollow2D"
+@onready var animation_player = $PathFollow2D/AnimationPlayer
+@onready var attack_animation = $PathFollow2D/AttackSword
+
 
 
 ## wenn true dann wird dem Pfad gefolgt
@@ -412,3 +417,13 @@ func id_to_coordinate(coord):
 	var y = coord % ID_CONVERT_MULT
 	var x = (coord - y) / ID_CONVERT_MULT
 	return [x, y]
+
+func start_attack_animation(direction):
+	attack_animation.visible = true
+	animation_player.attack(direction)
+
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	attack_animation.visible = false
+	get_parent().attack_started()

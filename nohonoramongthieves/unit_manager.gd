@@ -198,7 +198,10 @@ func queue_attack(defending_unit):
 func start_attack(attacking_unit, defending_unit):
 	attacker = attacking_unit
 	defender = defending_unit
-	emit_signal("attack_start")
+	
+	var direction = get_attack_direction(attacker, defender)
+	
+	attacker.start_attack_animation(direction)
 
 
 func unit_attack(attacker, defender):
@@ -264,3 +267,13 @@ func check_one_side_empty():
 	
 	elif allies.is_empty():
 		print("ENEMY WON")
+		
+func get_attack_direction(attacker, defender) -> String:
+	if attacker.x_coord == defender.x_coord:
+		if attacker.y_coord < defender.y_coord:
+			return "down"
+		return "up"
+	else:
+		if attacker.x_coord < defender.x_coord:
+			return "right"
+		return "left"
