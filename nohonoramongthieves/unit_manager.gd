@@ -68,6 +68,7 @@ func execute_movement(delta):
 
 
 func update_unit_grids(grid):
+	print(grid)
 	for unit in units:
 		unit.on_game_board_matrix_ready(grid)
 

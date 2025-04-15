@@ -160,6 +160,8 @@ func update_units():
 			my_units.append(unit)
 
 func get_hovered_unit():
+	print(x_pos)
+	print(y_pos)
 	for unit in all_units:
 		if unit.x_coord == x_pos and unit.y_coord == y_pos:
 			return unit

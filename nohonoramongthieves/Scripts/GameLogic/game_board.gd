@@ -46,11 +46,15 @@ func calculate_minimum_offsets(cells: Array[Vector2i]):
 		if current_max_y < cell[1]:
 			current_max_y = cell[1]
 			
+	print("curr_min_x", current_min_x)
+	print("curr_min_y", current_min_y)
 	MINIMUM_OFFSET_X = abs(current_min_x)
 	MINIMUM_OFFSET_Y = abs(current_min_y)
 	
 	width = current_max_x - current_min_x + 1
 	height = current_max_y - current_min_y + 1
+	print("width: ", width)
+	print("height: ", height)
 	
 	
 func create_matrix(cells: Array[Vector2i]):
