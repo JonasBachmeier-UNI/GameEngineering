@@ -10,6 +10,7 @@ signal calculate_attack
 @onready var overlay = $"../../UnitOverlay"
 @onready var gameboard = $"../../../GameBoard"
 @onready var path_follow = $"PathFollow2D"
+@onready var sprite = $PathFollow2D/Sprite2D
 @onready var animation_player = $PathFollow2D/AnimationPlayer
 @onready var attack_animation = $PathFollow2D/AttackSword
 @onready var dmg_animation = $PathFollow2D/Dmg
@@ -83,6 +84,10 @@ func current_pos_to_tml():
 ## Löscht komplette Node bei besiegen der Node
 func on_death():
 	queue_free()
+
+
+func remove_sprite():
+	path_follow.remove_child(sprite)
 
 
 func on_game_board_matrix_ready(value: Variant) -> void:

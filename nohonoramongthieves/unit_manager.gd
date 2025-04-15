@@ -35,6 +35,8 @@ func _process(delta: float) -> void:
 
 func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	var prefab = preload("res://scenes/unit.tscn")
+	var prefab_sprite = preload("res://scenes/CharacterDisplayScene.tscn")
+	var sprite = prefab_sprite.instantiate()
 	var new_unit = prefab.instantiate()
 	new_unit.id = unit_id
 	new_unit.max_hp = hp
@@ -44,6 +46,7 @@ func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	new_unit.x_coord = x
 	new_unit.y_coord = y
 	new_unit.unit_name = unit_name
+	new_unit.path_follow.add_child(sprite)
 	add_child(new_unit)
 	get_units()
 	update_unit_grids(base_grid)
