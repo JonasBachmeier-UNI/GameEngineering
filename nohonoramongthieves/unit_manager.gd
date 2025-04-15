@@ -28,7 +28,11 @@ signal attack_start
 
 func _ready() -> void:
 	var characters = GlobalCharacter.GetCharacters();
-	print(characters);
+	var s_pos = [[1,1],[3,3],[5,5],[2,4],[1,2],[3,4]]
+	var counter = 0
+	for character in characters:
+		create_unit(character["id"], character["name"], character["health"], character["damage"], character["defense"], s_pos[counter][0], s_pos[counter][1])
+		counter += 1
 	get_units()
 
 
@@ -41,7 +45,7 @@ func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	var sprite = prefab_sprite.instantiate()
 	var new_unit = prefab.instantiate()
 	new_unit.id = unit_id
-	new_unit.max_hp = hp
+	new_unit.max_hp = 100
 	new_unit.hp = hp
 	new_unit.dmg = dmg
 	new_unit.defense = defense

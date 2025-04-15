@@ -34,7 +34,7 @@ public partial class GlobalCharacterManager : Node
 		{
 			var dict = new Godot.Collections.Dictionary
 			{
-				{ "id", chracter.Id}
+				{ "id", chracter.Id},
 				{ "name", character.Name },
 				{ "health", character.Health },
 				{ "damage", character.Damage },
@@ -47,12 +47,12 @@ public partial class GlobalCharacterManager : Node
 		return array;
 	}
 	
-	public UpdateCharacterHealth(int index, int health) {
+	public void UpdateCharacterHealth(int index, int health) {
 		var character = Characters.FirstOrDefault(c => c.Id == index); 
 		character.Health = health;
 	}
 	
-	public KillCharacter(int index) {
+	public void KillCharacter(int index) {
 		var character = Characters.FirstOrDefault(c => c.Id == index); 
 		Characters.Remove(character);
 	}
