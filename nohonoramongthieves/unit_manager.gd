@@ -198,10 +198,10 @@ func queue_attack(defending_unit):
 func start_attack(attacking_unit, defending_unit):
 	attacker = attacking_unit
 	defender = defending_unit
-	
+	var attack_result = get_attack_result(attacker, defender)
 	var direction = get_attack_direction(attacker, defender)
 	
-	attacker.start_attack_animation(direction)
+	attacker.start_attack_animation(direction, attack_result)
 
 
 func unit_attack(attacker, defender):

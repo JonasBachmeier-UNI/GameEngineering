@@ -12,6 +12,7 @@ signal calculate_attack
 @onready var path_follow = $"PathFollow2D"
 @onready var animation_player = $PathFollow2D/AnimationPlayer
 @onready var attack_animation = $PathFollow2D/AttackSword
+@onready var dmg_animation = $PathFollow2D/Dmg
 
 
 
@@ -418,12 +419,15 @@ func id_to_coordinate(coord):
 	var x = (coord - y) / ID_CONVERT_MULT
 	return [x, y]
 
-func start_attack_animation(direction):
+func start_attack_animation(direction, dmg):
 	attack_animation.visible = true
+	dmg_animation.text = "-" + str(dmg)
+	dmg_animation.visible = true
 	animation_player.attack(direction)
 
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	attack_animation.visible = false
+	dmg_animation.visible = false
 	get_parent().attack_started()
