@@ -3,6 +3,7 @@ using System;
 
 public partial class Character
 {
+	public int Id { get;set;} = 0;
 	public string Name { get; set; } = "Default";
 	public string HeadSprite { get; set; }
 	public string BodySprite { get; set; }

@@ -26,6 +26,37 @@ public partial class GlobalCharacterManager : Node
 		return Characters.Count;
 	}
 	
+	public Godot.Collections.Array GetCharacters()
+	{
+		var array = new Godot.Collections.Array();
+
+		foreach (var character in Characters)
+		{
+			var dict = new Godot.Collections.Dictionary
+			{
+				{ "id", chracter.Id}
+				{ "name", character.Name },
+				{ "health", character.Health },
+				{ "damage", character.Damage },
+				{ "defense", character.Defense }
+				
+			};
+			array.Add(dict);
+		}
+
+		return array;
+	}
+	
+	public UpdateCharacterHealth(int index, int health) {
+		var character = Characters.FirstOrDefault(c => c.Id == index); 
+		character.Health = health;
+	}
+	
+	public KillCharacter(int index) {
+		var character = Characters.FirstOrDefault(c => c.Id == index); 
+		Characters.Remove(character);
+	}
+	
 	public bool HasCharacter(int index) {
 		return true;
 	}
@@ -51,6 +82,7 @@ public partial class GlobalCharacterManager : Node
 			if (i < 3)
 			{
 				character = new Character($"Character {i + 1}");
+				character.Id = i;
 			}
 			else
 			{
@@ -61,6 +93,7 @@ public partial class GlobalCharacterManager : Node
 				character.HeadGradientColor = GetRandomColor();
 				character.BodyGradientColor = GetRandomColor();
 				character.TopGradientColor = GetRandomColor();
+				character.Id = i;
 			}
 
 			Characters.Add(character);

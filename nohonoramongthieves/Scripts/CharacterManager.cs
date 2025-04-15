@@ -94,17 +94,14 @@ private void SaveAndGoToNextScene()
 		}
 		
 		for (int i = 0; i < GlobalCharacterManager.Instance.Characters.Count ; i++) {
-			GD.Print("Char " + i + " with " + GlobalCharacterManager.Instance.GetCharacter(i).HeadSprite);
 		}
 		
-		GD.Print("Changing Scene");
 
 		SceneManager.Instance.NextScene();
 	}
 
 private void ChangeSprite(int index, string type, int direction, TextureRect spriteNode)
 	{
-		GD.Print($"The value is: {direction}");
 		string[] spriteArray = type == "Head" ? headSprites :
 							   type == "Body" ? bodySprites :
 							   type == "Top" ? topSprites :
@@ -112,7 +109,6 @@ private void ChangeSprite(int index, string type, int direction, TextureRect spr
 
 		string currentSprite = characters[index].GetSprite(type);
 		int currentIndex = GetSpriteIndex(currentSprite, spriteArray);
-		GD.Print(currentIndex);
 		currentIndex = (currentIndex + direction + spriteArray.Length) % spriteArray.Length;
 
 		string newSprite = spriteArray[currentIndex];
@@ -139,7 +135,6 @@ private void ChangeGradient(int index, string type, Color newColor, TextureRect 
 		GD.Print("Aborting");
 		return;
 		}
-	GD.Print($"Changing gradient for {type} of character {index} to {newColor}");
 
 
 	if (type == "Head")

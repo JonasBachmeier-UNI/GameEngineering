@@ -27,7 +27,8 @@ signal attack_start
 @export var speed = 70
 
 func _ready() -> void:
-	#var characters = GlobalCharacter.()
+	var characters = GlobalCharacter.GetCharacters();
+	print(characters);
 	get_units()
 
 
