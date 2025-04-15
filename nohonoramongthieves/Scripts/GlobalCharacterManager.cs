@@ -22,6 +22,10 @@ public partial class GlobalCharacterManager : Node
 		}
 	}
 	
+	public int GetCharacterAmount() {
+		return Characters.Count;
+	}
+	
 	public bool HasCharacter(int index) {
 		return true;
 	}
