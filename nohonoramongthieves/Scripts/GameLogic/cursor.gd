@@ -40,6 +40,9 @@ var help_path = false
 func _on_game_board_matrix_ready(value: Variant) -> void:
 	var tml_vec = gameboard.grid_to_tml_coords(Vector2i(start_x, start_y))
 	global_position = tml.map_to_local(tml_vec)
+	var grid_vec = gameboard.tml_to_grid_coords(tml.local_to_map(global_position))
+	x_pos = grid_vec[0]
+	y_pos = grid_vec[1]
 	hovering_check()
 	
 func _process(delta: float) -> void:
