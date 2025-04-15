@@ -47,6 +47,7 @@ func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	new_unit.y_coord = y
 	new_unit.unit_name = unit_name
 	new_unit.path_follow.add_child(sprite)
+	new_unit.remove_sprite()
 	add_child(new_unit)
 	get_units()
 	update_unit_grids(base_grid)
