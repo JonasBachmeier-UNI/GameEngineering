@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public partial class GlobalCharacterManager : Node
 {
@@ -34,7 +35,7 @@ public partial class GlobalCharacterManager : Node
 		{
 			var dict = new Godot.Collections.Dictionary
 			{
-				{ "id", chracter.Id},
+				{ "id", character.Id},
 				{ "name", character.Name },
 				{ "health", character.Health },
 				{ "damage", character.Damage },

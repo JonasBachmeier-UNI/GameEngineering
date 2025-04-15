@@ -28,6 +28,7 @@ signal attack_start
 
 func _ready() -> void:
 	var characters = GlobalCharacter.GetCharacters();
+	print("Characters:", characters)
 	var s_pos = [[1,1],[3,3],[5,5],[2,4],[1,2],[3,4]]
 	var counter = 0
 	for character in characters:
@@ -52,8 +53,8 @@ func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	new_unit.x_coord = x
 	new_unit.y_coord = y
 	new_unit.unit_name = unit_name
+	#Irgendie is hier das problem dass path_follow noch nicht existiert oder? Ich checks aber nicht ganz - vllt das child erst in unit selbst adden?
 	new_unit.path_follow.add_child(sprite)
-	new_unit.remove_sprite()
 	add_child(new_unit)
 	get_units()
 	update_unit_grids(base_grid)
