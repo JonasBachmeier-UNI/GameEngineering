@@ -50,6 +50,8 @@ func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	add_child(new_unit)
 	new_unit.path_follow.add_child(sprite)
 	new_unit.remove_sprite()
+	print("LOAD CHARACTER: ", unit_id)
+	sprite.LoadCharacter(unit_id)
 	get_units()
 	update_unit_grids(base_grid)
 
@@ -80,11 +82,10 @@ func update_unit_grids(grid):
 func _on_game_board_matrix_ready(value: Variant) -> void:
 	base_grid = value
 	var characters = GlobalCharacter.GetCharacters();
-	print("Characters:", characters)
 	var s_pos = [[1,1],[3,3],[5,5],[2,4],[1,2],[3,4]]
 	var counter = 0
 	for character in characters:
-		print(character["id"])
+		print("ID: ", character["id"])
 		create_unit(character["id"], character["name"], character["health"], character["damage"], character["defense"], s_pos[counter][0], s_pos[counter][1])
 		counter += 1
 	get_units()
