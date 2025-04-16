@@ -3,7 +3,7 @@ using System;
 
 public partial class Character
 {
-	public int Id { get;set;} = 0;
+	public int Id { get; set; } = 0;
 	public string Name { get; set; } = "Default";
 	public string HeadSprite { get; set; }
 	public string BodySprite { get; set; }
@@ -16,9 +16,10 @@ public partial class Character
 	public Color BodyGradientColor { get; set; } = new Color(1, 1, 1, 1);
 	public Color TopGradientColor { get; set; } = new Color(1, 1, 1, 1);
 	
-	public Character(string name = "Unnamed")
+	public Character(string name = "Unnamed", int id = 0)
 	{
 		Name = name;
+		Id = id;
 		HeadSprite = "res://Sprites/Head1.png";
 		BodySprite = "res://Sprites/Body1.png";
 		TopSprite = "res://Sprites/Top1.png";
@@ -33,8 +34,6 @@ public partial class Character
 		if (type == "Head") HeadSprite = spritePath;
 		else if (type == "Body") BodySprite = spritePath;
 		else if (type == "Top") TopSprite = spritePath;
-		
-		GD.Print($"Updated {type} to {spritePath}");
 	}
 
 	public string GetSprite(string type)

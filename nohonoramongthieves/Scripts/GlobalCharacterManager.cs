@@ -44,7 +44,6 @@ public partial class GlobalCharacterManager : Node
 			};
 			array.Add(dict);
 		}
-
 		return array;
 	}
 	
@@ -82,12 +81,11 @@ public partial class GlobalCharacterManager : Node
 
 			if (i < 3)
 			{
-				character = new Character($"Character {i + 1}");
-				character.Id = i;
+				character = new Character($"Character {i + 1}", i);
 			}
 			else
 			{
-				character = new Character(possibleNames[i]);
+				character = new Character(possibleNames[i], i);
 				character.SetSprite("Head", possibleHeadSprites[i]);
 				character.SetSprite("Body", possibleBodySprites[i]);
 				character.SetSprite("Top", possibleTopSprites[i]);
@@ -120,17 +118,16 @@ public partial class GlobalCharacterManager : Node
 		return new Color((float)rng.NextDouble(), (float)rng.NextDouble(), (float)rng.NextDouble());
 	}
 
-		public void SaveCharacter(int index, Character character)
+	public void SaveCharacter(int index, Character character)
+	{
+		if (index >= 0 && index < Characters.Count)
 		{
-			if (index >= 0 && index < Characters.Count)
-			{
-				Characters[index] = character;
-				GD.Print("Saved " + index);
-			}
+			Characters[index] = character;
 		}
+	}
 
-		public Character GetCharacter(int index)
-		{
-			return (index >= 0 && index < Characters.Count) ? Characters[index] : null;
-		}
+	public Character GetCharacter(int index)
+	{
+		return (index >= 0 && index < Characters.Count) ? Characters[index] : null;
+	}
 	}

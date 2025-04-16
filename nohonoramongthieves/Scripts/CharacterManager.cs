@@ -20,8 +20,8 @@ public partial class CharacterManager : Control
 				BodySprite = bodySprites[0],
 				TopSprite = topSprites[0]
 			};
+			character.Id = i;
 			characters.Add(character);
-			GD.Print($"Final character count: {characters.Count}");
 			
 			
 			// Name Input
@@ -46,8 +46,6 @@ public partial class CharacterManager : Control
 				
 			
 			topLeft.Connect("pressed", Callable.From(() => ChangeSprite((int) charNode.GetMeta("id") , "Top", -1, topSprite)));
-
-			GD.Print($"The value Chars is: {characters}");
 
 			// Head Section
 			TextureRect headSprite = charNode.GetNode<Container>("Container").GetNode<TextureRect>("Head");
