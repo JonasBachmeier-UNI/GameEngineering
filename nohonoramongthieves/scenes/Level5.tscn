@@ -1,0 +1,612 @@
+[gd_scene load_steps=76 format=4 uid="uid://bggtad1xp41mh"]
+
+[ext_resource type="PackedScene" uid="uid://db02ekgaf0l8q" path="res://scenes/UI/info_ui.tscn" id="1_h47kt"]
+[ext_resource type="PackedScene" uid="uid://bqhpora7apbhh" path="res://scenes/UI/action_select.tscn" id="2_4fv6x"]
+[ext_resource type="PackedScene" uid="uid://pxd1mgvil82v" path="res://scenes/UI/attack_ui.tscn" id="3_yal12"]
+[ext_resource type="Script" path="res://Scripts/GameLogic/game_board.gd" id="4_dm8ko"]
+[ext_resource type="Texture2D" uid="uid://ch6p6faml6exn" path="res://assets/Tileset/cave.png" id="5_081u1"]
+[ext_resource type="Texture2D" uid="uid://bfseogyh6my87" path="res://assets/Unit/walkable_tile.png" id="6_w5we3"]
+[ext_resource type="Texture2D" uid="uid://dygywwf8t2fjm" path="res://assets/Unit/attackable_tile.png" id="7_voql0"]
+[ext_resource type="Texture2D" uid="uid://dhbxxg8v78377" path="res://assets/UnitPath/links_rechts.png" id="8_oxv0f"]
+[ext_resource type="Texture2D" uid="uid://c64oupxwijieb" path="res://assets/UnitPath/oben_links.png" id="9_4okos"]
+[ext_resource type="Texture2D" uid="uid://c2pcsi8tqbm72" path="res://assets/UnitPath/oben_rechts.png" id="10_503m1"]
+[ext_resource type="Texture2D" uid="uid://bfmvsdtm2rjly" path="res://assets/UnitPath/oben_unten.png" id="11_pkrja"]
+[ext_resource type="Texture2D" uid="uid://dq3mw6wuo6cb" path="res://assets/UnitPath/Start_links.png" id="12_3k4xc"]
+[ext_resource type="Texture2D" uid="uid://dnvc8gpwnq88i" path="res://assets/UnitPath/Start_oben.png" id="13_g44bp"]
+[ext_resource type="Texture2D" uid="uid://df14347thjja5" path="res://assets/UnitPath/Start_rechts.png" id="14_rusgq"]
+[ext_resource type="Texture2D" uid="uid://biofln0bk3t8x" path="res://assets/UnitPath/Start_unten.png" id="15_8l5d4"]
+[ext_resource type="Texture2D" uid="uid://bbrpew1nl1j25" path="res://assets/UnitPath/unten_links.png" id="16_gn1bf"]
+[ext_resource type="Texture2D" uid="uid://bn1ebnxat3m4i" path="res://assets/UnitPath/unten_rechts.png" id="17_2j4wf"]
+[ext_resource type="Script" path="res://unit_path.gd" id="18_yx32o"]
+[ext_resource type="Texture2D" uid="uid://b4ly0dmoh8hwg" path="res://assets/EnemyRange/blank.png" id="19_3jxvp"]
+[ext_resource type="Texture2D" uid="uid://dd8wplp3isitm" path="res://assets/EnemyRange/left_border.png" id="20_t87oj"]
+[ext_resource type="Texture2D" uid="uid://cykyohfc0dslk" path="res://assets/EnemyRange/left_up_right_border.png" id="21_inr6t"]
+[ext_resource type="Texture2D" uid="uid://1uvvlgfhjy6t" path="res://assets/EnemyRange/up_right_down_border.png" id="22_vkqkc"]
+[ext_resource type="Texture2D" uid="uid://ch1jemgj0dtw2" path="res://assets/EnemyRange/left_down_right_border.png" id="23_2ne6u"]
+[ext_resource type="Texture2D" uid="uid://cxhvlbjg2bwve" path="res://assets/EnemyRange/left_right.png" id="24_ea8dk"]
+[ext_resource type="Texture2D" uid="uid://cukkl4yxr0tqf" path="res://assets/EnemyRange/up_down.png" id="25_ftghf"]
+[ext_resource type="Texture2D" uid="uid://hoygsee0ypon" path="res://assets/EnemyRange/up_border.png" id="26_fwar7"]
+[ext_resource type="Texture2D" uid="uid://b7rr585qnpl84" path="res://assets/EnemyRange/right_border.png" id="27_41lvj"]
+[ext_resource type="Texture2D" uid="uid://btyknnu3qddvc" path="res://assets/EnemyRange/down_border.png" id="28_k07m7"]
+[ext_resource type="Texture2D" uid="uid://cy8dvv36nihte" path="res://assets/EnemyRange/left_up_border.png" id="29_er7h1"]
+[ext_resource type="Texture2D" uid="uid://ccpfk2mb6susu" path="res://assets/EnemyRange/right_up_border.png" id="30_jd6tj"]
+[ext_resource type="Texture2D" uid="uid://dm86bgjbmn74o" path="res://assets/EnemyRange/right_down_border.png" id="31_q4kpw"]
+[ext_resource type="Texture2D" uid="uid://27ssus04hpy6" path="res://assets/EnemyRange/left_down_border.png" id="32_ac61c"]
+[ext_resource type="Texture2D" uid="uid://dt50gvl0ynnq0" path="res://assets/EnemyRange/left_up_down_border.png" id="33_wepfl"]
+[ext_resource type="Script" path="res://enemy_range_overlay.gd" id="34_4ikqf"]
+[ext_resource type="Script" path="res://unit_manager.gd" id="35_nphqw"]
+[ext_resource type="PackedScene" uid="uid://1tu0ew23kxa2" path="res://scenes/unit.tscn" id="36_idngj"]
+[ext_resource type="Texture2D" uid="uid://dl7vtvav0ny0r" path="res://assets/highlighted/highlight_tile.png" id="37_f6088"]
+[ext_resource type="Texture2D" uid="uid://c6peupm1b2ju4" path="res://assets/highlighted/tile_highlighted_2.png" id="38_6jgn0"]
+[ext_resource type="Script" path="res://Scripts/GameLogic/cursor.gd" id="39_8ycbh"]
+[ext_resource type="Script" path="res://game_manager.gd" id="40_wyhfi"]
+[ext_resource type="Script" path="res://inventory_manager.gd" id="41_eump8"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r7elo"]
+resource_name = "walkable"
+texture = ExtResource("5_081u1")
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+4:0/0 = 0
+4:1/0 = 0
+4:2/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+5:2/0 = 0
+6:0/0 = 0
+6:1/0 = 0
+6:2/0 = 0
+7:0/0 = 0
+7:1/0 = 0
+7:2/0 = 0
+8:0/0 = 0
+8:1/0 = 0
+8:2/0 = 0
+9:0/0 = 0
+9:1/0 = 0
+9:2/0 = 0
+0:15/0 = 0
+1:15/0 = 0
+8:19/0 = 0
+9:19/0 = 0
+9:18/0 = 0
+8:18/0 = 0
+8:20/0 = 0
+9:20/0 = 0
+0:16/0 = 0
+1:16/0 = 0
+2:16/0 = 0
+3:16/0 = 0
+4:16/0 = 0
+5:16/0 = 0
+5:17/0 = 0
+4:17/0 = 0
+3:17/0 = 0
+2:17/0 = 0
+1:17/0 = 0
+0:17/0 = 0
+2:18/0 = 0
+1:18/0 = 0
+0:18/0 = 0
+3:20/0 = 0
+3:19/0 = 0
+4:19/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t18yb"]
+resource_name = "unwalkable"
+texture = ExtResource("5_081u1")
+11:1/0 = 0
+3:3/0 = 0
+3:4/0 = 0
+3:5/0 = 0
+3:6/0 = 0
+2:6/0 = 0
+1:6/0 = 0
+0:6/0 = 0
+0:5/0 = 0
+0:4/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:15/0 = 0
+5:3/0 = 0
+4:3/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+12:3/0 = 0
+11:3/0 = 0
+10:3/0 = 0
+10:4/0 = 0
+10:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+12:4/0 = 0
+11:4/0 = 0
+13:4/0 = 0
+13:3/0 = 0
+14:3/0 = 0
+14:4/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+12:1/0 = 0
+12:2/0 = 0
+11:2/0 = 0
+10:2/0 = 0
+10:1/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+14:1/0 = 0
+13:1/0 = 0
+0:16/0 = 0
+0:15/0 = 0
+1:16/0 = 0
+1:15/0 = 0
+2:15/0 = 0
+4:15/0 = 0
+5:15/0 = 0
+5:16/0 = 0
+5:17/0 = 0
+4:17/0 = 0
+3:17/0 = 0
+2:17/0 = 0
+1:17/0 = 0
+0:17/0 = 0
+2:16/0 = 0
+3:16/0 = 0
+4:16/0 = 0
+0:18/0 = 0
+1:18/0 = 0
+2:18/0 = 0
+0:7/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+4:5/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+8:8/0 = 0
+9:8/0 = 0
+9:9/0 = 0
+10:9/0 = 0
+10:10/0 = 0
+11:10/0 = 0
+11:11/0 = 0
+10:11/0 = 0
+9:11/0 = 0
+8:11/0 = 0
+7:11/0 = 0
+6:11/0 = 0
+5:11/0 = 0
+4:11/0 = 0
+3:11/0 = 0
+2:11/0 = 0
+1:11/0 = 0
+1:10/0 = 0
+0:10/0 = 0
+0:9/0 = 0
+0:8/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+1:7/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+4:8/0 = 0
+5:8/0 = 0
+6:8/0 = 0
+6:7/0 = 0
+5:7/0 = 0
+4:7/0 = 0
+3:8/0 = 0
+2:8/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+6:9/0 = 0
+1:8/0 = 0
+7:9/0 = 0
+8:9/0 = 0
+7:8/0 = 0
+5:9/0 = 0
+6:10/0 = 0
+7:10/0 = 0
+8:10/0 = 0
+9:10/0 = 0
+11:9/0 = 0
+11:8/0 = 0
+10:8/0 = 0
+0:11/0 = 0
+5:5/0 = 0
+4:6/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_xdb4t"]
+sources/0 = SubResource("TileSetAtlasSource_r7elo")
+sources/1 = SubResource("TileSetAtlasSource_t18yb")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s85b1"]
+texture = ExtResource("6_w5we3")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8l7nb"]
+texture = ExtResource("7_voql0")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7516k"]
+sources/0 = SubResource("TileSetAtlasSource_s85b1")
+sources/1 = SubResource("TileSetAtlasSource_8l7nb")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6se45"]
+texture = ExtResource("8_oxv0f")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vxq31"]
+texture = ExtResource("9_4okos")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ajlq"]
+texture = ExtResource("10_503m1")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_765d7"]
+texture = ExtResource("11_pkrja")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0m0t"]
+texture = ExtResource("12_3k4xc")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5l4u0"]
+texture = ExtResource("13_g44bp")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gb86e"]
+texture = ExtResource("14_rusgq")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1urj3"]
+texture = ExtResource("15_8l5d4")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_neenn"]
+texture = ExtResource("16_gn1bf")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pk2in"]
+texture = ExtResource("17_2j4wf")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_5mwj0"]
+sources/0 = SubResource("TileSetAtlasSource_6se45")
+sources/1 = SubResource("TileSetAtlasSource_vxq31")
+sources/2 = SubResource("TileSetAtlasSource_6ajlq")
+sources/3 = SubResource("TileSetAtlasSource_765d7")
+sources/4 = SubResource("TileSetAtlasSource_j0m0t")
+sources/5 = SubResource("TileSetAtlasSource_5l4u0")
+sources/6 = SubResource("TileSetAtlasSource_gb86e")
+sources/7 = SubResource("TileSetAtlasSource_1urj3")
+sources/8 = SubResource("TileSetAtlasSource_neenn")
+sources/9 = SubResource("TileSetAtlasSource_pk2in")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3gj6g"]
+texture = ExtResource("19_3jxvp")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dfn7i"]
+texture = ExtResource("20_t87oj")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g8gld"]
+texture = ExtResource("21_inr6t")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0utu"]
+texture = ExtResource("22_vkqkc")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g4i8h"]
+texture = ExtResource("23_2ne6u")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ak0e"]
+texture = ExtResource("24_ea8dk")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4kmsc"]
+texture = ExtResource("25_ftghf")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c4c2q"]
+texture = ExtResource("26_fwar7")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yf0ya"]
+texture = ExtResource("27_41lvj")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g4cle"]
+texture = ExtResource("28_k07m7")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hrx4"]
+texture = ExtResource("29_er7h1")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lexhr"]
+texture = ExtResource("30_jd6tj")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fxify"]
+texture = ExtResource("31_q4kpw")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2l2ol"]
+texture = ExtResource("32_ac61c")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x3wgo"]
+texture = ExtResource("33_wepfl")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_4gt1h"]
+sources/0 = SubResource("TileSetAtlasSource_3gj6g")
+sources/1 = SubResource("TileSetAtlasSource_dfn7i")
+sources/2 = SubResource("TileSetAtlasSource_c4c2q")
+sources/3 = SubResource("TileSetAtlasSource_yf0ya")
+sources/4 = SubResource("TileSetAtlasSource_g4cle")
+sources/5 = SubResource("TileSetAtlasSource_5hrx4")
+sources/6 = SubResource("TileSetAtlasSource_lexhr")
+sources/7 = SubResource("TileSetAtlasSource_fxify")
+sources/8 = SubResource("TileSetAtlasSource_2l2ol")
+sources/9 = SubResource("TileSetAtlasSource_x3wgo")
+sources/10 = SubResource("TileSetAtlasSource_g8gld")
+sources/11 = SubResource("TileSetAtlasSource_j0utu")
+sources/12 = SubResource("TileSetAtlasSource_g4i8h")
+sources/13 = SubResource("TileSetAtlasSource_8ak0e")
+sources/14 = SubResource("TileSetAtlasSource_4kmsc")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kfbps"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("37_f6088")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_6jgn0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Level" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -135.0
+offset_right = 240.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="InfoUI" parent="UI" instance=ExtResource("1_h47kt")]
+z_index = 200
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="ActionSelect" parent="UI" instance=ExtResource("2_4fv6x")]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0395833
+anchor_top = 0.0962963
+anchor_right = 0.0395833
+anchor_bottom = 0.0962963
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.235, 0.235)
+metadata/_edit_use_anchors_ = true
+
+[node name="AttackUI" parent="UI" instance=ExtResource("3_yal12")]
+visible = false
+z_index = 300
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+scale = Vector2(0.255, 0.255)
+
+[node name="Phase" type="Label" parent="UI"]
+z_index = 9
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.0
+offset_right = 76.0
+offset_bottom = 23.0
+grow_horizontal = 2
+scale = Vector2(0.465, 0.465)
+size_flags_horizontal = 4
+text = "Player Phase"
+
+[node name="GameBoard" type="Node" parent="." node_paths=PackedStringArray("tml")]
+script = ExtResource("4_dm8ko")
+tml = NodePath("Map")
+
+[node name="Map" type="TileMapLayer" parent="GameBoard"]
+z_index = 2
+tile_map_data = PackedByteArray("AADw//f/AQALAAQAAADw//j/AQALAAQAAADw//n/AQALAAQAAADw//r/AQALAAQAAADw//v/AQALAAQAAADw//z/AQALAAQAAADw//3/AQALAAQAAADw//7/AQALAAQAAADw////AQALAAQAAADw/wAAAQALAAQAAADw/wEAAQALAAQAAADw/wIAAQALAAQAAADw/wMAAQALAAQAAADw/wQAAQALAAQAAADw/wUAAQALAAQAAADw/wYAAQALAAQAAADw/wcAAQALAAQAAADw/wgAAQALAAQAAADx//f/AQALAAQAAADx//j/AQANAAMAAADx//n/AQAMAAQAAADx//r/AQAMAAQAAADx//v/AQAMAAQAAADx//z/AQAMAAQAAADx//3/AQAMAAQAAADx//7/AQAMAAQAAADx////AQAMAAQAAADx/wAAAQAMAAQAAADx/wEAAQAMAAQAAADx/wIAAQAMAAQAAADx/wMAAQANAAQAAADx/wQAAQALAAQAAADx/wUAAQALAAQAAADx/wYAAQALAAQAAADx/wcAAQALAAQAAADx/wgAAQALAAQAAADy//f/AQANAAMAAADy//j/AQAMAAUAAADy//n/AQAAAAMAAADy//r/AQAAAAQAAADy//v/AQAAAAQAAADy//z/AQAAAAQAAADy//3/AQAAAAQAAADy//7/AQAAAAQAAADy////AQAAAAQAAADy/wAAAQAAAAQAAADy/wEAAQAAAAQAAADy/wIAAQAAAAYAAADy/wMAAQAMAAMAAADy/wQAAQAMAAQAAADy/wUAAQAMAAQAAADy/wYAAQANAAQAAADy/wcAAQALAAQAAADy/wgAAQALAAQAAADz//f/AQALAAUAAADz//j/AQAAAAMAAADz//n/AAAFAAQAAADz//r/AAACAAQAAADz//v/AAACAAQAAADz//z/AAACAAQAAADz//3/AAACAAQAAADz//7/AAACAAQAAADz////AAACAAQAAADz/wAAAAACAAQAAADz/wEAAAACAAQAAADz/wIAAAAFAAMAAADz/wMAAQAAAAYAAADz/wQAAQALAAEAAADz/wUAAQAAAAYAAADz/wYAAQALAAMAAADz/wcAAQALAAQAAADz/wgAAQALAAQAAAD0//f/AQALAAUAAAD0//j/AQACAAMAAAD0//n/AAACAAQAAAD0//r/AAACAAQAAAD0//v/AAACAAQAAAD0//z/AAAFAAAAAAD0//3/AAAFAAEAAAD0//7/AAAFAAEAAAD0////AAAFAAEAAAD0/wAAAQADAA8AAAD0/wEAAAAFAAIAAAD0/wIAAAACAAQAAAD0/wMAAAACAAQAAAD0/wQAAAACAAQAAAD0/wUAAQACAAYAAAD0/wYAAQALAAMAAAD0/wcAAQALAAQAAAD0/wgAAQALAAQAAAD1//f/AQALAAUAAAD1//j/AQABAAMAAAD1//n/AAACAAQAAAD1//r/AAAFAAAAAAD1//v/AAAFAAEAAAD1//z/AAAJAAEAAAD1//3/AAAGAAEAAAD1//7/AAAGAAEAAAD1////AAAJAAIAAAD1/wAAAAAJAAIAAAD1/wEAAAAGAAIAAAD1/wIAAAACAAQAAAD1/wMAAAACAAQAAAD1/wQAAAACAAQAAAD1/wUAAQACAAYAAAD1/wYAAQALAAMAAAD1/wcAAQALAAQAAAD1/wgAAQALAAQAAAD2//f/AQALAAUAAAD2/wYAAQALAAMAAAD2/wcAAQALAAQAAAD2/wgAAQALAAQAAAD3//f/AQALAAUAAAD3/wYAAQALAAMAAAD3/wcAAQALAAQAAAD3/wgAAQALAAQAAAD4//f/AQALAAUAAAD4//3/AAAGAAEAAAD4//7/AAAGAAEAAAD4////AAAGAAEAAAD4/wAAAAAGAAEAAAD4/wEAAAAIAAAAAAD4/wYAAQALAAMAAAD4/wcAAQALAAQAAAD4/wgAAQALAAQAAAD5//f/AQALAAUAAAD5//v/AAAGAAEAAAD5//z/AAAIAAIAAAD5//3/AAAAABIAABD5//7/AAABABIAABD5////AAAGAAEAAAD5/wAAAAAAABIAABD5/wEAAAAGAAIAAAD5/wIAAAACAAQAAAD5/wMAAAACAAQAAAD5/wYAAQALAAMAAAD5/wcAAQALAAQAAAD5/wgAAQALAAQAAAD6//f/AQAOAAMAAAD6//r/AAAGAAAAAAD6//v/AAABABIAABD6//z/AAAGAAEAAAD6//3/AAAJAAIAAAD6//7/AAAGAAEAAAD6////AAAJAAIAAAD6/wAAAAAIAAAAAAD6/wEAAAAHAAIAAAD6/wIAAAACAAQAAAD6/wMAAAACAAQAAAD6/wQAAAAEAAMAAAD6/wYAAQALAAMAAAD6/wcAAQALAAQAAAD6/wgAAQALAAQAAAD7//f/AQALAAQAAAD7//r/AAAGAAAAAAD7//v/AAAGAAEAAAD7//z/AAAGAAEAAAD7//3/AAAGAAEAAAD7//7/AAAGAAEAAAD7////AAAIAAAAAAD7/wAAAAAHAAIAAAD7/wEAAAACAAQAAAD7/wIAAAACAAQAAAD7/wMAAAACAAQAAAD7/wQAAQACAAYAAAD7/wYAAQAOAAQAAAD7/wcAAQALAAQAAAD7/wgAAQALAAQAAAD8//n/AQABAAMAAAD8//r/AAAGAAAAAAD8//v/AAAAABIAAAD8//z/AAAGAAEAAAD8//3/AAAIAAAAAAD8//7/AAAHAAEAAAD8////AAAHAAIAAAD8/wAAAAACAAQAAAD8/wEAAAACAAQAAAD8/wIAAAACAAQAAAD8/wMAAAACAAQAAAD8/wQAAQACAAYAAAD8/wYAAQANAAQAAAD8/wcAAQALAAQAAAD8/wgAAQALAAQAAAD9//n/AAAFAAQAAAD9//r/AAAHAAAAAAD9//v/AAAHAAEAAAD9//z/AAAHAAEAAAD9//3/AAAHAAIAAAD9//7/AAACAAQAAAD9////AAACAAQAAAD9/wAAAAACAAQAAAD9/wEAAAACAAQAAAD9/wIAAAACAAQAAAD9/wMAAAACAAQAAAD9/wQAAAAFAAMAAAD9/wYAAQALAAMAAAD9/wcAAQALAAQAAAD9/wgAAQALAAQAAAD+//n/AAACAAQAAAD+//r/AAACAAQAAAD+//v/AAACAAQAAAD+//z/AAACAAQAAAD+//3/AAACAAQAAAD+//7/AAACAAQAAAD+////AAACAAQAAAD+/wAAAAACAAQAAAD+/wEAAAACAAQAAAD+/wIAAAACAAQAAAD+/wMAAAACAAQAAAD+/wQAAAACAAQAAAD+/wYAAQALAAMAAAD+/wcAAQALAAQAAAD+/wgAAQALAAQAAAD///n/AAACAAQAAAD///r/AAACAAQAAAD///v/AAACAAUAAAD///z/AAAEAAMAAAD///3/AQADAAQAAAD///7/AQADAAQAAAD/////AAAEAAQAAAD//wAAAAACAAQAAAD//wEAAAACAAQAAAD//wIAAAACAAQAAAD//wMAAAACAAQAAAD//wQAAAACAAQAAAD//wYAAQALAAMAAAD//wcAAQALAAQAAAD//wgAAQALAAQAAAAAAPn/AAAEAAQAAAAAAPr/AAACAAQAAAAAAPv/AAACAAUAAAAAAPz/AQABAAYAAAAAAP3/AQAKAAMAAAAAAP7/AQAKAAUAAAAAAP//AQADAAMAAAAAAAAAAAAEAAQAAAAAAAEAAAACAAQAAAAAAAIAAAACAAQAAAAAAAMAAAACAAQAAAAAAAQAAAACAAQAAAAAAAUAAQABAAYAAAAAAAYAAQALAAMAAAAAAAcAAQALAAQAAAAAAAgAAQALAAQAAAABAPn/AQADAAMAAAABAPr/AAAEAAQAAAABAPv/AAACAAUAAAABAPz/AQABAAYAAAABAP3/AQALAAMAAAABAP7/AQALAAQAAAABAP//AQAKAAUAAAABAAAAAQADAAMAAAABAAEAAAACAAQAAAABAAIAAAACAAQAAAABAAMAAAACAAQAAAABAAQAAAACAAQAAAABAAUAAQABAAYAAAABAAYAAQALAAMAAAABAAcAAQALAAQAAAABAAgAAQALAAQAAAACAPr/AQABAAMAAAACAPv/AAACAAUAAAACAPz/AQABAAYAAAACAP3/AQAMAAMAAAACAP7/AQANAAQAAAACAP//AQAOAAMAAAACAAAAAQAKAAUAAAACAAEAAQADAAMAAAACAAIAAAAEAAQAAAACAAMAAAACAAQAAAACAAQAAAACAAQAAAACAAUAAQABAAYAAAACAAYAAQALAAMAAAACAAcAAQALAAQAAAACAAgAAQALAAQAAAADAPf/AQANAAMAAAADAPr/AQABAAMAAAADAPv/AAACAAQAAAADAPz/AAAFAAMAAAADAP3/AQAAAAYAAAADAP7/AQAMAAMAAAADAP//AQANAAQAAAADAAAAAQAOAAMAAAADAAEAAQAKAAUAAAADAAIAAQADAAMAAAADAAMAAAAEAAQAAAADAAQAAAACAAQAAAADAAYAAQALAAMAAAADAAcAAQALAAQAAAADAAgAAQALAAQAAAAEAPf/AQALAAUAAAAEAPr/AAAFAAQAAAAEAPv/AAACAAQAAAAEAPz/AAACAAQAAAAEAP3/AAAFAAMAAAAEAP7/AQAAAAYAAAAEAP//AQAMAAMAAAAEAAAAAQANAAQAAAAEAAEAAQAOAAMAAAAEAAIAAQAKAAUAAAAEAAMAAQACAAMAAAAEAAYAAQALAAMAAAAEAAcAAQALAAQAAAAEAAgAAQALAAQAAAAFAPf/AQALAAUAAAAFAPv/AAACAAQAAAAFAPz/AAACAAQAAAAFAP3/AQADABAAABAFAP7/AQADABEAABAFAP//AQAAAAYAAAAFAAAAAQAMAAMAAAAFAAEAAQAMAAQAAAAFAAIAAQAMAAUAAAAFAAYAAQALAAMAAAAFAAcAAQALAAQAAAAFAAgAAQALAAQAAAAGAPf/AQALAAUAAAAGAP3/AQACABAAABAGAP7/AQACABEAABAGAP//AAAFAAMAAAAGAAAAAQAAAAUAAAAGAAEAAQAAAAUAAAAGAAYAAQALAAMAAAAGAAcAAQALAAQAAAAGAAgAAQALAAQAAAAHAPf/AQALAAUAAAAHAAYAAQALAAMAAAAHAAcAAQALAAQAAAAHAAgAAQALAAQAAAAIAPf/AQALAAUAAAAIAAYAAQALAAMAAAAIAAcAAQALAAQAAAAIAAgAAQALAAQAAAAJAPf/AQAOAAMAAAAJAAYAAQALAAMAAAAJAAcAAQALAAQAAAAJAAgAAQALAAQAAAAKAPf/AQALAAQAAAAKAAYAAQALAAMAAAAKAAcAAQALAAQAAAAKAAgAAQALAAQAAAALAPf/AQALAAQAAAALAAYAAQALAAMAAAALAAcAAQALAAQAAAALAAgAAQALAAQAAAAMAPf/AQALAAQAAAAMAAYAAQALAAMAAAAMAAcAAQALAAQAAAAMAAgAAQALAAQAAAANAPf/AQALAAQAAAANAPr/AQALAAQAAAANAPv/AQALAAQAAAANAPz/AQALAAQAAAANAP3/AQALAAQAAAANAP7/AQALAAQAAAANAP//AQALAAQAAAANAAAAAQAOAAMAAAANAAEAAQAKAAUAAAANAAIAAQADAAMAAAANAAMAAQADAAUAAAANAAQAAQADAAUAAAANAAUAAQADAAYAAAANAAYAAQALAAMAAAANAAcAAQALAAQAAAANAAgAAQALAAQAAAAOAPf/AQALAAQAAAAOAPr/AQALAAQAAAAOAPv/AQALAAQAAAAOAPz/AQALAAQAAAAOAP3/AQALAAQAAAAOAP7/AQALAAQAAAAOAP//AQALAAQAAAAOAAAAAQALAAQAAAAOAAEAAQAOAAMAAAAOAAIAAQAKAAQAAAAOAAMAAQAKAAQAAAAOAAQAAQAKAAQAAAAOAAUAAQAKAAQAAAAOAAYAAQAOAAQAAAAOAAcAAQALAAQAAAAOAAgAAQALAAQAAAAPAPf/AQALAAQAAAAPAPj/AQALAAQAAAAPAPn/AQALAAQAAAAPAPr/AQALAAQAAAAPAPv/AQALAAQAAAAPAPz/AQALAAQAAAAPAP3/AQALAAQAAAAPAP7/AQALAAQAAAAPAP//AQALAAQAAAAPAAAAAQALAAQAAAAPAAEAAQALAAQAAAAPAAIAAQALAAQAAAAPAAMAAQALAAQAAAAPAAQAAQALAAQAAAAPAAUAAQALAAQAAAAPAAYAAQALAAQAAAAPAAcAAQALAAQAAAAPAAgAAQALAAQAAAACAPj/AQAOAAMAAAACAPn/AQAKAAUAAAAFAPj/AQABAAMAAAAFAPn/AAACAAQAAAAFAPr/AAACAAQAAAAGAPj/AQABAAMAAAAGAPn/AAACAAQAAAAGAPr/AAACAAQAAAAGAPv/AAACAAQAAAAGAPz/AAACAAQAAAD7//j/AQALAAUAAAD7//n/AQACAAMAAAD8//j/AQAMAAUAAAABAPj/AQAKAAUAAAD9//j/AQAAAAMAAAD+//j/AQABAAMAAAD///j/AQABAAMAAAAAAPj/AQADAAMAAAD5//j/AQADAAMAAAD5//n/AAAEAAQAAAD5//r/AAAGAAAAAAD4//j/AQABAAMAAAD4//n/AAAHAAAAAAD4//r/AAAIAAEAAAD4//v/AAAGAAEAAAD4//z/AQADAA8AAAD9//f/AQALAAUAAAD+//f/AQALAAUAAAD8//f/AQANAAMAAAD///f/AQALAAUAAAD6//j/AQAKAAUAAAD6//n/AQABAAMAAAADAPj/AQAMAAQAAAADAPn/AQAMAAUAAAAEAPj/AQAAAAMAAAAEAPn/AQAAAAQAAAD2//j/AQABAAMAAAD2//n/AAAFAAAAAAD2//r/AAAJAAEAAAD2//v/AAAGAAEAAAD2//z/AAAAABIAABD2//3/AAAGAAEAAAD2/wEAAAAGAAIAAAD2/wIAAAACAAQAAAD2/wMAAAACAAQAAAD2/wQAAAACAAQAAAD2/wUAAQACAAYAAAD3//j/AQABAAMAAAD3//n/AAAGAAAAAAD3//r/AAAAABIAAAD3//v/AAAAABIAAAD3//z/AAAGAAEAAAD3//3/AQADAA8AAAD3//7/AAAGAAEAAAD3////AQADAA8AAAD3/wAAAAABABIAAAD3/wEAAAAJAAAAAAD3/wIAAAAFAAEAAAD3/wMAAAAFAAEAAAD3/wQAAAAFAAIAAAD3/wUAAQACAAYAAAD4/wIAAAAHAAEAAAD4/wMAAAAHAAEAAAD4/wQAAAAHAAIAAAD4/wUAAQACAAYAAAD5/wQAAAACAAQAAAD5/wUAAQACAAYAAAD6/wUAAQADAAYAAAD7/wUAAQAKAAMAAAD8/wUAAQAMAAMAAAD9/wUAAQAAAAYAAAD+/wUAAQABAAYAAAD//wUAAQABAAYAAAADAAUAAQABAAYAAAAEAAUAAQABAAYAAAAFAAUAAQABAAYAAAAGAAUAAQABAAYAAAAHAAUAAQABAAYAAAAIAAUAAQABAAYAAAAJAAUAAQABAAYAAAAKAAUAAQABAAYAAAALAAUAAQABAAYAAAAMAAUAAQABAAYAAAAHAPv/AAACAAQAAAAHAPz/AAACAAQAAAAHAP3/AAACAAQAAAAHAP7/AAACAAQAAAAHAP//AAACAAQAAAAHAAAAAAACAAQAAAAHAAEAAAACAAUAAAAHAAIAAAACAAUAAAAHAAMAAAACAAUAAAAHAAQAAAACAAUAAAAIAPv/AAACAAQAAAAIAPz/AAACAAQAAAAIAP3/AAACAAQAAAAIAP7/AAACAAQAAAAIAP//AAABAAQAAAAIAAAAAAABAAQAAAAIAAEAAAABAAQAAAAIAAIAAAABAAQAAAAIAAMAAAABAAQAAAAIAAQAAAACAAUAAAAJAPv/AAACAAQAAAAJAPz/AAACAAQAAAAJAP3/AAACAAQAAAAJAP7/AAACAAQAAAAJAP//AAABAAQAAAAJAAAAAAABAAQAAAAJAAEAAAABAAQAAAAJAAIAAAABAAQAAAAJAAMAAAABAAQAAAAJAAQAAAACAAUAAAAKAPv/AAACAAQAAAAKAPz/AAACAAQAAAAKAP3/AAAEAAMAAAAKAP7/AQADAAUAAAAKAP//AQADAAQAAAAKAAAAAQADAAQAAAAKAAEAAAAEAAQAAAAKAAIAAAABAAQAAAAKAAMAAAACAAUAAAAKAAQAAAACAAUAAAALAPv/AQADAAUAAAALAPz/AQADAAUAAAALAP3/AQADAAYAAAALAP7/AQAKAAMAAAALAP//AQAKAAQAAAALAAAAAQAKAAUAAAALAAEAAQACAAMAAAALAAIAAAABAAQAAAALAAMAAAACAAUAAAALAAQAAAACAAUAAAAMAPv/AQAKAAQAAAAMAPz/AQAKAAQAAAAMAP3/AQAKAAQAAAAMAP7/AQAOAAQAAAAMAP//AQALAAQAAAAMAAAAAQALAAUAAAAMAAEAAQADAAMAAAAMAAIAAAAEAAQAAAAMAAMAAAACAAUAAAAMAAQAAAACAAUAAAAFAAMAAQACAAMAAAAFAAQAAAACAAUAAAAGAAMAAAAFAAQAAAAGAAQAAAACAAUAAAAEAAQAAAACAAUAAAAGAAIAAQAAAAUAAAAHAPj/AQACAAMAAAAHAPn/AAACAAQAAAAHAPr/AAACAAQAAAAIAPj/AQADAAMAAAAIAPn/AAAEAAQAAAAIAPr/AAACAAQAAAAJAPj/AQAKAAUAAAAJAPn/AQACAAMAAAAJAPr/AAACAAQAAAAKAPj/AQALAAUAAAAKAPn/AQADAAMAAAAKAPr/AAAEAAQAAAALAPj/AQAOAAMAAAALAPn/AQAKAAUAAAALAPr/AQADAAMAAAAMAPj/AQALAAQAAAAMAPn/AQAOAAMAAAAMAPr/AQAKAAQAAAANAPj/AQALAAQAAAANAPn/AQALAAQAAAAOAPj/AQALAAQAAAAOAPn/AQALAAQAAAAAAPf/AQALAAUAAAABAPf/AQAOAAMAAAACAPf/AQALAAQAAAD2/wAAAAAIAAIAAAD2////AAAJAAIAAAD2//7/AAAAABIAAAA=")
+tile_set = SubResource("TileSet_xdb4t")
+
+[node name="Map2" type="TileMapLayer" parent="GameBoard"]
+z_index = 1
+tile_map_data = PackedByteArray("AAD3//r/AAAGAAEAAAD3//v/AAAGAAEAAAD3//z/AAAGAAEAAAD4//r/AAAGAAEAAAD4//v/AAAGAAEAAAD4//z/AAAGAAEAAAD5//r/AAAGAAEAAAD5//v/AAAGAAEAAAD5//z/AAAGAAEAAAD6//r/AAAGAAEAAAD6//v/AAAGAAEAAAD6//z/AAAGAAEAAAD7//r/AAAGAAEAAAD7//v/AAAGAAEAAAD7//z/AAAGAAEAAAD8//r/AAAGAAEAAAD8//v/AAAGAAEAAAD8//z/AAAGAAEAAAD2//v/AAAGAAEAAAD2//z/AAAGAAEAAAD2//3/AAAGAAEAAAD2//7/AAAGAAEAAAD2////AAAGAAEAAAD2/wAAAAAGAAEAAAD3/wAAAAAGAAEAAAD4/wAAAAAGAAEAAAD5/wAAAAAGAAEAAAD3//3/AAAGAAEAAAD3//7/AAAGAAEAAAD3////AAAGAAEAAAD4//3/AAAGAAEAAAD4//7/AAAGAAEAAAD4////AAAGAAEAAAD5//3/AAAGAAEAAAD5//7/AAAGAAEAAAD5////AAAGAAEAAAD6//3/AAAGAAEAAAD6//7/AAAGAAEAAAD6////AAAGAAEAAAD7//3/AAAGAAEAAAD7//7/AAAGAAEAAAD1//3/AAAGAAEAAAD1//7/AAAGAAEAAAD1////AAAGAAEAAAD1/wAAAAAGAAEAAAD8/wEAAAABAAQAAAD8/wIAAAABAAQAAAD8/wMAAAABAAQAAAD9/wEAAAABAAQAAAD9/wIAAAABAAQAAAD9/wMAAAABAAQAAAD+/wEAAAABAAQAAAD+/wIAAAABAAQAAAD+/wMAAAABAAQAAAD//wEAAAABAAQAAAD//wIAAAABAAQAAAD//wMAAAABAAQAAAAAAAEAAAABAAQAAAAAAAIAAAABAAQAAAAAAAMAAAABAAQAAAAGAPr/AAABAAQAAAAGAPv/AAABAAQAAAAGAPz/AAABAAQAAAAGAP3/AAABAAQAAAAGAP7/AAABAAQAAAAHAPr/AAABAAQAAAAHAPv/AAABAAQAAAAHAPz/AAABAAQAAAAHAP3/AAABAAQAAAAHAP7/AAABAAQAAAAIAPr/AAABAAQAAAAIAPv/AAABAAQAAAAIAPz/AAABAAQAAAAIAP3/AAABAAQAAAAIAP7/AAABAAQAAAAJAPr/AAABAAQAAAAJAPv/AAABAAQAAAAJAPz/AAABAAQAAAAJAP3/AAABAAQAAAAJAP7/AAABAAQAAAAFAPr/AAABAAQAAAAFAPv/AAABAAQAAAAFAPz/AAABAAQAAAAFAP3/AAABAAQAAAAFAP7/AAAFAAMAAAD0/wAAAAAFAAEAAAA=")
+tile_set = SubResource("TileSet_xdb4t")
+
+[node name="UnitOverlay" type="TileMapLayer" parent="GameBoard"]
+z_index = 4
+tile_set = SubResource("TileSet_7516k")
+
+[node name="UnitPath" type="TileMapLayer" parent="GameBoard"]
+z_index = 3
+tile_set = SubResource("TileSet_5mwj0")
+script = ExtResource("18_yx32o")
+
+[node name="EnemyRangeOverlay" type="TileMapLayer" parent="GameBoard"]
+z_index = 6
+tile_set = SubResource("TileSet_4gt1h")
+script = ExtResource("34_4ikqf")
+
+[node name="Units" type="Node" parent="GameBoard"]
+script = ExtResource("35_nphqw")
+
+[node name="Unit" parent="GameBoard/Units" instance=ExtResource("36_idngj")]
+z_index = 5
+unit_name = "Bob"
+x_coord = 6
+y_coord = 4
+max_hp = 1000
+defense = 0
+move_range = 7
+
+[node name="Dmg" parent="GameBoard/Units/Unit/PathFollow2D" index="3"]
+offset_left = -8.0
+offset_top = 8.0
+offset_right = 7.0
+offset_bottom = 31.0
+
+[node name="Unit3" parent="GameBoard/Units" instance=ExtResource("36_idngj")]
+z_index = 5
+unit_name = "Bob 2"
+x_coord = 22
+y_coord = 5
+dmg = 4
+defense = 4
+
+[node name="Unit2" parent="GameBoard/Units" instance=ExtResource("36_idngj")]
+z_index = 5
+is_enemy = true
+unit_name = "Bab"
+x_coord = 6
+y_coord = 13
+dmg = 2
+defense = 0
+
+[node name="Dmg" parent="GameBoard/Units/Unit2/PathFollow2D" index="3"]
+offset_left = -8.0
+offset_top = 8.0
+offset_right = 7.0
+offset_bottom = 31.0
+
+[node name="Unit4" parent="GameBoard/Units" instance=ExtResource("36_idngj")]
+z_index = 5
+is_enemy = true
+unit_name = "Amadeus"
+x_coord = 25
+y_coord = 12
+defense = 7
+
+[node name="Unit5" parent="GameBoard/Units" instance=ExtResource("36_idngj")]
+z_index = 5
+is_enemy = true
+unit_name = "Sabrina"
+x_coord = 14
+y_coord = 8
+dmg = 5
+defense = 55
+
+[node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
+z_index = 8
+sprite_frames = SubResource("SpriteFrames_kfbps")
+autoplay = "default"
+frame_progress = 0.149173
+script = ExtResource("39_8ycbh")
+start_x = 15
+start_y = 8
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("40_wyhfi")
+
+[node name="InventoryManager" type="Node" parent="."]
+script = ExtResource("41_eump8")
+
+[connection signal="show_attack_ui" from="UI/ActionSelect" to="UI/AttackUI" method="_on_show_attack_ui"]
+[connection signal="cancel_attack" from="UI/AttackUI" to="UI/ActionSelect" method="_on_cancel_attack"]
+[connection signal="confirm_attack" from="UI/AttackUI" to="UI/ActionSelect" method="_on_attack_confirmed"]
+[connection signal="matrix_ready" from="GameBoard" to="GameBoard/Units" method="_on_game_board_matrix_ready"]
+[connection signal="matrix_ready" from="GameBoard" to="GameBoard/Cursor" method="_on_game_board_matrix_ready"]
+[connection signal="ai_move_done" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_ai_move_done"]
+[connection signal="ai_move_done" from="GameBoard/Units" to="GameManager" method="_on_units_ai_move_done"]
+[connection signal="all_units_moved" from="GameBoard/Units" to="GameManager" method="_on_units_all_units_moved"]
+[connection signal="path_completed" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_path_completed"]
+[connection signal="reset_info" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_reset_info"]
+[connection signal="show_attack_ui" from="GameBoard/Units" to="UI/AttackUI" method="_on_show_attack_ui"]
+[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
+[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
+[connection signal="remove_hovered_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_hovered_info"]
+[connection signal="remove_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_info"]
+[connection signal="show_actions" from="GameBoard/Cursor" to="UI/ActionSelect" method="_on_cursor_show_actions"]
+[connection signal="show_hovered_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_show_hovered_info"]
+[connection signal="show_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_show_info"]
+[connection signal="enemy_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_enemy_turn"]
+[connection signal="new_turn" from="GameManager" to="GameBoard/Units" method="_on_game_manager_new_turn"]
+[connection signal="player_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_player_turn"]
+
+[editable path="GameBoard/Units/Unit"]
+[editable path="GameBoard/Units/Unit2"]
