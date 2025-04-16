@@ -34,10 +34,13 @@ func _process(delta: float) -> void:
 	execute_movement(delta)
 
 func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
+	## Prefabs werden geholt
 	var prefab = preload("res://scenes/unit.tscn")
 	var prefab_sprite = preload("res://scenes/CharacterDisplayScene.tscn")
 	var sprite = prefab_sprite.instantiate()
 	var new_unit = prefab.instantiate()
+	
+	## Eigenschaften der Einheit werden gesetzt
 	new_unit.id = unit_id
 	new_unit.max_hp = 100
 	new_unit.hp = hp
@@ -46,12 +49,22 @@ func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	new_unit.x_coord = x
 	new_unit.y_coord = y
 	new_unit.unit_name = unit_name
-	sprite.apply_scale(Vector2(0.5,0.5))
+	
+	## Einheit wird mit Sprite hinzugefügt
 	add_child(new_unit)
+	sprite.apply_scale(Vector2(0.4,0.4))
 	new_unit.path_follow.add_child(sprite)
 	new_unit.remove_sprite()
 	print("LOAD CHARACTER: ", unit_id)
 	sprite.LoadCharacter(unit_id)
+	sprite.position -= Vector2(8,8)
+	
+	## Funktioniert nicht
+	#var sprite_components = sprite.get_children()
+	#for sprite_component in sprite_components:
+	#	sprite_component.set_anchors_preset(Control.LayoutPreset.PRESET_CENTER)
+	
+	## Einheiten werden aktualisiert
 	get_units()
 	update_unit_grids(base_grid)
 
