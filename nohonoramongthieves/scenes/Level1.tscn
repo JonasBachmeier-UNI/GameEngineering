@@ -378,14 +378,15 @@ unit_name = "Bob"
 x_coord = 15
 y_coord = 5
 max_hp = 1000
-defense = 0
+dmg = 10
+defense = 4
 move_range = 7
 
 [node name="Unit3" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 unit_name = "Bob 2"
 x_coord = 5
 y_coord = 6
-dmg = 4
+dmg = 10
 defense = 4
 
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
@@ -393,6 +394,7 @@ is_enemy = true
 unit_name = "Bab"
 x_coord = 8
 y_coord = 5
+max_hp = 1
 dmg = 2
 defense = 0
 
@@ -401,15 +403,17 @@ is_enemy = true
 unit_name = "Amadeus"
 x_coord = 8
 y_coord = 7
-defense = 7
+max_hp = 1
+defense = 0
 
 [node name="Unit5" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 is_enemy = true
 unit_name = "Sabrina"
 x_coord = 8
 y_coord = 6
+max_hp = 1
 dmg = 5
-defense = 55
+defense = 0
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 sprite_frames = SubResource("SpriteFrames_kfbps")

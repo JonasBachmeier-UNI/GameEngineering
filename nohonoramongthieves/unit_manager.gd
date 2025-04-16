@@ -264,6 +264,7 @@ func check_one_side_empty():
 			allies.append(unit)
 	
 	if enemies.is_empty():
+		$"../../../SceneManager".NextScene()
 		print("PLAYER WON")
 	
 	elif allies.is_empty():
