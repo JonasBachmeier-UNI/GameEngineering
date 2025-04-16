@@ -90,7 +90,7 @@ func on_death():
 
 
 func remove_sprite():
-	path_follow.remove_child(sprite)
+	sprite.queue_free()
 
 
 func on_game_board_matrix_ready(value: Variant) -> void:
