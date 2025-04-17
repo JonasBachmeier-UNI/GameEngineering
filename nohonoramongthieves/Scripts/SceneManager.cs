@@ -120,7 +120,21 @@ public partial class SceneManager : Node
 		return -1;
 	}
 
-	private void LoadScene(string scenePath)
+	public int GetCurrentLevelId()
+    {
+        string currentPath = scenePaths[_currentSceneIndex];
+        if (currentPath.StartsWith("res://scenes/level") && currentPath.EndsWith(".tscn"))
+        {
+            string levelIdStr = currentPath.Split("level")[1].Split(".tscn")[0];
+            if (int.TryParse(levelIdStr, out int levelId))
+            {
+                return levelId;
+            }
+        }
+        return -1;
+    }
+
+    private void LoadScene(string scenePath)
 	{
 		if (string.IsNullOrEmpty(scenePath))
 		{

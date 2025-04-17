@@ -115,7 +115,6 @@ func unit_move_check_routine():
 				emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, x_pos, y_pos, false, true)
 			return
 	if Input.is_action_just_pressed("ui_select"):
-		print("test")
 		emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, x_pos, y_pos, false, false, false, true)
 
 
@@ -163,8 +162,6 @@ func update_units():
 			my_units.append(unit)
 
 func get_hovered_unit():
-	print(x_pos)
-	print(y_pos)
 	for unit in all_units:
 		if unit.x_coord == x_pos and unit.y_coord == y_pos:
 			return unit
@@ -177,7 +174,7 @@ func hovering_check():
 	can_select_enemy = false
 	hovering_on_selected = false
 	help_path = false
-	
+	#print("X: ",x_pos, " Y: ", y_pos)
 	if !did_select_unit:
 		overlay.clear()
 	
