@@ -516,60 +516,54 @@ script = ExtResource("34_on40b")
 [node name="Units" type="Node" parent="GameBoard"]
 script = ExtResource("35_nyy2c")
 
-[node name="Unit" parent="GameBoard/Units" instance=ExtResource("36_sqi25")]
-z_index = 5
-unit_name = "Bob"
-x_coord = 11
-y_coord = 5
-max_hp = 1000
-defense = 0
-move_range = 7
-
-[node name="Dmg" parent="GameBoard/Units/Unit/PathFollow2D" index="3"]
-offset_left = -8.0
-offset_top = 8.0
-offset_right = 7.0
-offset_bottom = 31.0
-
-[node name="Unit3" parent="GameBoard/Units" instance=ExtResource("36_sqi25")]
-z_index = 5
-unit_name = "Bob 2"
-x_coord = 15
-y_coord = 11
-dmg = 4
-defense = 4
-
-[node name="Unit2" parent="GameBoard/Units" instance=ExtResource("36_sqi25")]
+[node name="Enemy" parent="GameBoard/Units" instance=ExtResource("36_sqi25")]
 z_index = 5
 is_enemy = true
-unit_name = "Bab"
-x_coord = 12
-y_coord = 12
-dmg = 2
-defense = 0
-
-[node name="Dmg" parent="GameBoard/Units/Unit2/PathFollow2D" index="3"]
-offset_left = -8.0
-offset_top = 8.0
-offset_right = 7.0
-offset_bottom = 31.0
-
-[node name="Unit4" parent="GameBoard/Units" instance=ExtResource("36_sqi25")]
-z_index = 5
-is_enemy = true
-unit_name = "Amadeus"
-x_coord = 20
-y_coord = 7
-defense = 7
-
-[node name="Unit5" parent="GameBoard/Units" instance=ExtResource("36_sqi25")]
-z_index = 5
-is_enemy = true
-unit_name = "Sabrina"
+unit_name = "Skeleton 1"
 x_coord = 14
 y_coord = 8
-dmg = 5
-defense = 55
+max_hp = 35
+dmg = 4
+defense = 2
+
+[node name="Dmg" parent="GameBoard/Units/Enemy/PathFollow2D" index="3"]
+offset_left = -8.0
+offset_top = 8.0
+offset_right = 7.0
+offset_bottom = 31.0
+
+[node name="Enemy2" parent="GameBoard/Units" instance=ExtResource("36_sqi25")]
+z_index = 5
+is_enemy = true
+unit_name = "Skeleton 1"
+x_coord = 17
+y_coord = 9
+max_hp = 12
+dmg = 6
+move_range = 9
+
+[node name="Dmg" parent="GameBoard/Units/Enemy2/PathFollow2D" index="3"]
+offset_left = -8.0
+offset_top = 8.0
+offset_right = 7.0
+offset_bottom = 31.0
+
+[node name="Enemy3" parent="GameBoard/Units" instance=ExtResource("36_sqi25")]
+z_index = 5
+is_enemy = true
+unit_name = "Skeleton 1"
+x_coord = 10
+y_coord = 4
+max_hp = 24
+dmg = 1
+defense = 3
+move_range = 5
+
+[node name="Dmg" parent="GameBoard/Units/Enemy3/PathFollow2D" index="3"]
+offset_left = -8.0
+offset_top = 8.0
+offset_right = 7.0
+offset_bottom = 31.0
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 z_index = 8
@@ -608,5 +602,6 @@ script = ExtResource("41_1okuy")
 [connection signal="new_turn" from="GameManager" to="GameBoard/Units" method="_on_game_manager_new_turn"]
 [connection signal="player_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_player_turn"]
 
-[editable path="GameBoard/Units/Unit"]
-[editable path="GameBoard/Units/Unit2"]
+[editable path="GameBoard/Units/Enemy"]
+[editable path="GameBoard/Units/Enemy2"]
+[editable path="GameBoard/Units/Enemy3"]

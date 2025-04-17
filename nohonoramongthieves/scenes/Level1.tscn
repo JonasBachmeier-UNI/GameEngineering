@@ -383,34 +383,71 @@ defense = 4
 move_range = 7
 
 [node name="Unit3" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
-unit_name = "Bob 2"
-x_coord = 5
+is_enemy = true
+unit_name = "Skeleton 1"
+x_coord = 11
 y_coord = 6
 dmg = 10
 defense = 4
 
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 is_enemy = true
-unit_name = "Bab"
-x_coord = 8
-y_coord = 5
+unit_name = "Skeleton 2"
+x_coord = 12
+y_coord = 7
 max_hp = 1
 dmg = 2
 defense = 0
 
 [node name="Unit4" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 is_enemy = true
-unit_name = "Amadeus"
-x_coord = 8
-y_coord = 7
+unit_name = "Skeleton 3"
+x_coord = 20
+y_coord = 11
 max_hp = 1
 defense = 0
 
 [node name="Unit5" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 is_enemy = true
-unit_name = "Sabrina"
+unit_name = "Skeleton 4 "
+x_coord = 18
+y_coord = 12
+max_hp = 1
+dmg = 5
+defense = 0
+
+[node name="Unit6" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
+is_enemy = true
+unit_name = "Skeleton 5"
+x_coord = 18
+y_coord = 5
+max_hp = 1
+dmg = 5
+defense = 0
+
+[node name="Unit7" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
+is_enemy = true
+unit_name = "Skeleton 6"
+x_coord = 28
+y_coord = 4
+max_hp = 1
+dmg = 5
+defense = 0
+
+[node name="Unit8" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
+is_enemy = true
+unit_name = "Skeleton 7"
 x_coord = 8
-y_coord = 6
+y_coord = 11
+max_hp = 1
+dmg = 5
+defense = 0
+
+[node name="Unit9" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
+is_enemy = true
+unit_name = "Skeleton 8"
+x_coord = 25
+y_coord = 13
 max_hp = 1
 dmg = 5
 defense = 0
