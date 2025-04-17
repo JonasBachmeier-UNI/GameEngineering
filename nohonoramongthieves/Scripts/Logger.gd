@@ -1,28 +1,44 @@
 extends Node
 
-var time
+var time = Time.get_ticks_msec()
+const ID_PLACEHOLDER = 69
+
+## Format: Zeit, Event, unit1, unit2
+
 
 func get_time():
-	time = Time.get_unix_time_from_system()
+	return Time.get_ticks_msec()
+
+func make_line(event, uid1, uid2):
+	get_time()
+	var line = str(get_time()) + "," + event + "," + str(uid1) + "," + str(uid2) + "\n"
+	var f = FileAccess.open("res://Logs/logs.txt", FileAccess.READ_WRITE)
+	f.seek_end()
+	f.store_string(line)
+	f.close()
 
 func on_select_unit(unit):
-	get_time()
 	var unit_id = unit.unit_id
+	make_line("Unit Selected", unit_id, ID_PLACEHOLDER)
 
 func on_attack(attacker, defender, damage):
-	get_time()
+	var attacker_id = attacker.unit_id
+	var defender_id = defender.unit_id
+	make_line("Attack", attacker_id, defender_id)
 
-func on_unit_death(unit):
-	get_time()
+func on_unit_death(attacker, defender):
+	var attacker_id = attacker.unit_id
+	var defender_id = defender.unit_id
+	make_line("Kill", attacker_id, defender_id)
 
 func on_attack_selected(unit):
-	get_time()
 	var unit_id = unit.unit_id
+	make_line("Attack Selected", unit_id, ID_PLACEHOLDER)
 
 func on_wait_selected(unit):
-	get_time()
 	var unit_id = unit.unit_id
+	make_line("Wait Selected", unit_id, ID_PLACEHOLDER)
 
 func on_move_selected(unit):
-	get_time()
 	var unit_id = unit.unit_id
+	make_line("Move Selected", unit_id, ID_PLACEHOLDER)

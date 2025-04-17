@@ -24,6 +24,7 @@ config/icon="res://icon.svg"
 
 SceneManager="*res://Scripts/SceneManager.cs"
 GlobalCharacter="*res://Scripts/GlobalCharacterManager.cs"
+Logger="*res://Scripts/Logger.gd"
 
 [debug]
 
