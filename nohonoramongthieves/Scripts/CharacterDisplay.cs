@@ -4,6 +4,11 @@ public partial class CharacterDisplay : Node2D
 {
 	[Export] public int CharacterIndex = 0; // Character slot index
 	private TextureRect headSprite, bodySprite, topSprite;
+	
+	private float breathTime = 0f;
+	private float breathAmplitude = 1.5f;
+	private float breathSpeed = 1.0f; 
+	private Vector2 headBasePos, bodyBasePos, topBasePos;
 
 	public override void _Ready()
 	{
@@ -15,11 +20,29 @@ public partial class CharacterDisplay : Node2D
 		// Load the character from GlobalCharacterManager
 		LoadCharacter(CharacterIndex);
 		
-		GD.Print("Available Nodes: ");
 		foreach (Node child in GetChildren())
 		{
 			GD.Print(child.Name);
 		}
+
+		headBasePos = headSprite.Position;
+		bodyBasePos = bodySprite.Position;
+		topBasePos = topSprite.Position;
+	}
+	
+	public override void _Process(double delta)
+	{
+		if (headSprite == null || topSprite == null)
+			return;
+
+		breathTime += (float)delta;
+
+		// Smooth downward breathing with sine wave (negative offset)
+		float offsetY = Mathf.Cos(breathTime * breathSpeed * Mathf.Tau) * breathAmplitude;
+
+		// Move Head and Top down (negative offset)
+		headSprite.Position = headBasePos + new Vector2(0, -offsetY);
+		topSprite.Position = topBasePos + new Vector2(0, -offsetY);
 	}
 
 	public void LoadCharacter(int index)

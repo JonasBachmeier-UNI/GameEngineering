@@ -34,17 +34,37 @@ func _process(delta: float) -> void:
 	execute_movement(delta)
 
 func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
+	## Prefabs werden geholt
 	var prefab = preload("res://scenes/unit.tscn")
+	var prefab_sprite = preload("res://scenes/CharacterDisplayScene.tscn")
+	var sprite = prefab_sprite.instantiate()
 	var new_unit = prefab.instantiate()
+	
+	## Eigenschaften der Einheit werden gesetzt
 	new_unit.id = unit_id
-	new_unit.max_hp = hp
+	new_unit.max_hp = 100
 	new_unit.hp = hp
 	new_unit.dmg = dmg
 	new_unit.defense = defense
 	new_unit.x_coord = x
 	new_unit.y_coord = y
 	new_unit.unit_name = unit_name
+	
+	## Einheit wird mit Sprite hinzugefügt
 	add_child(new_unit)
+	sprite.apply_scale(Vector2(0.4,0.4))
+	new_unit.path_follow.add_child(sprite)
+	new_unit.remove_sprite()
+	print("LOAD CHARACTER: ", unit_id)
+	sprite.LoadCharacter(unit_id)
+	sprite.position -= Vector2(8,8)
+	
+	## Funktioniert nicht
+	#var sprite_components = sprite.get_children()
+	#for sprite_component in sprite_components:
+	#	sprite_component.set_anchors_preset(Control.LayoutPreset.PRESET_CENTER)
+	
+	## Einheiten werden aktualisiert
 	get_units()
 	update_unit_grids(base_grid)
 
@@ -75,6 +95,14 @@ func update_unit_grids(grid):
 
 func _on_game_board_matrix_ready(value: Variant) -> void:
 	base_grid = value
+	var characters = GlobalCharacter.GetCharacters();
+	var s_pos = [[1,1],[3,3],[5,5],[2,4],[1,2],[3,4]]
+	var counter = 0
+	for character in characters:
+		print("ID: ", character["id"])
+		create_unit(character["id"], character["name"], character["health"], character["damage"], character["defense"], s_pos[counter][0], s_pos[counter][1])
+		counter += 1
+	get_units()
 	update_unit_grids(value)
 
 func create_astar():
