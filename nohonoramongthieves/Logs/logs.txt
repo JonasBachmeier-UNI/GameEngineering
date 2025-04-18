@@ -115,3 +115,10 @@
 22059,Ended Scenario: Malus,,,0
 22065,Started Scenario: Gewonnen,,,0
 22909,Ended Scenario: Gewonnen,,,0
+5748,Started Scenario: Malus,,,0
+6779,Selected in Scenario: ,5,,0
+7329,Ended Scenario: Malus,,,0
+5900,Started Scenario: Malus,,,0
+8483,Ended Scenario: Malus,,,0
+5587,Started Scenario: Malus,,,0
+6700,Ended Scenario: Malus,,,0
