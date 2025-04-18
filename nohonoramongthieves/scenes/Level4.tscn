@@ -35,7 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://dt50gvl0ynnq0" path="res://assets/EnemyRange/left_up_down_border.png" id="33_imaes"]
 [ext_resource type="Script" path="res://enemy_range_overlay.gd" id="34_on40b"]
 [ext_resource type="Script" path="res://unit_manager.gd" id="35_nyy2c"]
-[ext_resource type="PackedScene" uid="uid://1tu0ew23kxa2" path="res://scenes/unit.tscn" id="36_sqi25"]
+[ext_resource type="PackedScene" uid="uid://djbdtt3xecr6d" path="res://scenes/unit.tscn" id="36_sqi25"]
 [ext_resource type="Texture2D" uid="uid://dl7vtvav0ny0r" path="res://assets/highlighted/highlight_tile.png" id="37_jersa"]
 [ext_resource type="Texture2D" uid="uid://c6peupm1b2ju4" path="res://assets/highlighted/tile_highlighted_2.png" id="38_qntvx"]
 [ext_resource type="Script" path="res://Scripts/GameLogic/cursor.gd" id="39_kxldv"]
@@ -525,9 +525,15 @@ is_enemy = true
 unit_name = "Skeleton 1"
 x_coord = 14
 y_coord = 8
-max_hp = 35
-dmg = 4
+max_hp = 60
+dmg = 10
 defense = 2
+
+[node name="Dmg" parent="GameBoard/Units/Enemy/PathFollow2D" index="3"]
+offset_left = -8.0
+offset_top = 8.0
+offset_right = 7.0
+offset_bottom = 31.0
 
 [node name="Enemy2" parent="GameBoard/Units" instance=ExtResource("36_sqi25")]
 z_index = 5
@@ -539,16 +545,28 @@ max_hp = 12
 dmg = 6
 move_range = 9
 
+[node name="Dmg" parent="GameBoard/Units/Enemy2/PathFollow2D" index="3"]
+offset_left = -8.0
+offset_top = 8.0
+offset_right = 7.0
+offset_bottom = 31.0
+
 [node name="Enemy3" parent="GameBoard/Units" instance=ExtResource("36_sqi25")]
 z_index = 5
 is_enemy = true
 unit_name = "Skeleton 1"
 x_coord = 10
 y_coord = 4
-max_hp = 24
-dmg = 1
+max_hp = 25
+dmg = 8
 defense = 3
 move_range = 5
+
+[node name="Dmg" parent="GameBoard/Units/Enemy3/PathFollow2D" index="3"]
+offset_left = -8.0
+offset_top = 8.0
+offset_right = 7.0
+offset_bottom = 31.0
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 z_index = 8

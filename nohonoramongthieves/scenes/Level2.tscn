@@ -35,7 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://dt50gvl0ynnq0" path="res://assets/EnemyRange/left_up_down_border.png" id="33_fqn63"]
 [ext_resource type="Script" path="res://enemy_range_overlay.gd" id="34_b33ht"]
 [ext_resource type="Script" path="res://unit_manager.gd" id="35_ip3u3"]
-[ext_resource type="PackedScene" uid="uid://1tu0ew23kxa2" path="res://scenes/unit.tscn" id="36_bq6tj"]
+[ext_resource type="PackedScene" uid="uid://djbdtt3xecr6d" path="res://scenes/unit.tscn" id="36_bq6tj"]
 [ext_resource type="Texture2D" uid="uid://dl7vtvav0ny0r" path="res://assets/highlighted/highlight_tile.png" id="37_m42em"]
 [ext_resource type="Texture2D" uid="uid://c6peupm1b2ju4" path="res://assets/highlighted/tile_highlighted_2.png" id="38_n4lyk"]
 [ext_resource type="Script" path="res://Scripts/GameLogic/cursor.gd" id="39_pu22f"]
