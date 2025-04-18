@@ -135,3 +135,13 @@
 4364,##### Participant started the game. ID: 1,,,0
 8414,Unit Selected,5,,0
 12795,Attack,5,-1,1
+4247,##### Participant started the game. ID: 2,,,0
+6848,Unit Selected,3,,0
+3567,##### Participant started the game. ID: 1,,,0
+6118,Unit Selected,0,,0
+3842,##### Participant started the game. ID: 1,,,0
+7210,Unit Selected,5,,0
+17490,Attack,5,-1,1
+20940,Attack,-1,5,10
+22474,Attack,-1,5,2
+27924,Attack,-1,2,5

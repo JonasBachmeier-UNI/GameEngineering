@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://b63yit1cu4gvl"]
+[gd_scene load_steps=77 format=4 uid="uid://b63yit1cu4gvl"]
 
 [ext_resource type="PackedScene" uid="uid://db02ekgaf0l8q" path="res://scenes/UI/info_ui.tscn" id="1_ri0sl"]
 [ext_resource type="PackedScene" uid="uid://bqhpora7apbhh" path="res://scenes/UI/action_select.tscn" id="2_3wsfq"]
@@ -35,12 +35,13 @@
 [ext_resource type="Texture2D" uid="uid://dt50gvl0ynnq0" path="res://assets/EnemyRange/left_up_down_border.png" id="33_ptnvt"]
 [ext_resource type="Script" path="res://enemy_range_overlay.gd" id="34_6g86l"]
 [ext_resource type="Script" path="res://unit_manager.gd" id="35_vxw5w"]
-[ext_resource type="PackedScene" uid="uid://1tu0ew23kxa2" path="res://scenes/unit.tscn" id="36_yl23d"]
+[ext_resource type="PackedScene" uid="uid://djbdtt3xecr6d" path="res://scenes/unit.tscn" id="36_yl23d"]
 [ext_resource type="Texture2D" uid="uid://dl7vtvav0ny0r" path="res://assets/highlighted/highlight_tile.png" id="37_ehna7"]
 [ext_resource type="Texture2D" uid="uid://c6peupm1b2ju4" path="res://assets/highlighted/tile_highlighted_2.png" id="38_4vwhg"]
 [ext_resource type="Script" path="res://Scripts/GameLogic/cursor.gd" id="39_gna2u"]
 [ext_resource type="Script" path="res://game_manager.gd" id="40_2f2f7"]
 [ext_resource type="Script" path="res://inventory_manager.gd" id="41_ijn5n"]
+[ext_resource type="AudioStream" uid="uid://duejapcg0l1fo" path="res://assets/Audio/ui_click_sound.ogg" id="42_2ityn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r7elo"]
 resource_name = "walkable"
@@ -392,12 +393,6 @@ max_hp = 1
 dmg = 2
 defense = 0
 
-[node name="Dmg" parent="GameBoard/Units/Enemy2/PathFollow2D" index="3"]
-offset_left = -8.0
-offset_top = 8.0
-offset_right = 7.0
-offset_bottom = 31.0
-
 [node name="Enemy3" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 is_enemy = true
 unit_name = "Skeleton 3"
@@ -465,6 +460,9 @@ script = ExtResource("40_2f2f7")
 [node name="InventoryManager" type="Node" parent="."]
 script = ExtResource("41_ijn5n")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("42_2ityn")
+
 [connection signal="close_attack_menu" from="UI/ActionSelect" to="UI/AttackUI" method="close_menu"]
 [connection signal="show_attack_ui" from="UI/ActionSelect" to="UI/AttackUI" method="_on_show_attack_ui"]
 [connection signal="cancel_attack" from="UI/AttackUI" to="UI/ActionSelect" method="_on_cancel_attack"]
@@ -477,8 +475,8 @@ script = ExtResource("41_ijn5n")
 [connection signal="path_completed" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_path_completed"]
 [connection signal="reset_info" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_reset_info"]
 [connection signal="show_attack_ui" from="GameBoard/Units" to="UI/AttackUI" method="_on_show_attack_ui"]
-[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
 [connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
+[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
 [connection signal="close_menus" from="GameBoard/Cursor" to="UI/ActionSelect" method="close_menu"]
 [connection signal="remove_hovered_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_hovered_info"]
 [connection signal="remove_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_info"]

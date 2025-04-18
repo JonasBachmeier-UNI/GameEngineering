@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://pxd1mgvil82v"]
+[gd_scene load_steps=5 format=3 uid="uid://pxd1mgvil82v"]
 
 [ext_resource type="Theme" uid="uid://d6to6rw8qtjb" path="res://themes/attack_menu_theme.tres" id="1_8vrvd"]
 [ext_resource type="Script" path="res://Scripts/UI/attack_ui.gd" id="2_50m02"]
 [ext_resource type="PackedScene" uid="uid://dc6r7jpbt4elb" path="res://scenes/UI/health_bar.tscn" id="3_emufi"]
+[ext_resource type="AudioStream" uid="uid://duejapcg0l1fo" path="res://assets/Audio/ui_click_sound.ogg" id="4_ra6a0"]
 
 [node name="AttackUI" type="Control"]
 layout_mode = 3
@@ -88,6 +89,9 @@ text = "ATTACK"
 [node name="Cancel" type="Button" parent="Container/VBoxContainer/Buttons/HBoxContainer"]
 layout_mode = 2
 text = "CANCEL"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ra6a0")
 
 [connection signal="pressed" from="Container/VBoxContainer/Buttons/HBoxContainer/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="Container/VBoxContainer/Buttons/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]
