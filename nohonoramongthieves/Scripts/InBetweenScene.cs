@@ -339,25 +339,27 @@ public partial class InBetweenScene : Control
 	private void HandleSRettenScenario()
 	{
 		// Scenario 3: Character [C] is saved by [S], where [S] sacrifices themselves
-		int characterToSaveIndex = GetSelectedCharacterIndex();
-		Character characterToSave = GlobalCharacterManager.Instance.GetCharacter(characterToSaveIndex);
+		Character savingCharacter = GlobalCharacterManager.Instance.GetCharacter(rescuingCharacterIndex);
 		Character sacrificingCharacter = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex);
 
-		GlobalCharacterManager.Instance.KillCharacter(sacrificingCharacter.Id);
-		characterToSave.Health += 0;  // No change
-		GD.Print(sacrificingCharacter.Name + " sacrificed themselves to save " + characterToSave.Name + "!");
+		if (rescuingCharacterIndex == GetSelectedCharacterIndex()) {
+			GlobalCharacterManager.Instance.KillCharacter(sacrificingCharacter.Id);
+		} else {
+			GlobalCharacterManager.Instance.KillCharacter(savingCharacter.Id);
+		}
 	}
 
 	private void HandleCRettenScenario()
 	{
 		// Scenario 4: Character [C] is saved by [S] sacrificing themselves
-		int characterToSaveIndex = GetSelectedCharacterIndex();
-		Character characterToSave = GlobalCharacterManager.Instance.GetCharacter(characterToSaveIndex);
+		Character savingCharacter = GlobalCharacterManager.Instance.GetCharacter(rescuingCharacterIndex);
 		Character sacrificingCharacter = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex);
 
-		GlobalCharacterManager.Instance.KillCharacter(sacrificingCharacter.Id);
-		characterToSave.Health += 0;  // No change
-		GD.Print(sacrificingCharacter.Name + " sacrificed themselves to save " + characterToSave.Name + "!");
+		if (rescuingCharacterIndex == GetSelectedCharacterIndex()) {
+			GlobalCharacterManager.Instance.KillCharacter(sacrificingCharacter.Id);
+		} else {
+			GlobalCharacterManager.Instance.KillCharacter(savingCharacter.Id);
+		}
 	}
 	
 	private int GetSelectedCharacterIndex()

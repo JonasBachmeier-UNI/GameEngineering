@@ -103,3 +103,15 @@
 21689,Started Scenario: Gewonnen,,0
 366268,Selected in Scenario: ,3,0
 367470,Ended Scenario: Gewonnen,,0
+5794,Started Scenario: Bonus,,,0
+7878,Ended Scenario: Bonus,,,0
+7936,Started Scenario: SRetten,,,0
+12451,Selected in Scenario: ,5,1,0
+13419,Ended Scenario: SRetten,,,0
+13478,Started Scenario: CRetten,,,0
+16271,Selected in Scenario: ,0,0,0
+18973,Ended Scenario: CRetten,,,0
+19031,Started Scenario: Malus,,,0
+22059,Ended Scenario: Malus,,,0
+22065,Started Scenario: Gewonnen,,,0
+22909,Ended Scenario: Gewonnen,,,0
