@@ -242,11 +242,12 @@ func unit_attack(attacker, defender):
 	var attack_result = get_attack_result(attacker, defender)
 	defender.hp -= attack_result
 	
-	Logger.on_attack(attacker, defender)
+	Logger.on_attack(attacker, defender, attack_result)
 	
 	if defender.hp <= 0:
 		defender.hp = 0
 		defender.on_death()
+		Logger.on_unit_death(attacker, defender)
 		emit_signal("reset_info")
 		check_one_side_empty()
 

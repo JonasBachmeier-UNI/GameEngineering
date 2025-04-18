@@ -84,8 +84,7 @@ func current_pos_to_tml():
 ## Löscht komplette Node bei besiegen der Node
 func on_death():
 	if id >= 0:
-		## TODO: Kill CharacterManager
-		pass
+		GlobalCharacter.KillCharacter(id)
 	queue_free()
 
 
