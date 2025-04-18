@@ -9,7 +9,8 @@ public partial class SceneManager : Node
 	private int _participantNumber = 0;
 	private bool _isPathsInitialized = false;
 
-	private const string PARTICIPANT_ENTRY_SCENE = "res://scenes/ParticipantNumber.tscn";
+	private const string START_MENU_SCENE = "res://scenes/UI/start_menu.tscn";
+    private const string PARTICIPANT_ENTRY_SCENE = "res://scenes/ParticipantNumber.tscn";
 	private const string CHARACTER_CREATION_SCENE = "res://scenes/CharacterCreation.tscn";
 	private const string CHARACTER_SUMMARY_SCENE = "res://scenes/CharacterSummary.tscn";
 	private const string FIGHT_SCENE = "res://scenes/level1.tscn";
@@ -30,7 +31,8 @@ public partial class SceneManager : Node
 			QueueFree();
 		}
 
-		scenePaths.Add(PARTICIPANT_ENTRY_SCENE);
+		scenePaths.Add(START_MENU_SCENE);
+        scenePaths.Add(PARTICIPANT_ENTRY_SCENE);
 
 		if (scenePaths.Count == 0)
 		{
