@@ -68,7 +68,7 @@ void fragment()
 shader = SubResource("Shader_oc82j")
 shader_parameter/mix_amount = 1.0
 
-[node name="CharacterDisplay" type="Node2D"]
+[node name="CharacterDisplay2" type="Node2D"]
 script = ExtResource("1_u22o8")
 
 [node name="HeadSprite" type="TextureRect" parent="."]
