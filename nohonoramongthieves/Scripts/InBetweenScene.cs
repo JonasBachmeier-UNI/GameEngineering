@@ -40,11 +40,19 @@ public partial class InBetweenScene : Control
 		_gridContainer = GetNode<HBoxContainer>("HBoxContainer").GetNode<GridContainer>("GridContainer");
 		_templateButton = GetNode<HBoxContainer>("HBoxContainer").GetNode<GridContainer>("GridContainer").GetNodeOrNull<Button>("CharacterSelector");
 		_nextButton = GetNode<Button>("NextButton");
-		_nextButton.Pressed += () => OnNextButtonPressed();
+		
 		_btnGroup = new ButtonGroup();
 		_scenarioDescriptionLabel = GetNode<VBoxContainer>("VBoxContainer").GetNode<Panel>("Panel").GetNode<RichTextLabel>("RichTextLabel");
 		_scenarioImage = GetNode<TextureRect>("TextureRect");
 		selectedScenario = (Scenario)Enum.GetValues(typeof(Scenario)).GetValue(SceneManager.Instance.GetCurrentScenarioId());
+		
+		if (selectedScenario == Scenario.Gewonnen) {
+			GD.Print("CLOSING");
+			_nextButton.Text = "Spiel schließen";
+			_nextButton.Pressed += () => OnExitButtonPressed();
+		} else {
+			_nextButton.Pressed += () => OnNextButtonPressed();
+		}
 
 		_templateButton.Visible = false;
 		
@@ -294,6 +302,11 @@ public partial class InBetweenScene : Control
 		} else {
 			logger.Call("on_scenario_character_selected", scenarioNames[(int)selectedScenario], savingCharacter.Id, "");
 		}
+	}
+	
+	private void OnExitButtonPressed() 
+	{
+		GetTree().Quit();
 	}
 	
 	private void OnNextButtonPressed()
