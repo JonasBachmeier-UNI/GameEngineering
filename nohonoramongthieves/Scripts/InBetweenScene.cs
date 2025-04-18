@@ -7,7 +7,8 @@ public enum Scenario
 	Malus, // Scenario 1
 	Bonus, // Scenario 2
 	SRetten, // Scenario 3
-	CRetten // Scenario 4
+	CRetten, // Scenario 4
+	Gewonnen
 }
 
 public partial class InBetweenScene : Control 
@@ -258,6 +259,10 @@ public partial class InBetweenScene : Control
 				{
 					description = "A character will sacrifice themselves to save the one you select.";
 				}
+				break;
+			case Scenario.Gewonnen:
+				description = "Nach einer gefährlichen Reise durch tückische Fallen und herausfordernde Prüfungen haben die Helden erfolgreich den großen Schatz am Ende der Kammer geborgen. Mit strahlenden Augen und Herzen voller Freude feiern sie ihren triumphalen Fund, während Goldartefakte und Juwelen in einem unermesslichen Haufen vor ihnen glänzen.";
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Win.jpg");
 				break;
 		}
 		
