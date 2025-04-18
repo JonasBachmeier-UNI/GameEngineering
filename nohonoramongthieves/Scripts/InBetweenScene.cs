@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public enum Scenario
 {
@@ -186,33 +187,40 @@ public partial class InBetweenScene : Control
 		// Select random characters for each role based on scenario
 		if (selectedScenario == Scenario.SRetten || selectedScenario == Scenario.CRetten)
 		{
-			// Make sure we have at least 3 characters to choose from for scenarios that need multiple roles
-			if (GlobalCharacterManager.Instance.Characters.Count >= 3)
+			var allCharacters = GlobalCharacterManager.Instance.Characters;
+
+			List<Character> sacrificingCandidates;
+			List<Character> rescuingCandidates;
+
+			if (selectedScenario == Scenario.CRetten)
 			{
-				// First, randomly select a sacrificing character
-				sacrificingCharacterIndex = random.Next(0, GlobalCharacterManager.Instance.Characters.Count);
-				
-				// Then, select a rescuing character different from the sacrificing one
+				sacrificingCandidates = allCharacters.Where(c => c.Id <= 2).ToList();
+				rescuingCandidates = allCharacters.Where(c => c.Id > 2).ToList();
+			}
+			else if (selectedScenario == Scenario.SRetten)
+			{
+				sacrificingCandidates = allCharacters.Where(c => c.Id > 2).ToList();
+				rescuingCandidates = allCharacters.Where(c => c.Id <= 2).ToList();
+			}
+			else
+			{
+				sacrificingCandidates = allCharacters;
+				rescuingCandidates = allCharacters;
+			}
+
+			if (sacrificingCandidates.Count > 0 && rescuingCandidates.Count > 0)
+			{
+				var sacrificingCharacter = sacrificingCandidates[random.Next(sacrificingCandidates.Count)];
+				sacrificingCharacterIndex = allCharacters.IndexOf(sacrificingCharacter);
+
+				Character rescuingCharacter;
 				do
 				{
-					rescuingCharacterIndex = random.Next(0, GlobalCharacterManager.Instance.Characters.Count);
-				} while (rescuingCharacterIndex == sacrificingCharacterIndex);
-				
-				// Ensure the player doesn't select either of these special characters
-				if (selectedCharacterIndex == sacrificingCharacterIndex || selectedCharacterIndex == rescuingCharacterIndex)
-				{
-					// Reset selection if it conflicts
-					selectedCharacterIndex = -1;
-				}
-			}
-			else if (GlobalCharacterManager.Instance.Characters.Count == 2)
-			{
-				// With only 2 characters, one must be the sacrificing character, the other will be selectable
-				sacrificingCharacterIndex = random.Next(0, GlobalCharacterManager.Instance.Characters.Count);
-				rescuingCharacterIndex = -1; // Not enough characters for both roles
+					rescuingCharacter = rescuingCandidates[random.Next(rescuingCandidates.Count)];
+					rescuingCharacterIndex = allCharacters.IndexOf(rescuingCharacter);
+				} while (rescuingCharacter == sacrificingCharacter && rescuingCandidates.Count > 1);
 			}
 		}
-		
 		// Update scenario description
 		UpdateScenarioDescription();
 	}
