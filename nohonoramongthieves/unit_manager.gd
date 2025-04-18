@@ -304,6 +304,10 @@ func check_one_side_empty():
 			allies.append(unit)
 	
 	if enemies.is_empty():
+		## Updating Character Health
+		for ally in allies:
+			GlobalCharacter.UpdateCharacterHealth(ally.id, ally.hp)
+		
 		$"../../../SceneManager".NextScene()
 		print("PLAYER WON")
 	
