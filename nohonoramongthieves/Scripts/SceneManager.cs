@@ -59,7 +59,7 @@ public partial class SceneManager : Node
 
 		scenePaths.Add(CHARACTER_CREATION_SCENE);
 		scenePaths.Add(CHARACTER_SUMMARY_SCENE);
-		//scenePaths.Add(FIGHT_SCENE);
+		scenePaths.Add(FIGHT_SCENE);
 
 		List<int> scenarioOrder = GenerateScenarioOrder(_participantNumber);
 

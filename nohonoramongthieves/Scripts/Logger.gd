@@ -18,29 +18,29 @@ func make_line(event, uid1, uid2=ID_PLACEHOLDER, dmg=0):
 	f.close()
 
 func on_select_unit(unit):
-	var unit_id = unit.unit_id
+	var unit_id = unit.id
 	make_line("Unit Selected", unit_id)
 
 func on_attack(attacker, defender, damage):
-	var attacker_id = attacker.unit_id
-	var defender_id = defender.unit_id
+	var attacker_id = attacker.id
+	var defender_id = defender.id
 	make_line("Attack", attacker_id, defender_id, damage)
 
 func on_unit_death(attacker, defender):
-	var attacker_id = attacker.unit_id
-	var defender_id = defender.unit_id
+	var attacker_id = attacker.id
+	var defender_id = defender.id
 	make_line("Kill", attacker_id, defender_id)
 
 func on_attack_selected(unit):
-	var unit_id = unit.unit_id
+	var unit_id = unit.id
 	make_line("Attack Selected", unit_id)
 
 func on_wait_selected(unit):
-	var unit_id = unit.unit_id
+	var unit_id = unit.id
 	make_line("Wait Selected", unit_id)
 
 func on_move_selected(unit):
-	var unit_id = unit.unit_id
+	var unit_id = unit.id
 	make_line("Move Selected", unit_id)
 
 func on_scenario_started(scenario):
