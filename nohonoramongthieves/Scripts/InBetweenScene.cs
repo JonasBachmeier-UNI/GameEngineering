@@ -285,7 +285,6 @@ public partial class InBetweenScene : Control
 
 	private void OnButtonPressed(int value)
 	{
-		GD.Print("Selected Value: " + value);
 		selectedCharacterIndex = value;
 		var logger = (GodotObject)GetNode("/root/Logger");
 		Character savingCharacter = GlobalCharacterManager.Instance.GetCharacter(selectedCharacterIndex);

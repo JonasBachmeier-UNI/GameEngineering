@@ -20,7 +20,7 @@ public partial class ParticipantNumber : Node
 	private void OnSubmitButtonPressed()
 	{
 		SubmitParticipantNumber();
-		GD.Print("Pressed");
+		
 	}
 	
 	private void OnTextSubmitted(string text)
@@ -32,6 +32,10 @@ public partial class ParticipantNumber : Node
 	{
 		string inputText = _participantNumberInput.Text.Trim();
 		int participantNumber = int.Parse(inputText);
+		
+		var logger = (GodotObject)GetNode("/root/Logger");
+		logger.Call("print_participant", participantNumber);
+		
 		SceneManager.Instance.SetParticipantNumber(participantNumber);
 	}
 }

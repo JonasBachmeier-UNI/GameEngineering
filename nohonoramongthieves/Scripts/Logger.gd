@@ -51,3 +51,6 @@ func on_scenario_character_selected(scenario, unit_id, unit_id_sacrificing):
 	
 func on_scenario_ended(scenario):
 	make_line("Ended Scenario: " + scenario, ID_PLACEHOLDER)
+	
+func print_participant(participant):
+	make_line("##### Participant started the game. ID: " + str(participant), ID_PLACEHOLDER)
