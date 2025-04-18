@@ -37,7 +37,19 @@ var hovering_on_selected = false
 var help_path = false
 
 
+func set_start_pos():
+	var position_first_player = unit_manager.positions[0]
+	start_x = position_first_player[0]
+	start_y = position_first_player[1]
+	x_pos = start_x
+	y_pos = start_y
+	last_x = start_x
+	last_y = start_y
+
 func _on_game_board_matrix_ready(value: Variant) -> void:
+	
+	set_start_pos()
+	
 	var tml_vec = gameboard.grid_to_tml_coords(Vector2i(start_x, start_y))
 	global_position = tml.map_to_local(tml_vec)
 	var grid_vec = gameboard.tml_to_grid_coords(tml.local_to_map(global_position))
