@@ -64,9 +64,9 @@ public partial class GlobalCharacterManager : Node
 	private void InitializeCharacters()
 	{
 		List<string> possibleNames = new List<string> { "Bert", "Luca", "Tim", "Sabine", "Chrissi", "Steven" };
-		List<string> possibleHeadSprites = new List<string> { "res://Sprites/Head1.png", "res://Sprites/Head2.png", "res://Sprites/Head3.png", "res://Sprites/Head4.png", "res://Sprites/Head5.png", "res://Sprites/Head6.png" };
-		List<string> possibleBodySprites = new List<string> { "res://Sprites/Body1.png", "res://Sprites/Body2.png", "res://Sprites/Body3.png", "res://Sprites/Body4.png", "res://Sprites/Body5.png", "res://Sprites/Body6.png" };
-		List<string> possibleTopSprites = new List<string> { "res://Sprites/Top1.png", "res://Sprites/Top2.png", "res://Sprites/Top3.png", "res://Sprites/Top4.png", "res://Sprites/Top5.png", "res://Sprites/Top6.png" };
+		List<string> possibleHeadSprites = new List<string> { "res://Sprites/Head1.png", "res://Sprites/Head2.png", "res://Sprites/Head3.png", "res://Sprites/Head4.png", "res://Sprites/Head5.png", "res://Sprites/Head6.png", "res://Sprites/Head8.png", "res://Sprites/Head9.png", "res://Sprites/Head10.png", "res://Sprites/Head11.png", "res://Sprites/Head12.png"};
+		List<string> possibleBodySprites = new List<string> { "res://Sprites/Body1.png", "res://Sprites/Body2.png", "res://Sprites/Body3.png", "res://Sprites/Body4.png", "res://Sprites/Body5.png", "res://Sprites/Body6.png", "res://Sprites/Body7.png", "res://Sprites/Body8.png" };
+		List<string> possibleTopSprites = new List<string> { "res://Sprites/Top1.png", "res://Sprites/Top2.png", "res://Sprites/Top3.png", "res://Sprites/Top4.png", "res://Sprites/Top5.png", "res://Sprites/Top6.png", "res://Sprites/Top7.png", "res://Sprites/Top8.png", "res://Sprites/Top9.png", "res://Sprites/Top10.png", "res://Sprites/Top11.png", "res://Sprites/Top12.png", "res://Sprites/Top13.png", "res://Sprites/Top14.png", "res://Sprites/Top15.png", "res://Sprites/Top16.png", "res://Sprites/Top17.png", "res://Sprites/Top18.png", "res://Sprites/Top19.png" };
 
 		Random rng = new Random();
 		Shuffle(possibleNames, rng);

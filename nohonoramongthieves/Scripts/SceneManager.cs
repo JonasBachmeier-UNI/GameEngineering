@@ -59,15 +59,17 @@ public partial class SceneManager : Node
 		
 		scenePaths.Add(CHARACTER_CREATION_SCENE);
 		scenePaths.Add(CHARACTER_SUMMARY_SCENE);
-		scenePaths.Add(FIGHT_SCENE);
+		//scenePaths.Add(FIGHT_SCENE);
 		
 		List<int> scenarioOrder = GenerateScenarioOrder(_participantNumber);
 		
 		foreach (int scenarioId in scenarioOrder)
 		{
 			scenePaths.Add($"{IN_BETWEEN_SCENE}?scenario={scenarioId}");
-			scenePaths.Add(FIGHT_SCENE);
+			//scenePaths.Add(FIGHT_SCENE);
 		}
+		
+		scenePaths.Add($"{IN_BETWEEN_SCENE}?scenario=4");
 		
 		_isPathsInitialized = true;
 		_currentSceneIndex = -1;
