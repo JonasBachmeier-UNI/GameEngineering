@@ -26,6 +26,8 @@ signal attack_start
 
 @export var speed = 70
 
+@export var positions := [[1,1],[1,2],[1,3],[2,1],[2,2],[2,3]]
+
 func _ready() -> void:
 	get_units()
 
@@ -94,15 +96,19 @@ func update_unit_grids(grid):
 
 func _on_game_board_matrix_ready(value: Variant) -> void:
 	base_grid = value
+	load_characters_to_positions()
+	get_units()
+	update_unit_grids(value)
+
+
+func load_characters_to_positions():
 	var characters = GlobalCharacter.GetCharacters();
-	var s_pos = [[1,1],[3,3],[5,5],[2,4],[1,2],[3,4]]
 	var counter = 0
 	for character in characters:
 		print("ID: ", character["id"])
-		create_unit(character["id"], character["name"], character["health"], character["damage"], character["defense"], s_pos[counter][0], s_pos[counter][1])
+		if counter < len(positions):
+			create_unit(character["id"], character["name"], character["health"], character["damage"], character["defense"], positions[counter][0], positions[counter][1])
 		counter += 1
-	get_units()
-	update_unit_grids(value)
 
 func create_astar():
 	get_units()
