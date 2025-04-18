@@ -13,7 +13,7 @@ public partial class SceneManager : Node
 	private const string PARTICIPANT_ENTRY_SCENE = "res://scenes/ParticipantNumber.tscn";
 	private const string CHARACTER_CREATION_SCENE = "res://scenes/CharacterCreation.tscn";
 	private const string CHARACTER_SUMMARY_SCENE = "res://scenes/CharacterSummary.tscn";
-	private const string FIGHT_SCENE = "res://scenes/level1.tscn";
+	private const string FIGHT_SCENE = "res://scenes/Level1.tscn";
 	private const string IN_BETWEEN_SCENE = "res://scenes/InBetweenScene.tscn";
 
 	// Singleton
