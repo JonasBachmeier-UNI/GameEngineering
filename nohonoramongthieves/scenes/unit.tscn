@@ -348,6 +348,7 @@ move_range = 4
 rotates = false
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D"]
+texture_filter = 3
 scale = Vector2(0.722222, 0.722222)
 texture = ExtResource("2_uabne")
 
