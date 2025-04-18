@@ -19,11 +19,6 @@ public partial class CharacterDisplay : Node2D
 
 		// Load the character from GlobalCharacterManager
 		LoadCharacter(CharacterIndex);
-		
-		foreach (Node child in GetChildren())
-		{
-			GD.Print(child.Name);
-		}
 
 		headBasePos = headSprite.Position;
 		bodyBasePos = bodySprite.Position;
@@ -60,7 +55,6 @@ public partial class CharacterDisplay : Node2D
 		bodySprite.Texture = GD.Load<Texture2D>(character.BodySprite);
 		topSprite.Texture = GD.Load<Texture2D>(character.TopSprite);
 		
-		GD.Print(character.HeadSprite);
 
 		// Apply gradient colors
 		ApplyGradient(headSprite, "Head", character);
@@ -88,7 +82,6 @@ public partial class CharacterDisplay : Node2D
 		if (sprite.Material is ShaderMaterial shaderMat)
 		{
 			shaderMat.SetShaderParameter("gradient", character.GetGradient(type));
-			GD.Print("Applying Shader " + character.GetGradient(type));
 		}
 	}
 }
