@@ -142,12 +142,14 @@ func end_path_check():
 		emit_signal("path_completed")
 		if is_ai_move:
 			is_ai_move = false
+			unit_wait(moving_unit)
 			emit_signal("ai_move_done")
 	
 	else:
 		emit_signal("path_completed")
 		if is_ai_move:
 			is_ai_move = false
+			unit_wait(moving_unit)
 			emit_signal("ai_move_done")
 	check_all_units_moved()
 
@@ -206,7 +208,7 @@ func ai_move(unit):
 	var new_x = new_x_y[0]
 	var new_y = new_x_y[1]
 	move_unit(unit, new_x, new_y)
-	unit.wait_for_next_turn()
+	#unit.wait_for_next_turn()
 
 
 func unit_wait(unit):
@@ -241,6 +243,8 @@ func start_attack(attacking_unit, defending_unit):
 func unit_attack(attacker, defender):
 	var attack_result = get_attack_result(attacker, defender)
 	defender.hp -= attack_result
+	
+	attacker.moved_indicator.visible = true
 	
 	Logger.on_attack(attacker, defender, attack_result)
 	

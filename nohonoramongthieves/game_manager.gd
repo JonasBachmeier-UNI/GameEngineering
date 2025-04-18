@@ -59,6 +59,7 @@ func start_next_turn():
 	for unit in units:
 		unit.moved_count = 0
 		unit.has_moved = false
+		unit.moved_indicator.visible = false
 		unit.update_units()
 		unit.get_cells_in_range()
 	emit_signal("new_turn")

@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://1tu0ew23kxa2"]
+[gd_scene load_steps=15 format=3 uid="uid://1tu0ew23kxa2"]
 
 [ext_resource type="Script" path="res://Scripts/GameLogic/unit.gd" id="1_l8aop"]
 [ext_resource type="Texture2D" uid="uid://c8h51dcoxojdl" path="res://assets/enemy_skeleton.png" id="2_uabne"]
 [ext_resource type="Texture2D" uid="uid://cncpljj1nqwio" path="res://assets/Attack/1.png" id="4_6q2vf"]
 [ext_resource type="Script" path="res://scenes/animation_player.gd" id="4_e62ed"]
+[ext_resource type="Texture2D" uid="uid://d2heedt5cmlfh" path="res://assets/Unit/moved_indicator.png" id="5_siyoe"]
+[ext_resource type="Texture2D" uid="uid://cygl3s40pkl3m" path="res://assets/Unit/selected_indicator.png" id="6_kew43"]
 
 [sub_resource type="Curve2D" id="Curve2D_eoxen"]
 
@@ -368,12 +370,20 @@ z_index = 10
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -9.0
-offset_top = 5.0
-offset_right = 6.0
-offset_bottom = 28.0
+offset_left = -8.0
+offset_top = 8.0
+offset_right = 7.0
+offset_bottom = 31.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 0)
 text = "-4"
+
+[node name="MovedIndicator" type="Sprite2D" parent="PathFollow2D"]
+visible = false
+texture = ExtResource("5_siyoe")
+
+[node name="SelectedIndicator" type="Sprite2D" parent="PathFollow2D"]
+visible = false
+texture = ExtResource("6_kew43")
 
 [connection signal="animation_finished" from="PathFollow2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

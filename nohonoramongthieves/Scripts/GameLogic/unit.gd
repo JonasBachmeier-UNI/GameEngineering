@@ -15,6 +15,9 @@ signal calculate_attack
 @onready var attack_animation = $PathFollow2D/AttackSword
 @onready var dmg_animation = $PathFollow2D/Dmg
 
+@onready var moved_indicator = $PathFollow2D/MovedIndicator
+@onready var selected_indicator = $PathFollow2D/SelectedIndicator
+
 
 
 ## wenn true dann wird dem Pfad gefolgt
@@ -370,6 +373,7 @@ func get_moves_left():
 
 func wait_for_next_turn():
 	has_moved = true
+	moved_indicator.visible = true
 
 
 func is_next_to_enemy():

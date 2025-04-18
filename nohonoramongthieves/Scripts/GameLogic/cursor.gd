@@ -268,6 +268,7 @@ func hovering_check():
 func select_unit(unit):
 	did_select_unit = true
 	selected_unit = unit
+	selected_unit.selected_indicator.visible = true
 	unit_manager.show_unit_range(selected_unit)
 	can_select = false
 	Logger.on_select_unit(unit)
@@ -276,6 +277,7 @@ func reset_selection():
 	#print("Auswahl zurückgenommen")
 	path_map.clear()
 	if selected_unit != null:
+		selected_unit.selected_indicator.visible = false
 		unit_manager.clear_overlay()
 	did_select_unit = false
 	selected_unit = null
