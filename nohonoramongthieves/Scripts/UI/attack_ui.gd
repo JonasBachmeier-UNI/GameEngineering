@@ -27,10 +27,12 @@ func _notification(what):
 	
 
 func _on_cancel_pressed() -> void:
+	$AudioStreamPlayer2D.play()
 	emit_signal("cancel_attack")
 	close_menu()
 
 func _on_attack_pressed() -> void:
+	$AudioStreamPlayer2D.play()
 	emit_signal("confirm_attack")
 	close_menu()
 

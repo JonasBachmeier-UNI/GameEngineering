@@ -94,6 +94,7 @@ func unit_move_check_routine():
 		## TODO: select_unit() auf gewünschten Input
 		# TODO: testen
 		if Input.is_action_just_pressed("ui_select"):
+			$"../../AudioStreamPlayer2D".play()
 			var unit = get_hovered_unit()
 			select_unit(unit)
 			#TODO: Instanciate Info Screen for selected unit here
@@ -111,24 +112,28 @@ func unit_move_check_routine():
 	
 	if hovering_on_selected:
 		if Input.is_action_just_pressed("ui_select"):		
+			$"../../AudioStreamPlayer2D".play()
 			emit_show_actions(selected_unit, null, x_pos, y_pos, last_x, last_y, false, false, true)
 			return
 	
 	if can_select_target:
 		## TODO: mit gewünschten Input unit bewegen
-		if Input.is_action_just_pressed("ui_select"):		
+		if Input.is_action_just_pressed("ui_select"):	
+			$"../../AudioStreamPlayer2D".play()	
 			emit_show_actions(selected_unit, null, x_pos, y_pos, last_x, last_y, true)
 			return
 			
 	if can_select_enemy:
 		## TODO: mit gewünschten Input unit Feld angreifen lassen
 		if Input.is_action_just_pressed("ui_select"):
+			$"../../AudioStreamPlayer2D".play()
 			if help_path:
 				emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, last_x, last_y, false, true)
 			else:
 				emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, x_pos, y_pos, false, true)
 			return
 	if Input.is_action_just_pressed("ui_select"):
+		$"../../AudioStreamPlayer2D".play()
 		emit_show_actions(selected_unit, get_hovered_unit(), x_pos, y_pos, x_pos, y_pos, false, false, false, true)
 
 

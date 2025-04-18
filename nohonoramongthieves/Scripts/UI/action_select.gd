@@ -40,12 +40,14 @@ func _process(delta: float):
 
 
 func _on_move_pressed():
+	$AudioStreamPlayer2D.play()
 	unit_manager.move_unit(selected_unit, x_pos, y_pos)
 	#Logger.on_move_selected(selected_unit)
 	close_menu()
 
 
 func _on_attack_pressed():
+	$AudioStreamPlayer2D.play()
 	emit_signal("show_attack_ui", selected_unit, target_unit)
 	disable_buttons()
 
@@ -61,16 +63,19 @@ func _on_cancel_attack():
 	enable_buttons()
 
 func _on_wait_pressed():
+	$AudioStreamPlayer2D.play()
 	unit_manager.unit_wait(selected_unit)
 	cursor.reset_selection()
 	#Logger.on_move_selected(selected_unit)
 	close_menu()
 
 func _on_end_turn_pressed():
+	$AudioStreamPlayer2D.play()
 	game_manager.start_next_turn()
 	close_menu()
 
 func _on_cancel_pressed():
+	$AudioStreamPlayer2D.play()
 	close_menu()
 
 func _on_cursor_show_actions(selected_unit, target_unit, x, y, last_x, last_y, can_move, can_attack, can_wait, can_end_turn):
