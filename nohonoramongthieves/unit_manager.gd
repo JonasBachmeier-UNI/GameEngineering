@@ -42,6 +42,7 @@ func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	var sprite = prefab_sprite.instantiate()
 	var new_unit = prefab.instantiate()
 	
+	add_child(new_unit)
 	## Eigenschaften der Einheit werden gesetzt
 	new_unit.id = unit_id
 	new_unit.max_hp = 100
@@ -53,7 +54,6 @@ func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	new_unit.unit_name = unit_name
 	
 	## Einheit wird mit Sprite hinzugefügt
-	add_child(new_unit)
 	sprite.apply_scale(Vector2(0.4,0.4))
 	new_unit.path_follow.add_child(sprite)
 	new_unit.remove_sprite()
