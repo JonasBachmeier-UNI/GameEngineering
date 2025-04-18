@@ -7,7 +7,8 @@ public enum Scenario
 	Malus, // Scenario 1
 	Bonus, // Scenario 2
 	SRetten, // Scenario 3
-	CRetten // Scenario 4
+	CRetten, // Scenario 4
+	Gewonnen
 }
 
 public partial class InBetweenScene : Control 
@@ -17,6 +18,9 @@ public partial class InBetweenScene : Control
 	public int ButtonCount = 6;
 	
 	public Scenario selectedScenario = Scenario.Malus;
+	
+	
+	public List<string> scenarioNames =  new List<string> { "Malus", "Bonus", "SRetten", "CRetten", "Gewonnen"};
 
 	private GridContainer _gridContainer;
 	private ButtonGroup _btnGroup;
@@ -220,20 +224,23 @@ public partial class InBetweenScene : Control
 			
 		string description = "";
 		
+		var logger = (GodotObject)GetNode("/root/Logger");
+		logger.Call("on_scenario_started", scenarioNames[(int)selectedScenario]);
+		
 		switch (selectedScenario)
 		{
 			case Scenario.Malus:
 				description = "Ihr betretet einen schmalen Gang auf dem Weg tiefer in die Schatzkammer, dessen Wände von kunstvoll gearbeiteten Platten bedeckt ist. Abgelenkt von der Verzierung merkt ihr nicht wie einer von euch auf eine Druckplatte tritt. Plötzlich aktiviert sich ein mechanisches System – scharfe Klingen drohen, eine tödliche Falle für unsere Helden zu werden. Nur ein schneller Eingriff kann diese Gefahr bannen, doch die klingen springen bereits aus der Wand. Der Character der die Falle entschärft verliert 15 HP.";
-				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Blades.jpg");
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://assets/DecisionImages/Gemini_Blades.jpg");
 				break;
 				
 			case Scenario.Bonus:
 				description = "In einem verborgenen Nischenraum der Schatzkammer entdeckt ihr einen schimmernden Trank, der in einem alten, mit mystischen Symbolen verzierten Gefäß ruht. Ein Stück pergament neben dem Trank spezifiziert, wie der Trank genutz wurde um heldenhafte Stärke hervorzubringen. Der Trank verleiht einem Character Stärke und lässt ihn mit doppelt so viel Schaden angeifen.";
-				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Trank.jpg");
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://assets/DecisionImages/Gemini_Trank.jpg");
 				break;
 				
 			case Scenario.SRetten:
-				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_FallenFloor.jpg");
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://assets/DecisionImages/Gemini_FallenFloor.jpg");
 				if (sacrificingCharacterIndex >= 0 && rescuingCharacterIndex >= 0)
 				{
 					string sacrificeName = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex).Name;
@@ -247,7 +254,7 @@ public partial class InBetweenScene : Control
 				break;
 				
 			case Scenario.CRetten:
-				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Szepter.jpg");
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://assets/DecisionImages/Gemini_Szepter.jpg");
 				if (sacrificingCharacterIndex >= 0 && rescuingCharacterIndex >= 0)
 				{
 					string sacrificeName = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex).Name;
@@ -259,6 +266,10 @@ public partial class InBetweenScene : Control
 					description = "A character will sacrifice themselves to save the one you select.";
 				}
 				break;
+			case Scenario.Gewonnen:
+				description = "Nach einer gefährlichen Reise durch tückische Fallen und herausfordernde Prüfungen haben die Helden erfolgreich den großen Schatz am Ende der Kammer geborgen. Mit strahlenden Augen und Herzen voller Freude feiern sie ihren triumphalen Fund, während Goldartefakte und Juwelen in einem unermesslichen Haufen vor ihnen glänzen.";
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Win.jpg");
+				break;
 		}
 		
 		_scenarioDescriptionLabel.Text = description;
@@ -268,11 +279,18 @@ public partial class InBetweenScene : Control
 	{
 		GD.Print("Selected Value: " + value);
 		selectedCharacterIndex = value;
+		var logger = (GodotObject)GetNode("/root/Logger");
+		Character savingCharacter = GlobalCharacterManager.Instance.GetCharacter(selectedCharacterIndex);
+		Character sacrificingCharacter = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex);
+		if (selectedScenario == Scenario.SRetten || selectedScenario == Scenario.CRetten) {
+			logger.Call("on_scenario_character_selected", scenarioNames[(int)selectedScenario], savingCharacter.Id, sacrificingCharacter.Id);
+		} else {
+			logger.Call("on_scenario_character_selected", scenarioNames[(int)selectedScenario], savingCharacter.Id, "");
+		}
 	}
 	
 	private void OnNextButtonPressed()
 	{
-		Scenario selectedScenario = Scenario.Malus;
 
 		switch (selectedScenario)
 		{
@@ -292,6 +310,9 @@ public partial class InBetweenScene : Control
 				HandleCRettenScenario();
 				break;
 		}
+		
+		var logger = (GodotObject)GetNode("/root/Logger");
+		logger.Call("on_scenario_ended", scenarioNames[(int)selectedScenario]);
 		
 		SceneManager.Instance.NextScene();
 	}
@@ -318,27 +339,27 @@ public partial class InBetweenScene : Control
 	private void HandleSRettenScenario()
 	{
 		// Scenario 3: Character [C] is saved by [S], where [S] sacrifices themselves
-		int characterToSaveIndex = GetSelectedCharacterIndex();
-		Character characterToSave = GlobalCharacterManager.Instance.GetCharacter(characterToSaveIndex);
-		int sacrificingCharacterIndex = GetOtherCharacterIndex(characterToSaveIndex);
+		Character savingCharacter = GlobalCharacterManager.Instance.GetCharacter(rescuingCharacterIndex);
 		Character sacrificingCharacter = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex);
 
-		sacrificingCharacter.Health = 0;  // Sacrificing character dies
-		characterToSave.Health += 0;  // No change for character to save, just saved
-		GD.Print(sacrificingCharacter.Name + " sacrificed themselves to save " + characterToSave.Name + "!");
+		if (rescuingCharacterIndex == GetSelectedCharacterIndex()) {
+			GlobalCharacterManager.Instance.KillCharacter(sacrificingCharacter.Id);
+		} else {
+			GlobalCharacterManager.Instance.KillCharacter(savingCharacter.Id);
+		}
 	}
 
 	private void HandleCRettenScenario()
 	{
 		// Scenario 4: Character [C] is saved by [S] sacrificing themselves
-		int characterToSaveIndex = GetSelectedCharacterIndex();
-		Character characterToSave = GlobalCharacterManager.Instance.GetCharacter(characterToSaveIndex);
-		int sacrificingCharacterIndex = GetOtherCharacterIndex(characterToSaveIndex);
+		Character savingCharacter = GlobalCharacterManager.Instance.GetCharacter(rescuingCharacterIndex);
 		Character sacrificingCharacter = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex);
 
-		sacrificingCharacter.Health = 0;  // Sacrificing character dies
-		characterToSave.Health += 0;  // No change for character to save, just saved
-		GD.Print(sacrificingCharacter.Name + " sacrificed themselves to save " + characterToSave.Name + "!");
+		if (rescuingCharacterIndex == GetSelectedCharacterIndex()) {
+			GlobalCharacterManager.Instance.KillCharacter(sacrificingCharacter.Id);
+		} else {
+			GlobalCharacterManager.Instance.KillCharacter(savingCharacter.Id);
+		}
 	}
 	
 	private int GetSelectedCharacterIndex()

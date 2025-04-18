@@ -5,9 +5,9 @@ public partial class CharacterManager : Control
 {
 	private List<Character> characters = new List<Character>();
 
-	private string[] headSprites = { "res://Sprites/Head1.png", "res://Sprites/Head2.png", "res://Sprites/Head3.png", "res://Sprites/Head4.png", "res://Sprites/Head5.png" };
-	private string[] bodySprites = { "res://Sprites/Body1.png", "res://Sprites/Body2.png", "res://Sprites/Body3.png", "res://Sprites/Body4.png" };
-	private string[] topSprites = { "res://Sprites/Top1.png", "res://Sprites/Top2.png", "res://Sprites/Top3.png", "res://Sprites/Top4.png", "res://Sprites/Top5.png", "res://Sprites/Top6.png", "res://Sprites/Top7.png" };
+	private string[] headSprites = { "res://Sprites/Head1.png", "res://Sprites/Head2.png", "res://Sprites/Head3.png", "res://Sprites/Head4.png", "res://Sprites/Head5.png", "res://Sprites/Head6.png", "res://Sprites/Head8.png", "res://Sprites/Head9.png", "res://Sprites/Head10.png", "res://Sprites/Head11.png", "res://Sprites/Head12.png" };
+	private string[] bodySprites = { "res://Sprites/Body1.png", "res://Sprites/Body2.png", "res://Sprites/Body3.png", "res://Sprites/Body4.png", "res://Sprites/Body5.png", "res://Sprites/Body6.png", "res://Sprites/Body7.png", "res://Sprites/Body8.png" };
+	private string[] topSprites = { "res://Sprites/Top1.png", "res://Sprites/Top2.png", "res://Sprites/Top3.png", "res://Sprites/Top4.png", "res://Sprites/Top5.png", "res://Sprites/Top6.png", "res://Sprites/Top7.png", "res://Sprites/Top8.png", "res://Sprites/Top9.png", "res://Sprites/Top10.png", "res://Sprites/Top11.png", "res://Sprites/Top12.png", "res://Sprites/Top13.png", "res://Sprites/Top14.png", "res://Sprites/Top15.png", "res://Sprites/Top16.png", "res://Sprites/Top17.png", "res://Sprites/Top18.png", "res://Sprites/Top19.png" };
 
 	public override void _Ready()
 	{
@@ -20,8 +20,8 @@ public partial class CharacterManager : Control
 				BodySprite = bodySprites[0],
 				TopSprite = topSprites[0]
 			};
+			character.Id = i;
 			characters.Add(character);
-			GD.Print($"Final character count: {characters.Count}");
 			
 			
 			// Name Input
@@ -46,8 +46,6 @@ public partial class CharacterManager : Control
 				
 			
 			topLeft.Connect("pressed", Callable.From(() => ChangeSprite((int) charNode.GetMeta("id") , "Top", -1, topSprite)));
-
-			GD.Print($"The value Chars is: {characters}");
 
 			// Head Section
 			TextureRect headSprite = charNode.GetNode<Container>("Container").GetNode<TextureRect>("Head");
@@ -94,17 +92,14 @@ private void SaveAndGoToNextScene()
 		}
 		
 		for (int i = 0; i < GlobalCharacterManager.Instance.Characters.Count ; i++) {
-			GD.Print("Char " + i + " with " + GlobalCharacterManager.Instance.GetCharacter(i).HeadSprite);
 		}
 		
-		GD.Print("Changing Scene");
 
 		SceneManager.Instance.NextScene();
 	}
 
 private void ChangeSprite(int index, string type, int direction, TextureRect spriteNode)
 	{
-		GD.Print($"The value is: {direction}");
 		string[] spriteArray = type == "Head" ? headSprites :
 							   type == "Body" ? bodySprites :
 							   type == "Top" ? topSprites :
@@ -112,7 +107,6 @@ private void ChangeSprite(int index, string type, int direction, TextureRect spr
 
 		string currentSprite = characters[index].GetSprite(type);
 		int currentIndex = GetSpriteIndex(currentSprite, spriteArray);
-		GD.Print(currentIndex);
 		currentIndex = (currentIndex + direction + spriteArray.Length) % spriteArray.Length;
 
 		string newSprite = spriteArray[currentIndex];
@@ -139,7 +133,6 @@ private void ChangeGradient(int index, string type, Color newColor, TextureRect 
 		GD.Print("Aborting");
 		return;
 		}
-	GD.Print($"Changing gradient for {type} of character {index} to {newColor}");
 
 
 	if (type == "Head")

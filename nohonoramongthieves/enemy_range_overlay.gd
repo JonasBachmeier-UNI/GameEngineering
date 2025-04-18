@@ -30,6 +30,8 @@ func border_check(pos, grid):
 		return BORDER_DIR.RIGHT_DOWN
 	if !has_left_border(pos, grid) and !has_right_border(pos, grid) and has_upper_border(pos, grid) and has_lower_border(pos, grid):
 		return BORDER_DIR.UP_DOWN
+	if has_left_border(pos, grid) and !has_right_border(pos, grid) and has_upper_border(pos, grid) and has_lower_border(pos, grid):
+		return BORDER_DIR.LEFT_UP_DOWN
 	if has_left_border(pos, grid) and has_right_border(pos, grid) and has_upper_border(pos, grid) and !has_lower_border(pos, grid):
 		return BORDER_DIR.LEFT_UP_RIGHT
 	if has_left_border(pos, grid) and has_right_border(pos, grid) and !has_upper_border(pos, grid) and has_lower_border(pos, grid):

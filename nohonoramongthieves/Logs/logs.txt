@@ -1,0 +1,117 @@
+8435,Ended Scenario: selectedScenario,,0
+9156,Ended Scenario: Malus,,0
+7132,Started Scenario: Malus,,0
+13004,Ended Scenario: Malus,,0
+13011,Started Scenario: Bonus,,0
+17264,Ended Scenario: Bonus,,0
+17271,Started Scenario: CRetten,,0
+20796,Ended Scenario: CRetten,,0
+20803,Started Scenario: SRetten,,0
+24382,Ended Scenario: SRetten,,0
+24389,Started Scenario: Gewonnen,,0
+5012,Started Scenario: Malus,,0
+4442,Started Scenario: Malus,,0
+5260,Selected in Scnario: ,2,0
+5927,Selected in Scnario: ,4,0
+6527,Selected in Scnario: ,5,0
+7211,Selected in Scnario: ,3,0
+8146,Ended Scenario: Malus,,0
+8155,Started Scenario: Bonus,,0
+8862,Selected in Scnario: ,4,0
+9680,Ended Scenario: Bonus,,0
+9687,Started Scenario: CRetten,,0
+10597,Selected in Scnario: ,0,0
+11432,Ended Scenario: CRetten,,0
+11438,Started Scenario: SRetten,,0
+12401,Selected in Scnario: ,0,0
+13069,Selected in Scnario: ,3,0
+14070,Ended Scenario: SRetten,,0
+14080,Started Scenario: Gewonnen,,0
+4611,Started Scenario: Malus,,0
+5530,Selected in Scenario: ,2,0
+5830,Selected in Scenario: ,3,0
+6130,Selected in Scenario: ,4,0
+6664,Ended Scenario: Malus,,0
+6672,Started Scenario: Bonus,,0
+16557,Started Scenario: Bonus,,0
+19943,Selected in Scenario: ,3,0
+22145,Ended Scenario: Bonus,,0
+22204,Started Scenario: SRetten,,0
+24530,Selected in Scenario: ,2,0
+25033,Selected in Scenario: ,3,0
+25450,Selected in Scenario: ,2,0
+26618,Ended Scenario: SRetten,,0
+26677,Started Scenario: CRetten,,0
+28953,Selected in Scenario: ,0,0
+30621,Ended Scenario: CRetten,,0
+30679,Started Scenario: Malus,,0
+37843,Selected in Scenario: ,3,0
+38377,Ended Scenario: Malus,,0
+38384,Started Scenario: Gewonnen,,0
+40329,Selected in Scenario: ,2,0
+40929,Ended Scenario: Gewonnen,,0
+43098,Selected in Scenario: ,0,0
+13186,Started Scenario: Bonus,,0
+15471,Selected in Scenario: ,3,0
+16172,Ended Scenario: Bonus,,0
+16231,Started Scenario: SRetten,,0
+18624,Selected in Scenario: ,3,0
+19842,Selected in Scenario: ,5,0
+21193,Selected in Scenario: ,3,0
+21877,Selected in Scenario: ,5,0
+22613,Selected in Scenario: ,3,0
+23230,Selected in Scenario: ,5,0
+23764,Selected in Scenario: ,3,0
+24181,Selected in Scenario: ,5,0
+24615,Selected in Scenario: ,3,0
+25036,Selected in Scenario: ,5,0
+25399,Selected in Scenario: ,3,0
+25749,Selected in Scenario: ,5,0
+26099,Selected in Scenario: ,3,0
+28001,Selected in Scenario: ,5,0
+29820,Ended Scenario: SRetten,,0
+29877,Started Scenario: CRetten,,0
+32155,Selected in Scenario: ,4,0
+32989,Ended Scenario: CRetten,,0
+33046,Started Scenario: Malus,,0
+42697,Ended Scenario: Malus,,0
+42703,Started Scenario: Gewonnen,,0
+44248,Ended Scenario: Gewonnen,,0
+15453,Started Scenario: Bonus,,0
+18621,Ended Scenario: Bonus,,0
+18679,Started Scenario: SRetten,,0
+24760,Ended Scenario: SRetten,,0
+24817,Started Scenario: CRetten,,0
+28029,Ended Scenario: CRetten,,0
+28087,Started Scenario: Malus,,0
+30651,Ended Scenario: Malus,,0
+30657,Started Scenario: Gewonnen,,0
+9502,Started Scenario: Bonus,,0
+11604,Selected in Scenario: ,3,0
+12338,Ended Scenario: Bonus,,0
+12397,Started Scenario: SRetten,,0
+14025,Selected in Scenario: ,0,10
+14710,Ended Scenario: SRetten,,0
+14768,Started Scenario: CRetten,,0
+16144,Selected in Scenario: ,3,40
+17065,Selected in Scenario: ,4,40
+18796,Selected in Scenario: ,3,40
+19681,Ended Scenario: CRetten,,0
+19753,Started Scenario: Malus,,0
+21015,Selected in Scenario: ,3,0
+21682,Ended Scenario: Malus,,0
+21689,Started Scenario: Gewonnen,,0
+366268,Selected in Scenario: ,3,0
+367470,Ended Scenario: Gewonnen,,0
+5794,Started Scenario: Bonus,,,0
+7878,Ended Scenario: Bonus,,,0
+7936,Started Scenario: SRetten,,,0
+12451,Selected in Scenario: ,5,1,0
+13419,Ended Scenario: SRetten,,,0
+13478,Started Scenario: CRetten,,,0
+16271,Selected in Scenario: ,0,0,0
+18973,Ended Scenario: CRetten,,,0
+19031,Started Scenario: Malus,,,0
+22059,Ended Scenario: Malus,,,0
+22065,Started Scenario: Gewonnen,,,0
+22909,Ended Scenario: Gewonnen,,,0

@@ -26,6 +26,8 @@ signal attack_start
 
 @export var speed = 70
 
+@export var positions := [[1,1],[1,2],[1,3],[2,1],[2,2],[2,3]]
+
 func _ready() -> void:
 	get_units()
 
@@ -34,17 +36,37 @@ func _process(delta: float) -> void:
 	execute_movement(delta)
 
 func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
+	## Prefabs werden geholt
 	var prefab = preload("res://scenes/unit.tscn")
+	var prefab_sprite = preload("res://scenes/CharacterDisplayScene.tscn")
+	var sprite = prefab_sprite.instantiate()
 	var new_unit = prefab.instantiate()
+	
+	add_child(new_unit)
+	## Eigenschaften der Einheit werden gesetzt
 	new_unit.id = unit_id
-	new_unit.max_hp = hp
+	new_unit.max_hp = 100
 	new_unit.hp = hp
 	new_unit.dmg = dmg
 	new_unit.defense = defense
 	new_unit.x_coord = x
 	new_unit.y_coord = y
 	new_unit.unit_name = unit_name
-	add_child(new_unit)
+	
+	## Einheit wird mit Sprite hinzugefügt
+	sprite.apply_scale(Vector2(0.4,0.4))
+	new_unit.path_follow.add_child(sprite)
+	new_unit.remove_sprite()
+	print("LOAD CHARACTER: ", unit_id)
+	sprite.LoadCharacter(unit_id)
+	sprite.position -= Vector2(8,8)
+	
+	## Funktioniert nicht
+	#var sprite_components = sprite.get_children()
+	#for sprite_component in sprite_components:
+	#	sprite_component.set_anchors_preset(Control.LayoutPreset.PRESET_CENTER)
+	
+	## Einheiten werden aktualisiert
 	get_units()
 	update_unit_grids(base_grid)
 
@@ -74,7 +96,19 @@ func update_unit_grids(grid):
 
 func _on_game_board_matrix_ready(value: Variant) -> void:
 	base_grid = value
+	load_characters_to_positions()
+	get_units()
 	update_unit_grids(value)
+
+
+func load_characters_to_positions():
+	var characters = GlobalCharacter.GetCharacters();
+	var counter = 0
+	for character in characters:
+		print("ID: ", character["id"])
+		if counter < len(positions):
+			create_unit(character["id"], character["name"], character["health"], character["damage"], character["defense"], positions[counter][0], positions[counter][1])
+		counter += 1
 
 func create_astar():
 	get_units()
@@ -208,9 +242,12 @@ func unit_attack(attacker, defender):
 	var attack_result = get_attack_result(attacker, defender)
 	defender.hp -= attack_result
 	
+	Logger.on_attack(attacker, defender, attack_result)
+	
 	if defender.hp <= 0:
 		defender.hp = 0
 		defender.on_death()
+		Logger.on_unit_death(attacker, defender)
 		emit_signal("reset_info")
 		check_one_side_empty()
 

@@ -254,6 +254,7 @@ func select_unit(unit):
 	selected_unit = unit
 	unit_manager.show_unit_range(selected_unit)
 	can_select = false
+	Logger.on_select_unit(unit)
 	
 func reset_selection():
 	#print("Auswahl zurückgenommen")
