@@ -11,7 +11,7 @@ func get_time():
 
 func make_line(event, uid1, uid2=ID_PLACEHOLDER, dmg=0):
 	get_time()
-	var line = str(get_time()) + "," + event + "," + str(uid1) + "," + str(uid2) + str(dmg) + "\n"
+	var line = str(get_time()) + "," + event + "," + str(uid1) + "," + str(uid2) + "," + str(dmg) + "\n"
 	var f = FileAccess.open("res://Logs/logs.txt", FileAccess.READ_WRITE)
 	f.seek_end()
 	f.store_string(line)
@@ -46,8 +46,8 @@ func on_move_selected(unit):
 func on_scenario_started(scenario):
 	make_line("Started Scenario: " + scenario, ID_PLACEHOLDER)
 	
-func on_scenario_character_selected(scenario, unit_id):
-	make_line("Selected in Scenario: ", unit_id)
+func on_scenario_character_selected(scenario, unit_id, unit_id_sacrificing):
+	make_line("Selected in Scenario: ", unit_id, unit_id_sacrificing)
 	
 func on_scenario_ended(scenario):
 	make_line("Ended Scenario: " + scenario, ID_PLACEHOLDER)

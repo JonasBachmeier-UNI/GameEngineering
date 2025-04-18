@@ -280,7 +280,13 @@ public partial class InBetweenScene : Control
 		GD.Print("Selected Value: " + value);
 		selectedCharacterIndex = value;
 		var logger = (GodotObject)GetNode("/root/Logger");
-		logger.Call("on_scenario_character_selected", scenarioNames[(int)selectedScenario], selectedCharacterIndex);
+		Character savingCharacter = GlobalCharacterManager.Instance.GetCharacter(selectedCharacterIndex);
+		Character sacrificingCharacter = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex);
+		if (selectedScenario == Scenario.SRetten || selectedScenario == Scenario.CRetten) {
+			logger.Call("on_scenario_character_selected", scenarioNames[(int)selectedScenario], savingCharacter.Id, sacrificingCharacter.Id);
+		} else {
+			logger.Call("on_scenario_character_selected", scenarioNames[(int)selectedScenario], savingCharacter.Id, "");
+		}
 	}
 	
 	private void OnNextButtonPressed()
@@ -335,11 +341,10 @@ public partial class InBetweenScene : Control
 		// Scenario 3: Character [C] is saved by [S], where [S] sacrifices themselves
 		int characterToSaveIndex = GetSelectedCharacterIndex();
 		Character characterToSave = GlobalCharacterManager.Instance.GetCharacter(characterToSaveIndex);
-		int sacrificingCharacterIndex = GetOtherCharacterIndex(characterToSaveIndex);
 		Character sacrificingCharacter = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex);
 
-		sacrificingCharacter.Health = 0;  // Sacrificing character dies
-		characterToSave.Health += 0;  // No change for character to save, just saved
+		GlobalCharacterManager.Instance.KillCharacter(sacrificingCharacter.Id);
+		characterToSave.Health += 0;  // No change
 		GD.Print(sacrificingCharacter.Name + " sacrificed themselves to save " + characterToSave.Name + "!");
 	}
 
@@ -348,11 +353,10 @@ public partial class InBetweenScene : Control
 		// Scenario 4: Character [C] is saved by [S] sacrificing themselves
 		int characterToSaveIndex = GetSelectedCharacterIndex();
 		Character characterToSave = GlobalCharacterManager.Instance.GetCharacter(characterToSaveIndex);
-		int sacrificingCharacterIndex = GetOtherCharacterIndex(characterToSaveIndex);
 		Character sacrificingCharacter = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex);
 
-		sacrificingCharacter.Health = 0;  // Sacrificing character dies
-		characterToSave.Health += 0;  // No change for character to save, just saved
+		GlobalCharacterManager.Instance.KillCharacter(sacrificingCharacter.Id);
+		characterToSave.Health += 0;  // No change
 		GD.Print(sacrificingCharacter.Name + " sacrificed themselves to save " + characterToSave.Name + "!");
 	}
 	
