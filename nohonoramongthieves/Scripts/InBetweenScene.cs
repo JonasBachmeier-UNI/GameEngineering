@@ -18,6 +18,9 @@ public partial class InBetweenScene : Control
 	public int ButtonCount = 6;
 	
 	public Scenario selectedScenario = Scenario.Malus;
+	
+	
+	public List<string> scenarioNames =  new List<string> { "Malus", "Bonus", "SRetten", "CRetten", "Gewonnen"};
 
 	private GridContainer _gridContainer;
 	private ButtonGroup _btnGroup;
@@ -221,6 +224,9 @@ public partial class InBetweenScene : Control
 			
 		string description = "";
 		
+		var logger = (GodotObject)GetNode("/root/Logger");
+		logger.Call("on_scenario_started", scenarioNames[(int)selectedScenario]);
+		
 		switch (selectedScenario)
 		{
 			case Scenario.Malus:
@@ -273,11 +279,12 @@ public partial class InBetweenScene : Control
 	{
 		GD.Print("Selected Value: " + value);
 		selectedCharacterIndex = value;
+		var logger = (GodotObject)GetNode("/root/Logger");
+		logger.Call("on_scenario_character_selected", scenarioNames[(int)selectedScenario], selectedCharacterIndex);
 	}
 	
 	private void OnNextButtonPressed()
 	{
-		Scenario selectedScenario = Scenario.Malus;
 
 		switch (selectedScenario)
 		{
@@ -297,6 +304,9 @@ public partial class InBetweenScene : Control
 				HandleCRettenScenario();
 				break;
 		}
+		
+		var logger = (GodotObject)GetNode("/root/Logger");
+		logger.Call("on_scenario_ended", scenarioNames[(int)selectedScenario]);
 		
 		SceneManager.Instance.NextScene();
 	}

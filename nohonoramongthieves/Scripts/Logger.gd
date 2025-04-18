@@ -42,3 +42,12 @@ func on_wait_selected(unit):
 func on_move_selected(unit):
 	var unit_id = unit.unit_id
 	make_line("Move Selected", unit_id)
+
+func on_scenario_started(scenario):
+	make_line("Started Scenario: " + scenario, ID_PLACEHOLDER)
+	
+func on_scenario_character_selected(scenario, unit_id):
+	make_line("Selected in Scenario: ", unit_id)
+	
+func on_scenario_ended(scenario):
+	make_line("Ended Scenario: " + scenario, ID_PLACEHOLDER)
