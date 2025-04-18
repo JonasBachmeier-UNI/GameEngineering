@@ -130,3 +130,8 @@
 5920,Unit Selected,0,,0
 8852,Unit Selected,0,,0
 15754,Unit Selected,2,,0
+7650,Unit Selected,5,,0
+11831,Attack,5,-1,1
+4364,##### Participant started the game. ID: 1,,,0
+8414,Unit Selected,5,,0
+12795,Attack,5,-1,1

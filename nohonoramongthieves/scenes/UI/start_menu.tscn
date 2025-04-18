@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://cq2dm8t6mi3nn"]
+[gd_scene load_steps=8 format=3 uid="uid://cq2dm8t6mi3nn"]
 
 [ext_resource type="Theme" uid="uid://bq6j8yolc4bdm" path="res://themes/menu_button_theme.tres" id="1_ck3qu"]
-[ext_resource type="Script" path="res://scripts/StartMenu.cs" id="1_r3ech"]
+[ext_resource type="Script" path="res://Scripts/UI/start_menu.gd" id="2_bkei0"]
 [ext_resource type="StyleBox" uid="uid://wjq50h5x86d4" path="res://themes/button_bg_highlighted.tres" id="3_fqpqp"]
 [ext_resource type="Texture2D" uid="uid://bt51pco4es7ci" path="res://assets/ui_menu_background_image.png" id="4_7ut8j"]
 [ext_resource type="StyleBox" uid="uid://bhd4kj2d0yic1" path="res://themes/button_bg.tres" id="4_y4cfl"]
 [ext_resource type="Texture2D" uid="uid://dgbghbpnocgts" path="res://assets/ui_logo.png" id="5_x8io1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hp8t"]
+bg_color = Color(0.6, 0.6, 0.6, 0.627451)
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -15,7 +18,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ck3qu")
-script = ExtResource("1_r3ech")
+script = ExtResource("2_bkei0")
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+z_index = 10
+layout_mode = 0
+offset_right = 1938.0
+offset_bottom = 1108.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4hp8t")
 
 [node name="QuitButton" type="Button" parent="."]
 layout_mode = 1
@@ -51,7 +62,7 @@ theme_override_styles/pressed = ExtResource("3_fqpqp")
 theme_override_styles/normal = ExtResource("4_y4cfl")
 text = "Start"
 
-[node name="OptionsButton" type="Button" parent="."]
+[node name="TutorialButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -64,7 +75,7 @@ offset_right = 159.5
 offset_bottom = 188.625
 grow_horizontal = 2
 grow_vertical = 2
-text = "Options"
+text = "Tutorial"
 
 [node name="Background" type="TextureRect" parent="."]
 z_index = -5
@@ -92,3 +103,7 @@ grow_horizontal = 2
 mouse_filter = 2
 texture = ExtResource("5_x8io1")
 expand_mode = 1
+
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="TutorialButton" to="." method="_on_tutorial_button_pressed"]
