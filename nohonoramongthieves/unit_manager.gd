@@ -103,6 +103,21 @@ func _on_game_board_matrix_ready(value: Variant) -> void:
 
 func load_characters_to_positions():
 	var characters = GlobalCharacter.GetCharacters();
+	var level = SceneManager.GetCurrentLevelId();
+	var s_pos = []
+	if level == 1:
+		s_pos = [[3,3],[5,5],[7,8],[5,4],[3,9],[8,4]]
+	elif level == 2:
+		s_pos = [[4,3],[5,6],[7,8],[7,4],[6,4],[8,5]]
+	elif level == 3:
+		s_pos = [[5,2],[9,3],[20,3],[15,4],[5,5],[26,2]]
+	elif level == 4:
+		s_pos = [[12,6],[15,3],[19,5],[19,11],[15,12],[11,11]]
+	elif level == 5:
+		s_pos = [[4,2],[15,3],[5,5],[3,9],[7,7],[22,2]]
+	else:
+		s_pos = [[1,1],[3,3],[5,5],[2,4],[1,2],[3,4]]
+		
 	var counter = 0
 	for character in characters:
 		print("ID: ", character["id"])
@@ -300,6 +315,7 @@ func check_one_side_empty():
 			allies.append(unit)
 	
 	if enemies.is_empty():
+		$"../../../SceneManager".NextScene()
 		print("PLAYER WON")
 	
 	elif allies.is_empty():

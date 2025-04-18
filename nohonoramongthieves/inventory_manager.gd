@@ -13,15 +13,11 @@ func _ready() -> void:
 func test():
 	var unit_manager = $"../GameBoard/Units"
 	var test_unit = $"../GameBoard/Units/Unit"
-	print(test_unit)
 	add_to_inventory(ITEM.POTION)
 	add_to_inventory(ITEM.STEROIDS)
 	add_to_inventory(ITEM.POTION)
-	print(test_unit.hp)
 	test_unit.hp -= 5
-	print(test_unit.hp)
 	use_item(ITEM.POTION, test_unit)
-	print(test_unit.hp)
 	
 	var test_unit_2 = $"../GameBoard/Units/Unit2"
 	print("VOR A1 ", test_unit_2.hp)

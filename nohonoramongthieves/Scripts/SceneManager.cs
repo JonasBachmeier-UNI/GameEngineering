@@ -8,11 +8,11 @@ public partial class SceneManager : Node
 	private int _currentSceneIndex = 0;
 	private int _participantNumber = 0;
 	private bool _isPathsInitialized = false;
-	
+
 	private const string PARTICIPANT_ENTRY_SCENE = "res://scenes/ParticipantNumber.tscn";
 	private const string CHARACTER_CREATION_SCENE = "res://scenes/CharacterCreation.tscn";
 	private const string CHARACTER_SUMMARY_SCENE = "res://scenes/CharacterSummary.tscn";
-	private const string FIGHT_SCENE = "res://scenes/test.tscn";
+	private const string FIGHT_SCENE = "res://scenes/level1.tscn";
 	private const string IN_BETWEEN_SCENE = "res://scenes/InBetweenScene.tscn";
 
 	// Singleton
@@ -41,40 +41,40 @@ public partial class SceneManager : Node
 		_currentSceneIndex = 0;
 		LoadScene(scenePaths[_currentSceneIndex]);
 	}
-	
+
 	public void SetParticipantNumber(int participantNumber)
 	{
 		_participantNumber = participantNumber;
 		InitializeScenePaths();
-		
+
 		NextScene();
 	}
-	
+
 	private void InitializeScenePaths()
 	{
 		if (_isPathsInitialized)
 			return;
-			
+
 		scenePaths.Clear();
-		
+
 		scenePaths.Add(CHARACTER_CREATION_SCENE);
 		scenePaths.Add(CHARACTER_SUMMARY_SCENE);
 		//scenePaths.Add(FIGHT_SCENE);
-		
+
 		List<int> scenarioOrder = GenerateScenarioOrder(_participantNumber);
-		
+
 		foreach (int scenarioId in scenarioOrder)
 		{
 			scenePaths.Add($"{IN_BETWEEN_SCENE}?scenario={scenarioId}");
-			//scenePaths.Add(FIGHT_SCENE);
+			scenePaths.Add($"res://scenes/level{scenarioId + 2}.tscn");
 		}
-		
+
 		scenePaths.Add($"{IN_BETWEEN_SCENE}?scenario=4");
-		
+
 		_isPathsInitialized = true;
 		_currentSceneIndex = -1;
 	}
-	
+
 	private List<int> GenerateScenarioOrder(int participantNumber)
 	{
 		List<List<int>> allSequences = new List<List<int>>
@@ -104,10 +104,10 @@ public partial class SceneManager : Node
 				new List<int> {3, 2, 0, 1},
 				new List<int> {3, 2, 1, 0}
 			};
-		
+
 		return allSequences[participantNumber];
 	}
-	
+
 	public int GetCurrentScenarioId()
 	{
 		string currentPath = scenePaths[_currentSceneIndex];
@@ -122,6 +122,20 @@ public partial class SceneManager : Node
 		return -1;
 	}
 
+	public int GetCurrentLevelId()
+	{
+		string currentPath = scenePaths[_currentSceneIndex];
+		if (currentPath.StartsWith("res://scenes/level") && currentPath.EndsWith(".tscn"))
+		{
+			string levelIdStr = currentPath.Split("level")[1].Split(".tscn")[0];
+			if (int.TryParse(levelIdStr, out int levelId))
+			{
+				return levelId;
+			}
+		}
+		return -1;
+	}
+
 	private void LoadScene(string scenePath)
 	{
 		if (string.IsNullOrEmpty(scenePath))
@@ -129,19 +143,21 @@ public partial class SceneManager : Node
 			GD.PrintErr("LoadScene: scenePath is empty or null!");
 			return;
 		}
-		
+
 		var error = Error.Failed;
-		
+
 		if (scenePath.StartsWith(IN_BETWEEN_SCENE) && scenePath.Contains("?scenario="))
 		{
 			string scenarioPath = scenePath.Split("?scenario=")[0];
 			error = GetTree().ChangeSceneToFile(scenarioPath);
-		} else {
+		}
+		else
+		{
 			error = GetTree().ChangeSceneToFile(scenePath);
 		}
-			
 
-		 
+
+
 
 		if (error != Error.Ok)
 		{

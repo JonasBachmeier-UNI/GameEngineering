@@ -52,7 +52,6 @@ func calculate_minimum_offsets(cells: Array[Vector2i]):
 	width = current_max_x - current_min_x + 1
 	height = current_max_y - current_min_y + 1
 	
-	
 func create_matrix(cells: Array[Vector2i]):
 	
 	for x in range(height):
