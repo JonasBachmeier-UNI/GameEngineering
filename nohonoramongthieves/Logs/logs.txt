@@ -122,3 +122,8 @@
 8483,Ended Scenario: Malus,,,0
 5587,Started Scenario: Malus,,,0
 6700,Ended Scenario: Malus,,,0
+7659,Unit Selected,5,,0
+13340,Attack,5,-1,1
+18657,Attack,-1,5,10
+20141,Attack,-1,5,2
+25623,Attack,-1,2,5
