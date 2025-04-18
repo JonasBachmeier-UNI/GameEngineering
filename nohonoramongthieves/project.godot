@@ -41,3 +41,7 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="NoHonorAmongThieves"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.259294, 0.259294, 0.259294, 1)
