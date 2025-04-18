@@ -4,10 +4,17 @@ extends Path2D
 const ID_CONVERT_MULT = 100
 const ENEMY_POSITION_VALUE = 500
 
+signal calculate_attack
+
 @onready var tml = $"../../Map"
 @onready var overlay = $"../../UnitOverlay"
 @onready var gameboard = $"../../../GameBoard"
 @onready var path_follow = $"PathFollow2D"
+@onready var sprite = $PathFollow2D/Sprite2D
+@onready var animation_player = $PathFollow2D/AnimationPlayer
+@onready var attack_animation = $PathFollow2D/AttackSword
+@onready var dmg_animation = $PathFollow2D/Dmg
+
 
 
 ## wenn true dann wird dem Pfad gefolgt
@@ -20,6 +27,7 @@ var is_moving = false
 @export var speed := 100.0
 
 @export var unit_name: String
+@export var id := -1
 
 @export var x_coord: int
 @export var y_coord: int
@@ -75,7 +83,14 @@ func current_pos_to_tml():
 ## TODO: aufrufen wenn hp < 0
 ## Löscht komplette Node bei besiegen der Node
 func on_death():
+	if id >= 0:
+		## TODO: Kill CharacterManager
+		pass
 	queue_free()
+
+
+func remove_sprite():
+	sprite.queue_free()
 
 
 func on_game_board_matrix_ready(value: Variant) -> void:
@@ -411,3 +426,16 @@ func id_to_coordinate(coord):
 	var y = coord % ID_CONVERT_MULT
 	var x = (coord - y) / ID_CONVERT_MULT
 	return [x, y]
+
+func start_attack_animation(direction, dmg):
+	attack_animation.visible = true
+	dmg_animation.text = "-" + str(dmg)
+	dmg_animation.visible = true
+	animation_player.attack(direction)
+
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	attack_animation.visible = false
+	dmg_animation.visible = false
+	get_parent().attack_started()

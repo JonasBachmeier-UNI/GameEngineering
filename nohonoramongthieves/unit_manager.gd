@@ -11,6 +11,7 @@ var moving_unit = null
 var is_ai_move = false
 var attack_queued = false
 var defender
+var attacker
 
 signal unit_moves
 signal path_completed
@@ -19,6 +20,7 @@ signal all_units_moved
 signal reset_info
 
 signal show_attack_ui(attacker, defender)
+signal attack_start
 
 ## TODO Menü passend anzeigen
 
@@ -31,17 +33,38 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	execute_movement(delta)
 
-func create_unit(unit_name, hp, dmg, defense, x, y):
+func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
+	## Prefabs werden geholt
 	var prefab = preload("res://scenes/unit.tscn")
+	var prefab_sprite = preload("res://scenes/CharacterDisplayScene.tscn")
+	var sprite = prefab_sprite.instantiate()
 	var new_unit = prefab.instantiate()
-	new_unit.max_hp = hp
+	
+	## Eigenschaften der Einheit werden gesetzt
+	new_unit.id = unit_id
+	new_unit.max_hp = 100
 	new_unit.hp = hp
 	new_unit.dmg = dmg
 	new_unit.defense = defense
 	new_unit.x_coord = x
 	new_unit.y_coord = y
 	new_unit.unit_name = unit_name
+	
+	## Einheit wird mit Sprite hinzugefügt
 	add_child(new_unit)
+	sprite.apply_scale(Vector2(0.4,0.4))
+	new_unit.path_follow.add_child(sprite)
+	new_unit.remove_sprite()
+	print("LOAD CHARACTER: ", unit_id)
+	sprite.LoadCharacter(unit_id)
+	sprite.position -= Vector2(8,8)
+	
+	## Funktioniert nicht
+	#var sprite_components = sprite.get_children()
+	#for sprite_component in sprite_components:
+	#	sprite_component.set_anchors_preset(Control.LayoutPreset.PRESET_CENTER)
+	
+	## Einheiten werden aktualisiert
 	get_units()
 	update_unit_grids(base_grid)
 
@@ -71,6 +94,14 @@ func update_unit_grids(grid):
 
 func _on_game_board_matrix_ready(value: Variant) -> void:
 	base_grid = value
+	var characters = GlobalCharacter.GetCharacters();
+	var s_pos = [[1,1],[3,3],[5,5],[2,4],[1,2],[3,4]]
+	var counter = 0
+	for character in characters:
+		print("ID: ", character["id"])
+		create_unit(character["id"], character["name"], character["health"], character["damage"], character["defense"], s_pos[counter][0], s_pos[counter][1])
+		counter += 1
+	get_units()
 	update_unit_grids(value)
 
 func create_astar():
@@ -99,7 +130,8 @@ func move_unit(unit, new_x, new_y):
 func end_path_check():
 	if attack_queued:
 		if moving_unit.is_next_to_unit(defender):
-			unit_attack(moving_unit, defender)
+			start_attack(moving_unit, defender)
+			return
 		attack_queued = false
 		emit_signal("path_completed")
 		if is_ai_move:
@@ -112,6 +144,19 @@ func end_path_check():
 			is_ai_move = false
 			emit_signal("ai_move_done")
 	check_all_units_moved()
+
+
+## TODO: nach Animation aufrufen
+## TODO: testen
+func attack_started():
+	unit_attack(attacker, defender)
+	attack_queued = false
+	emit_signal("path_completed")
+	if is_ai_move:
+		is_ai_move = false
+		emit_signal("ai_move_done")
+	check_all_units_moved()
+
 
 func start_unit_movement(unit):
 	clear_overlay()
@@ -178,6 +223,15 @@ func queue_attack(defending_unit):
 	defender = defending_unit
 
 
+func start_attack(attacking_unit, defending_unit):
+	attacker = attacking_unit
+	defender = defending_unit
+	var attack_result = get_attack_result(attacker, defender)
+	var direction = get_attack_direction(attacker, defender)
+	
+	attacker.start_attack_animation(direction, attack_result)
+
+
 func unit_attack(attacker, defender):
 	var attack_result = get_attack_result(attacker, defender)
 	defender.hp -= attack_result
@@ -241,3 +295,13 @@ func check_one_side_empty():
 	
 	elif allies.is_empty():
 		print("ENEMY WON")
+		
+func get_attack_direction(attacker, defender) -> String:
+	if attacker.x_coord == defender.x_coord:
+		if attacker.y_coord < defender.y_coord:
+			return "down"
+		return "up"
+	else:
+		if attacker.x_coord < defender.x_coord:
+			return "right"
+		return "left"

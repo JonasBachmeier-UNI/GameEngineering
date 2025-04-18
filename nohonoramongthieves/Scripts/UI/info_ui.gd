@@ -4,13 +4,11 @@ var selected_unit
 var selected_unit_ui = load("res://scenes/UI/unit_info.tscn").instantiate()
 var hovered_unit
 var hovered_unit_ui = load("res://scenes/UI/unit_info.tscn").instantiate()
-var container
+@onready var container = $VBoxContainer/PanelContainer/VBoxContainer/OuterContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	container = $PanelContainer/OuterContainer
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

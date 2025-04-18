@@ -1,7 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://db02ekgaf0l8q"]
+[gd_scene load_steps=5 format=3 uid="uid://db02ekgaf0l8q"]
 
 [ext_resource type="Script" path="res://Scripts/UI/info_ui.gd" id="1_1prvl"]
 [ext_resource type="Theme" uid="uid://fl6fe5vcl7qu" path="res://themes/ingame_menu_theme.tres" id="1_5603y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m2yua"]
+bg_color = Color(1, 1, 1, 0.627451)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5blv"]
 bg_color = Color(1, 1, 1, 1)
@@ -21,57 +33,73 @@ expand_margin_bottom = 5.0
 
 [node name="InfoUI" type="Control"]
 layout_mode = 3
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -200.0
-offset_bottom = 20.0
+offset_right = -1440.0
+offset_bottom = -810.0
 grow_horizontal = 2
-grow_vertical = 0
-pivot_offset = Vector2(0, 200)
-size_flags_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_1prvl")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -220.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("1_5603y")
-
-[node name="OuterContainer" type="HBoxContainer" parent="PanelContainer"]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="."]
-visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_5603y")
 
-[node name="Title" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 30.0
-offset_top = -17.0
-offset_right = 70.0
-offset_bottom = 23.0
-scale = Vector2(1.96, 0.880001)
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control2" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control3" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_5603y")
+theme_override_styles/panel = SubResource("StyleBoxFlat_m2yua")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="Control" type="Control" parent="VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Panel" parent="VBoxContainer/PanelContainer/VBoxContainer/Control"]
+z_index = 10
+layout_mode = 2
+offset_left = 17.165
+offset_top = -11.47
+offset_right = 57.165
+offset_bottom = 28.53
+scale = Vector2(1, 0.505)
+size_flags_vertical = 0
 theme = ExtResource("1_5603y")
 theme_override_styles/panel = SubResource("StyleBoxFlat_o5blv")
 
-[node name="TitleLabel" type="Label" parent="Title"]
+[node name="TitleLabel" type="Label" parent="VBoxContainer/PanelContainer/VBoxContainer/Control/Title"]
 layout_mode = 0
 offset_left = 5.10204
 offset_top = 3.40909
 offset_right = 89.102
 offset_bottom = 47.4091
 scale = Vector2(0.337483, 0.785069)
+theme_override_font_sizes/font_size = 36
 text = "INFO"
+
+[node name="OuterContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1

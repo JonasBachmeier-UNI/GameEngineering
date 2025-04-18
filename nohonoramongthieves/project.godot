@@ -8,6 +8,11 @@
 
 config_version=5
 
+[animation]
+
+warnings/check_invalid_track_paths=false
+warnings/check_angle_interpolation_type_conflicting=false
+
 [application]
 
 config/name="NoHonorAmongThieves"
@@ -19,11 +24,18 @@ config/icon="res://icon.svg"
 
 SceneManager="*res://Scripts/SceneManager.cs"
 GlobalCharacter="*res://Scripts/GlobalCharacterManager.cs"
+Logger="*res://Scripts/Logger.gd"
+
+[debug]
+
+file_logging/enable_file_logging=true
+file_logging/max_log_files=10
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [dotnet]

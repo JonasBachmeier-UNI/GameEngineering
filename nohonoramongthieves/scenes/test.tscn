@@ -272,41 +272,63 @@ animations = [{
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 
-[node name="UI" type="Node" parent="."]
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -135.0
+offset_right = 240.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="InfoUI" parent="UI" instance=ExtResource("1_tb53t")]
 z_index = 200
-anchors_preset = 15
-anchor_top = 0.0
-offset_left = -144.0
-offset_top = -122.0
-offset_right = 255.0
-offset_bottom = -551.0
-grow_vertical = 2
-scale = Vector2(0.185281, 0.155476)
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="ActionSelect" parent="UI" instance=ExtResource("11_6vcba")]
 visible = false
-offset_left = -74.0
-offset_top = -39.0
-offset_right = -74.0
-offset_bottom = -39.0
-scale = Vector2(0.0944048, 0.0936225)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0395833
+anchor_top = 0.0962963
+anchor_right = 0.0395833
+anchor_bottom = 0.0962963
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.235, 0.235)
+metadata/_edit_use_anchors_ = true
 
 [node name="AttackUI" parent="UI" instance=ExtResource("3_gv87k")]
 visible = false
 z_index = 300
-offset_right = -1152.0
-offset_bottom = -648.0
-scale = Vector2(0.18, 0.18)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+scale = Vector2(0.255, 0.255)
 
 [node name="Phase" type="Label" parent="UI"]
 z_index = 1
-offset_left = -18.0
-offset_top = -46.0
-offset_right = 81.0
-offset_bottom = -23.0
-scale = Vector2(0.369037, 0.354844)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -23.0
+offset_right = 76.0
+offset_bottom = 23.0
+grow_horizontal = 2
+scale = Vector2(0.465, 0.465)
 size_flags_horizontal = 4
 text = "Player Phase"
 
@@ -315,7 +337,7 @@ script = ExtResource("1_pdsm0")
 tml = NodePath("Map")
 
 [node name="Map" type="TileMapLayer" parent="GameBoard"]
-tile_map_data = PackedByteArray("AAD8//7/AAAAAAMAAAD8////AAAAAAQAAAD8/wAAAAAAAAQAAAD8/wEAAAAAAAQAAAD8/wIAAAAAAAYAAAD9/wIAAAABAAYAAAD+/wIAAAABAAYAAAD//wIAAAABAAYAAAAAAAIAAAABAAYAAAABAAIAAAABAAYAAAACAAIAAAABAAYAAAADAAIAAAADAAYAAAADAAEAAAADAAUAAAADAAAAAAADAAUAAAADAP//AAADAAUAAAADAP7/AAADAAMAAAACAP7/AAACAAMAAAABAP7/AAACAAMAAAAAAP7/AAACAAMAAAD///7/AAACAAMAAAD+//7/AAACAAMAAAD9//7/AAACAAMAAAD9////AAACAAUAAAD9/wAAAAACAAUAAAD+/wAAAAACAAUAAAD+/wEAAAACAAUAAAD//wEAAAACAAUAAAAAAAEAAAACAAUAAAAAAAAAAAACAAUAAAABAAAAAAACAAUAAAACAAAAAAACAAUAAAACAP//AAACAAUAAAACAAEAAAACAAUAAAABAAEAAAACAAUAAAABAP//AAABAAUAAAAAAP//AAACAAUAAAD/////AAACAAUAAAD+////AAACAAUAAAD9/wEAAAACAAUAAAD//wAAAAACAAUAAAD7//3/AQALAAEAAAD7//7/AQALAAEAAAD7////AQALAAEAAAD7/wAAAQALAAEAAAD7/wEAAQALAAEAAAD7/wIAAQALAAEAAAD7/wMAAQALAAEAAAD8/wMAAQALAAEAAAD9/wMAAQALAAEAAAD+/wMAAQALAAEAAAD//wMAAQALAAEAAAAAAAMAAQALAAEAAAABAAMAAQALAAEAAAACAAMAAQALAAEAAAADAAMAAQALAAEAAAAEAAMAAQALAAEAAAAEAAIAAQALAAEAAAAEAAEAAQALAAEAAAAEAAAAAQALAAEAAAAEAP//AQALAAEAAAAEAP7/AQALAAEAAAAEAP3/AQALAAEAAAADAP3/AQALAAEAAAACAP3/AQALAAEAAAABAP3/AQALAAEAAAAAAP3/AQALAAEAAAD///3/AQALAAEAAAD+//3/AQALAAEAAAD9//3/AQALAAEAAAD8//3/AQALAAEAAAA=")
+tile_map_data = PackedByteArray("AAD8//7/AAAAAAMAAAD8////AAAAAAQAAAD8/wAAAAAAAAQAAAD8/wEAAAAAAAQAAAD8/wIAAAAAAAYAAAD9/wIAAAABAAYAAAD+/wIAAAABAAYAAAD//wIAAAABAAYAAAAAAAIAAAABAAYAAAABAAIAAAABAAYAAAACAAIAAAABAAYAAAADAAIAAAADAAYAAAADAAEAAAADAAUAAAADAAAAAAADAAUAAAADAP//AAADAAUAAAADAP7/AAADAAMAAAACAP7/AAACAAMAAAABAP7/AAACAAMAAAAAAP7/AAACAAMAAAD///7/AAACAAMAAAD+//7/AAACAAMAAAD9//7/AAABAAMAAAD9////AAABAAQAAAD9/wAAAAABAAQAAAD+/wAAAAACAAUAAAD+/wEAAAACAAUAAAD//wEAAAACAAUAAAAAAAEAAAACAAUAAAAAAAAAAAACAAUAAAABAAAAAAACAAUAAAACAAAAAAACAAUAAAACAP//AAACAAUAAAACAAEAAAACAAUAAAABAAEAAAACAAUAAAABAP//AAABAAUAAAAAAP//AAACAAUAAAD/////AAACAAUAAAD+////AAACAAUAAAD9/wEAAAACAAUAAAD//wAAAAACAAUAAAD7//3/AQALAAEAAAD7//7/AQALAAEAAAD7////AQALAAEAAAD7/wAAAQALAAEAAAD7/wEAAQALAAEAAAD7/wIAAQALAAEAAAD7/wMAAQALAAEAAAD8/wMAAQALAAEAAAD9/wMAAQALAAEAAAD+/wMAAQALAAEAAAD//wMAAQALAAEAAAAAAAMAAQALAAEAAAABAAMAAQALAAEAAAACAAMAAQALAAEAAAADAAMAAQALAAEAAAAEAAMAAQALAAEAAAAEAAIAAQALAAEAAAAEAAEAAQALAAEAAAAEAAAAAQALAAEAAAAEAP//AQALAAEAAAAEAP7/AQALAAEAAAAEAP3/AQALAAEAAAADAP3/AQALAAEAAAACAP3/AQALAAEAAAABAP3/AQALAAEAAAAAAP3/AQALAAEAAAD///3/AQALAAEAAAD+//3/AQALAAEAAAD9//3/AQALAAEAAAD8//3/AQALAAEAAAA=")
 tile_set = SubResource("TileSet_xdb4t")
 
 [node name="UnitOverlay" type="TileMapLayer" parent="GameBoard"]
@@ -331,18 +353,6 @@ script = ExtResource("31_5hn6m")
 
 [node name="Units" type="Node" parent="GameBoard"]
 script = ExtResource("5_177xh")
-
-[node name="Unit" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
-unit_name = "Bob"
-max_hp = 1000
-defense = 0
-move_range = 7
-
-[node name="Unit3" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
-unit_name = "Bob 2"
-y_coord = 2
-dmg = 4
-defense = 4
 
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true
@@ -389,8 +399,8 @@ script = ExtResource("22_dct3n")
 [connection signal="path_completed" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_path_completed"]
 [connection signal="reset_info" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_reset_info"]
 [connection signal="show_attack_ui" from="GameBoard/Units" to="UI/AttackUI" method="_on_show_attack_ui"]
-[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
+[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="remove_hovered_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_hovered_info"]
 [connection signal="remove_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_info"]
 [connection signal="show_actions" from="GameBoard/Cursor" to="UI/ActionSelect" method="_on_cursor_show_actions"]
@@ -400,5 +410,4 @@ script = ExtResource("22_dct3n")
 [connection signal="new_turn" from="GameManager" to="GameBoard/Units" method="_on_game_manager_new_turn"]
 [connection signal="player_turn" from="GameManager" to="GameBoard/Cursor" method="_on_game_manager_player_turn"]
 
-[editable path="GameBoard/Units/Unit"]
 [editable path="GameBoard/Units/Unit2"]

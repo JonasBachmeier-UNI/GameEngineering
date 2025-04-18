@@ -1,4 +1,4 @@
-extends PanelContainer
+extends Node
 
 var max_hp
 var unit_name
@@ -8,15 +8,16 @@ var defense
 
 signal update_health(hp, maxhp)
 
-@onready var dmg_stat_label = $HBoxContainer/Stats/CombatStats/ATK/Stat
-@onready var def_stat_label = $HBoxContainer/Stats/CombatStats/DEF/Stat
-@onready var name_label = $HBoxContainer/Stats/CombatStats/Label
+@onready var dmg_stat_label = $MarginContainer/HBoxContainer/Stats/CombatStats/ATK/Stat
+@onready var def_stat_label = $MarginContainer/HBoxContainer/Stats/CombatStats/DEF/Stat
+@onready var name_label = $MarginContainer/HBoxContainer/Stats/CombatStats/Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	dmg_stat_label.text = str(dmg)
 	def_stat_label.text = str(defense)
 	pass
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
