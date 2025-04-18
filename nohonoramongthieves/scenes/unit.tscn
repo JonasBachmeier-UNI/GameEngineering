@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://1tu0ew23kxa2"]
 
 [ext_resource type="Script" path="res://Scripts/GameLogic/unit.gd" id="1_l8aop"]
-[ext_resource type="Texture2D" uid="uid://l31kxdyrswdc" path="res://assets/Unit/test.png" id="2_j8h8j"]
+[ext_resource type="Texture2D" uid="uid://c8h51dcoxojdl" path="res://assets/enemy_skeleton.png" id="2_uabne"]
 [ext_resource type="Texture2D" uid="uid://cncpljj1nqwio" path="res://assets/Attack/1.png" id="4_6q2vf"]
 [ext_resource type="Script" path="res://scenes/animation_player.gd" id="4_e62ed"]
 
@@ -346,7 +346,8 @@ move_range = 4
 rotates = false
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D"]
-texture = ExtResource("2_j8h8j")
+scale = Vector2(0.722222, 0.722222)
+texture = ExtResource("2_uabne")
 
 [node name="AttackSword" type="Sprite2D" parent="PathFollow2D"]
 visible = false
@@ -367,10 +368,10 @@ z_index = 10
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -7.0
-offset_top = -29.0
-offset_right = 8.0
-offset_bottom = -6.0
+offset_left = -9.0
+offset_top = 5.0
+offset_right = 6.0
+offset_bottom = 28.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 0)
 text = "-4"
