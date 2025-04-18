@@ -353,6 +353,8 @@ script = ExtResource("31_5hn6m")
 
 [node name="Units" type="Node" parent="GameBoard"]
 script = ExtResource("5_177xh")
+speed = null
+positions = null
 
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource("6_0du6g")]
 is_enemy = true

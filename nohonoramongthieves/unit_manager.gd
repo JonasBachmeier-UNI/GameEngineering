@@ -242,6 +242,8 @@ func unit_attack(attacker, defender):
 	var attack_result = get_attack_result(attacker, defender)
 	defender.hp -= attack_result
 	
+	Logger.on_attack(attacker, defender)
+	
 	if defender.hp <= 0:
 		defender.hp = 0
 		defender.on_death()
