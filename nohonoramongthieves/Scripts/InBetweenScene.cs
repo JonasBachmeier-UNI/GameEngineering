@@ -224,16 +224,16 @@ public partial class InBetweenScene : Control
 		{
 			case Scenario.Malus:
 				description = "Ihr betretet einen schmalen Gang auf dem Weg tiefer in die Schatzkammer, dessen Wände von kunstvoll gearbeiteten Platten bedeckt ist. Abgelenkt von der Verzierung merkt ihr nicht wie einer von euch auf eine Druckplatte tritt. Plötzlich aktiviert sich ein mechanisches System – scharfe Klingen drohen, eine tödliche Falle für unsere Helden zu werden. Nur ein schneller Eingriff kann diese Gefahr bannen, doch die klingen springen bereits aus der Wand. Der Character der die Falle entschärft verliert 15 HP.";
-				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Blades.jpg");
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://assets/DecisionImages/Gemini_Blades.jpg");
 				break;
 				
 			case Scenario.Bonus:
 				description = "In einem verborgenen Nischenraum der Schatzkammer entdeckt ihr einen schimmernden Trank, der in einem alten, mit mystischen Symbolen verzierten Gefäß ruht. Ein Stück pergament neben dem Trank spezifiziert, wie der Trank genutz wurde um heldenhafte Stärke hervorzubringen. Der Trank verleiht einem Character Stärke und lässt ihn mit doppelt so viel Schaden angeifen.";
-				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Trank.jpg");
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://assets/DecisionImages/Gemini_Trank.jpg");
 				break;
 				
 			case Scenario.SRetten:
-				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_FallenFloor.jpg");
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://assets/DecisionImages/Gemini_FallenFloor.jpg");
 				if (sacrificingCharacterIndex >= 0 && rescuingCharacterIndex >= 0)
 				{
 					string sacrificeName = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex).Name;
@@ -247,7 +247,7 @@ public partial class InBetweenScene : Control
 				break;
 				
 			case Scenario.CRetten:
-				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Szepter.jpg");
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://assets/DecisionImages/Gemini_Szepter.jpg");
 				if (sacrificingCharacterIndex >= 0 && rescuingCharacterIndex >= 0)
 				{
 					string sacrificeName = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex).Name;
