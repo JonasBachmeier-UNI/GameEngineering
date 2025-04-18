@@ -526,8 +526,8 @@ is_enemy = true
 unit_name = "Skeleton 1"
 x_coord = 14
 y_coord = 8
-max_hp = 35
-dmg = 4
+max_hp = 60
+dmg = 10
 defense = 2
 
 [node name="Dmg" parent="GameBoard/Units/Enemy/PathFollow2D" index="3"]
@@ -558,8 +558,8 @@ is_enemy = true
 unit_name = "Skeleton 1"
 x_coord = 10
 y_coord = 4
-max_hp = 24
-dmg = 1
+max_hp = 25
+dmg = 8
 defense = 3
 move_range = 5
 

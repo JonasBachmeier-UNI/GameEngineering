@@ -381,6 +381,7 @@ is_enemy = true
 unit_name = "Skeleton 1"
 x_coord = 11
 y_coord = 6
+max_hp = 30
 dmg = 10
 defense = 4
 
@@ -389,62 +390,62 @@ is_enemy = true
 unit_name = "Skeleton 2"
 x_coord = 12
 y_coord = 7
-max_hp = 1
-dmg = 2
-defense = 0
+max_hp = 20
+dmg = 8
+
+[node name="Dmg" parent="GameBoard/Units/Enemy2/PathFollow2D" index="3"]
+offset_left = -8.0
+offset_top = 8.0
+offset_right = 7.0
+offset_bottom = 31.0
 
 [node name="Enemy3" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 is_enemy = true
 unit_name = "Skeleton 3"
 x_coord = 20
 y_coord = 11
-max_hp = 1
-defense = 0
+max_hp = 20
+dmg = 8
 
 [node name="Enemy4" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 is_enemy = true
 unit_name = "Skeleton 4 "
 x_coord = 18
 y_coord = 12
-max_hp = 1
-dmg = 5
-defense = 0
+max_hp = 20
+dmg = 8
 
 [node name="Enemy5" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 is_enemy = true
 unit_name = "Skeleton 5"
 x_coord = 18
 y_coord = 5
-max_hp = 1
-dmg = 5
-defense = 0
+max_hp = 20
+dmg = 8
 
 [node name="Enemy6" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 is_enemy = true
 unit_name = "Skeleton 6"
 x_coord = 28
 y_coord = 4
-max_hp = 1
-dmg = 5
-defense = 0
+max_hp = 20
+dmg = 8
 
 [node name="Enemy7" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 is_enemy = true
 unit_name = "Skeleton 7"
 x_coord = 8
 y_coord = 11
-max_hp = 1
-dmg = 5
-defense = 0
+max_hp = 20
+dmg = 8
 
 [node name="Enemy8" parent="GameBoard/Units" instance=ExtResource("36_yl23d")]
 is_enemy = true
 unit_name = "Skeleton 8"
 x_coord = 25
 y_coord = 12
-max_hp = 1
-dmg = 5
-defense = 0
+max_hp = 20
+dmg = 8
 
 [node name="Cursor" type="AnimatedSprite2D" parent="GameBoard"]
 sprite_frames = SubResource("SpriteFrames_kfbps")
@@ -475,8 +476,8 @@ stream = ExtResource("42_2ityn")
 [connection signal="path_completed" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_path_completed"]
 [connection signal="reset_info" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_reset_info"]
 [connection signal="show_attack_ui" from="GameBoard/Units" to="UI/AttackUI" method="_on_show_attack_ui"]
-[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
+[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="close_menus" from="GameBoard/Cursor" to="UI/ActionSelect" method="close_menu"]
 [connection signal="remove_hovered_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_hovered_info"]
 [connection signal="remove_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_info"]

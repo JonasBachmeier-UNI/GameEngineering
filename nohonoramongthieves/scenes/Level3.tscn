@@ -461,8 +461,9 @@ is_enemy = true
 unit_name = "Skeleton 1"
 x_coord = 3
 y_coord = 12
-max_hp = 1000
-defense = 0
+max_hp = 30
+dmg = 10
+defense = 5
 move_range = 7
 
 [node name="Dmg" parent="GameBoard/Units/Enemy/PathFollow2D" index="3"]
@@ -477,8 +478,9 @@ is_enemy = true
 unit_name = "Skeleton 2"
 x_coord = 7
 y_coord = 10
-max_hp = 1000
-defense = 0
+max_hp = 30
+dmg = 10
+defense = 5
 move_range = 7
 
 [node name="Dmg" parent="GameBoard/Units/Enemy2/PathFollow2D" index="3"]
@@ -493,8 +495,9 @@ is_enemy = true
 unit_name = "Skeleton 3"
 x_coord = 12
 y_coord = 12
-max_hp = 1000
-defense = 0
+max_hp = 30
+dmg = 10
+defense = 5
 move_range = 7
 
 [node name="Dmg" parent="GameBoard/Units/Enemy3/PathFollow2D" index="3"]
@@ -509,8 +512,9 @@ is_enemy = true
 unit_name = "Skeleton 4"
 x_coord = 24
 y_coord = 11
-max_hp = 1000
-defense = 0
+max_hp = 30
+dmg = 10
+defense = 5
 move_range = 7
 
 [node name="Dmg" parent="GameBoard/Units/Enemy4/PathFollow2D" index="3"]
@@ -525,8 +529,9 @@ is_enemy = true
 unit_name = "Skeleton 5"
 x_coord = 20
 y_coord = 9
-max_hp = 1000
-defense = 0
+max_hp = 30
+dmg = 10
+defense = 5
 move_range = 7
 
 [node name="Dmg" parent="GameBoard/Units/Enemy5/PathFollow2D" index="3"]

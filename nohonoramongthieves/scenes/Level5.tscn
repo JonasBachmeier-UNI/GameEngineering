@@ -526,7 +526,7 @@ unit_name = "Skeleton 1"
 x_coord = 13
 y_coord = 8
 max_hp = 16
-dmg = 4
+dmg = 5
 defense = 4
 move_range = 6
 
@@ -542,7 +542,7 @@ unit_name = "Skeleton 2"
 x_coord = 11
 y_coord = 9
 max_hp = 33
-dmg = 2
+dmg = 10
 defense = 4
 
 [node name="Dmg" parent="GameBoard/Units/Enemy2/PathFollow2D" index="3"]
@@ -572,7 +572,7 @@ unit_name = "Skeleton 4"
 x_coord = 25
 y_coord = 12
 max_hp = 22
-dmg = 5
+dmg = 8
 defense = 3
 move_range = 6
 
