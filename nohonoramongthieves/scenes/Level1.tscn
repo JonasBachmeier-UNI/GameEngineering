@@ -464,6 +464,7 @@ script = ExtResource("40_2f2f7")
 [node name="InventoryManager" type="Node" parent="."]
 script = ExtResource("41_ijn5n")
 
+[connection signal="close_attack_menu" from="UI/ActionSelect" to="UI/AttackUI" method="close_menu"]
 [connection signal="show_attack_ui" from="UI/ActionSelect" to="UI/AttackUI" method="_on_show_attack_ui"]
 [connection signal="cancel_attack" from="UI/AttackUI" to="UI/ActionSelect" method="_on_cancel_attack"]
 [connection signal="confirm_attack" from="UI/AttackUI" to="UI/ActionSelect" method="_on_attack_confirmed"]
@@ -477,6 +478,7 @@ script = ExtResource("41_ijn5n")
 [connection signal="show_attack_ui" from="GameBoard/Units" to="UI/AttackUI" method="_on_show_attack_ui"]
 [connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
+[connection signal="close_menus" from="GameBoard/Cursor" to="UI/ActionSelect" method="close_menu"]
 [connection signal="remove_hovered_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_hovered_info"]
 [connection signal="remove_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_info"]
 [connection signal="show_actions" from="GameBoard/Cursor" to="UI/ActionSelect" method="_on_cursor_show_actions"]

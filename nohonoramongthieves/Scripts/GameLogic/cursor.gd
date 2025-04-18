@@ -21,6 +21,7 @@ signal update_board
 signal show_info(unit)
 signal show_hovered_info(unit)
 signal remove_info()
+signal close_menus()
 signal remove_hovered_info()
 signal show_actions(selected_unit, x, y, can_move, can_attack, can_wait, can_end_turn)
 
@@ -105,6 +106,7 @@ func unit_move_check_routine():
 		# TODO: testen
 		if Input.is_action_just_pressed("ui_cancel"):
 			emit_signal("remove_info")
+			emit_signal("close_menus")
 			reset_selection()
 	
 	if hovering_on_selected:

@@ -127,3 +127,6 @@
 18657,Attack,-1,5,10
 20141,Attack,-1,5,2
 25623,Attack,-1,2,5
+5920,Unit Selected,0,,0
+8852,Unit Selected,0,,0
+15754,Unit Selected,2,,0

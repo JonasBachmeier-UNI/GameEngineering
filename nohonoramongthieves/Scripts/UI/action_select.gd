@@ -14,6 +14,7 @@ var selected_unit
 var target_unit
 
 signal show_attack_ui(attacker, defender)
+signal close_attack_menu()
 
 @onready var buttons = $PanelContainer/VBoxContainer.get_children()
 
@@ -88,6 +89,7 @@ func _on_cursor_show_actions(selected_unit, target_unit, x, y, last_x, last_y, c
 func close_menu() -> void:
 	visible = false
 	cursor.in_menu = false
+	emit_signal("close_attack_menu")
 
 func disable_buttons():
 	for button in buttons:
