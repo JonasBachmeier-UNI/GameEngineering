@@ -10,7 +10,7 @@ public partial class SceneManager : Node
 	private bool _isPathsInitialized = false;
 
 	private const string START_MENU_SCENE = "res://scenes/UI/start_menu.tscn";
-    private const string PARTICIPANT_ENTRY_SCENE = "res://scenes/ParticipantNumber.tscn";
+	private const string PARTICIPANT_ENTRY_SCENE = "res://scenes/ParticipantNumber.tscn";
 	private const string CHARACTER_CREATION_SCENE = "res://scenes/CharacterCreation.tscn";
 	private const string CHARACTER_SUMMARY_SCENE = "res://scenes/CharacterSummary.tscn";
 	private const string FIGHT_SCENE = "res://scenes/level1.tscn";
@@ -32,7 +32,7 @@ public partial class SceneManager : Node
 		}
 
 		scenePaths.Add(START_MENU_SCENE);
-        scenePaths.Add(PARTICIPANT_ENTRY_SCENE);
+		scenePaths.Add(PARTICIPANT_ENTRY_SCENE);
 
 		if (scenePaths.Count == 0)
 		{
@@ -68,7 +68,7 @@ public partial class SceneManager : Node
 		foreach (int scenarioId in scenarioOrder)
 		{
 			scenePaths.Add($"{IN_BETWEEN_SCENE}?scenario={scenarioId}");
-			scenePaths.Add($"res://scenes/level{scenarioId + 2}.tscn");
+			scenePaths.Add($"res://scenes/Level{scenarioId + 2}.tscn");
 		}
 
 		scenePaths.Add($"{IN_BETWEEN_SCENE}?scenario=4");
