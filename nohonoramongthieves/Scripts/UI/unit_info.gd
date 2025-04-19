@@ -8,9 +8,9 @@ var defense
 
 signal update_health(hp, maxhp)
 
-@onready var dmg_stat_label = $MarginContainer/HBoxContainer/Stats/CombatStats/ATK/Stat
-@onready var def_stat_label = $MarginContainer/HBoxContainer/Stats/CombatStats/DEF/Stat
-@onready var name_label = $MarginContainer/HBoxContainer/Stats/CombatStats/Label
+@onready var dmg_stat_label = $MarginContainer/HBoxContainer/Stats/CombatStats/VBoxContainer/HBoxContainer/ATK/Stat
+@onready var def_stat_label = $MarginContainer/HBoxContainer/Stats/CombatStats/VBoxContainer/HBoxContainer/DEF/Stat
+@onready var name_label = $MarginContainer/HBoxContainer/Stats/CombatStats/VBoxContainer/Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

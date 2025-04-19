@@ -503,11 +503,11 @@ tile_map_data = PackedByteArray("AAD3//r/AAAGAAEAAAD3//v/AAAGAAEAAAD3//z/AAAGAAE
 tile_set = SubResource("TileSet_xdb4t")
 
 [node name="UnitOverlay" type="TileMapLayer" parent="GameBoard"]
-z_index = 4
+z_index = 3
 tile_set = SubResource("TileSet_7516k")
 
 [node name="UnitPath" type="TileMapLayer" parent="GameBoard"]
-z_index = 3
+z_index = 4
 tile_set = SubResource("TileSet_5mwj0")
 script = ExtResource("18_yx32o")
 
@@ -615,8 +615,8 @@ stream = ExtResource("42_7ewbf")
 [connection signal="path_completed" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_path_completed"]
 [connection signal="reset_info" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_reset_info"]
 [connection signal="show_attack_ui" from="GameBoard/Units" to="UI/AttackUI" method="_on_show_attack_ui"]
-[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_units_unit_moves"]
+[connection signal="unit_moves" from="GameBoard/Units" to="GameBoard/Cursor" method="_on_unit_path_started"]
 [connection signal="remove_hovered_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_hovered_info"]
 [connection signal="remove_info" from="GameBoard/Cursor" to="UI/InfoUI" method="_on_cursor_remove_info"]
 [connection signal="show_actions" from="GameBoard/Cursor" to="UI/ActionSelect" method="_on_cursor_show_actions"]
