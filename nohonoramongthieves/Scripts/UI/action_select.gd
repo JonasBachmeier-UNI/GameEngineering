@@ -42,7 +42,7 @@ func _process(delta: float):
 func _on_move_pressed():
 	$AudioStreamPlayer2D.play()
 	unit_manager.move_unit(selected_unit, x_pos, y_pos)
-	#Logger.on_move_selected(selected_unit)
+	Logger.on_move_selected(selected_unit)
 	close_menu()
 
 
@@ -55,7 +55,7 @@ func _on_attack_confirmed():
 	unit_manager.queue_attack(target_unit)
 	unit_manager.move_unit(selected_unit, last_x, last_y)
 	#unit_manager.end_path_check()
-	#Logger.on_attack_selected(selected_unit)
+	Logger.on_attack_selected(selected_unit)
 	enable_buttons()
 	close_menu()
 
@@ -66,7 +66,7 @@ func _on_wait_pressed():
 	$AudioStreamPlayer2D.play()
 	unit_manager.unit_wait(selected_unit)
 	cursor.reset_selection()
-	#Logger.on_move_selected(selected_unit)
+	Logger.on_move_selected(selected_unit)
 	close_menu()
 
 func _on_end_turn_pressed():
