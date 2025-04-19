@@ -42,13 +42,7 @@ public partial class CharacterDisplay : Node2D
 
 	public void LoadCharacter(int index)
 	{
-		if (!GlobalCharacterManager.Instance.HasCharacter(index))
-		{
-			GD.PrintErr($"Character at index {index} not found!");
-			return;
-		}
-
-		Character character = GlobalCharacterManager.Instance.GetCharacter(index);
+		Character character = GlobalCharacterManager.Instance.GetCharacterByRealId(index);
 
 		// Load sprite textures
 		headSprite.Texture = GD.Load<Texture2D>(character.HeadSprite);

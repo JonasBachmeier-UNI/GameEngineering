@@ -60,6 +60,12 @@ public partial class GlobalCharacterManager : Node
 	public bool HasCharacter(int index) {
 		return true;
 	}
+	
+	public Character GetCharacterByRealId(int index) {
+		var character = Characters.FirstOrDefault(c => c.Id == index); 
+		return character;
+	}
+	
 
 	private void InitializeCharacters()
 	{
