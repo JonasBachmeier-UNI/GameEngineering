@@ -282,6 +282,7 @@ func reset_selection():
 	#print("Auswahl zurückgenommen")
 	path_map.clear()
 	if selected_unit != null:
+		Logger.on_selection_reset(selected_unit)
 		selected_unit.selected_indicator.visible = false
 		unit_manager.clear_overlay()
 	did_select_unit = false

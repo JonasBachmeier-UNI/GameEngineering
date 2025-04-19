@@ -17,6 +17,10 @@ func make_line(event, uid1, uid2=ID_PLACEHOLDER, dmg=0):
 	f.store_string(line)
 	f.close()
 
+
+func on_selection_reset(unit):
+	make_line("Reset Selection", unit)
+
 func on_select_unit(unit):
 	var unit_id = unit.id
 	make_line("Unit Selected", unit_id)
