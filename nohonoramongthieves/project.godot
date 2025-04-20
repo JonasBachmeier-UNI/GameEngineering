@@ -17,7 +17,10 @@ warnings/check_angle_interpolation_type_conflicting=false
 
 config/name="NoHonorAmongThieves"
 run/main_scene="res://scenes/Level1.tscn"
+run/disable_stderr=true
+run/print_header=false
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+run/flush_stdout_on_print=true
 config/icon="res://icon.svg"
 
 [autoload]
@@ -29,7 +32,8 @@ Logger="*res://Scripts/Logger.gd"
 [debug]
 
 file_logging/enable_file_logging=true
-file_logging/max_log_files=10
+file_logging/max_log_files=50
+gdscript/warnings/enable=false
 
 [display]
 

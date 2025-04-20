@@ -306,7 +306,6 @@ func clear_enemy_range():
 
 
 func _on_game_manager_player_turn() -> void:
-	print("PLAYER TURN")
 	$"../../UI/Phase".text = "Player Turn"
 	is_active = true
 	visible = true
@@ -314,7 +313,6 @@ func _on_game_manager_player_turn() -> void:
 
 
 func _on_game_manager_enemy_turn() -> void:
-	print("ENEMY TURN")
 	$"../../UI/Phase".text = "Enemy Turn"
 	is_active = false
 	visible = false

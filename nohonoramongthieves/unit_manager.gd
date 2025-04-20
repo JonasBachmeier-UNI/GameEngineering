@@ -307,10 +307,7 @@ func check_one_side_empty():
 			GlobalCharacter.UpdateCharacterHealth(ally.id, ally.hp)
 		
 		$"../../../SceneManager".NextScene()
-		print("PLAYER WON")
 	
-	elif allies.is_empty():
-		print("ENEMY WON")
 		
 func get_attack_direction(attacker, defender) -> String:
 	if attacker.x_coord == defender.x_coord:

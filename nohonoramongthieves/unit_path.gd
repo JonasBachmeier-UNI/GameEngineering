@@ -100,5 +100,4 @@ func direction_to_id(dir: DIRECTION):
 			return 2
 		DIRECTION.RIGHT_DOWN:
 			return 9
-	print("FEHLER IN unit_path.gd: direction_to_id")
 	return 0

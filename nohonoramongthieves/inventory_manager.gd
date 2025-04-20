@@ -20,13 +20,10 @@ func test():
 	use_item(ITEM.POTION, test_unit)
 	
 	var test_unit_2 = $"../GameBoard/Units/Unit2"
-	print("VOR A1 ", test_unit_2.hp)
 	unit_manager.unit_attack(test_unit, test_unit_2)
-	print("NACH A1 ", test_unit_2.hp)
 	test_unit_2.hp = test_unit_2.max_hp
 	use_item(ITEM.STEROIDS, test_unit)
 	unit_manager.unit_attack(test_unit, test_unit_2)
-	print("NACH A2 ", test_unit_2.hp)
 
 func add_to_inventory(item: ITEM):
 	inventory.append(item)
