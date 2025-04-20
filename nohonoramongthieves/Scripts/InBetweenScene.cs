@@ -61,10 +61,6 @@ public partial class InBetweenScene : Control
 		InitializeScenario();
 		
 		UpdateButtons();
-		
-		for (int i = 0; i < GlobalCharacterManager.Instance.Characters.Count ; i++) {
-			GD.Print("Char " + i + " with " + GlobalCharacterManager.Instance.GetCharacter(i).HeadSprite);
-		}
 	}
 
 	/*
@@ -284,7 +280,7 @@ public partial class InBetweenScene : Control
 				break;
 			case Scenario.Gewonnen:
 				description = "Nach einer gefährlichen Reise durch tückische Fallen und herausfordernde Prüfungen haben die Helden erfolgreich den großen Schatz am Ende der Kammer geborgen. Mit strahlenden Augen und Herzen voller Freude feiern sie ihren triumphalen Fund, während Goldartefakte und Juwelen in einem unermesslichen Haufen vor ihnen glänzen.";
-				_scenarioImage.Texture = GD.Load<Texture2D>("res://Assets/DecisionImages/Gemini_Win.jpg");
+				_scenarioImage.Texture = GD.Load<Texture2D>("res://assets/DecisionImages/Gemini_Win.jpg");
 				break;
 		}
 		
