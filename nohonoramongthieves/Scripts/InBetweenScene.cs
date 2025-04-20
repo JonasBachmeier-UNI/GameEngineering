@@ -247,7 +247,7 @@ public partial class InBetweenScene : Control
 				break;
 				
 			case Scenario.Bonus:
-				description = "In einem verborgenen Nischenraum der Schatzkammer entdeckt ihr einen schimmernden Trank, der in einem alten, mit mystischen Symbolen verzierten Gefäß ruht. Ein Stück pergament neben dem Trank spezifiziert, wie der Trank genutz wurde um heldenhafte Stärke hervorzubringen. Der Trank verleiht einem Character Stärke und lässt ihn mit doppelt so viel Schaden angreifen.";
+				description = "In einem verborgenen Nischenraum der Schatzkammer entdeckt ihr einen schimmernden Trank, der in einem alten, mit mystischen Symbolen verzierten Gefäß ruht. Ein Stück Pergament neben dem Trank spezifiziert, wie der Trank genutz wurde um heldenhafte Stärke hervorzubringen. Der Trank verleiht einem Character Stärke und lässt ihn mit doppelt so viel Schaden angreifen.";
 				_scenarioImage.Texture = GD.Load<Texture2D>("res://assets/DecisionImages/Gemini_Trank.jpg");
 				break;
 				
@@ -257,7 +257,7 @@ public partial class InBetweenScene : Control
 				{
 					string sacrificeName = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex).Name;
 					string rescueName = GlobalCharacterManager.Instance.GetCharacter(rescuingCharacterIndex).Name;
-					description = $"Ihr betretet einen Raum, in dem der Boden aus loser, bröckelnder Steinfliese besteht. Ein lauter Knall und das Krachen von zerbrechendem Stein hallen durch den Raum. {sacrificeName} gerät ins Straucheln, der Boden gibt nach und droht, ihn in die Tiefe zu stürzen. Vor euch steht eine herzzereißende Wahl: {rescueName} steht neben dem Geschehnis und könnte {sacrificeName} retten indem er ihn in letzter Sekunde an sich zieht, doch durch das Momentum würde {rescueName} vermutlich selbst in die Tiefe stürzen. Wen möchtest du retten?";
+					description = $"Ihr betretet einen Raum, in dem der Boden aus losen, bröckelnden Steinfliesen besteht. Ein lauter Knall und das Krachen von zerbrechendem Stein hallen durch den Raum. {sacrificeName} gerät ins Straucheln, der Boden gibt nach und droht, ihn in die Tiefe zu stürzen. Vor euch steht eine herzzereißende Wahl: {rescueName} steht neben dem Geschehnis und könnte {sacrificeName} retten, indem er ihn in letzter Sekunde an sich zieht, doch durch das Momentum würde {rescueName} vermutlich selbst in die Tiefe stürzen. Wen möchtest du retten?";
 				}
 				else
 				{
@@ -271,7 +271,7 @@ public partial class InBetweenScene : Control
 				{
 					string sacrificeName = GlobalCharacterManager.Instance.GetCharacter(sacrificingCharacterIndex).Name;
 					string rescueName = GlobalCharacterManager.Instance.GetCharacter(rescuingCharacterIndex).Name;
-					description = $"Ihr betretet einen geheimnisvollen Raum, in dessen Zentrum ein uralter Altar thront, umgeben von schimmernden Runen und einem unheimlich pulsierenden Licht. Plötzlich wird {sacrificeName} von einem Art Zepter attakiert. Es dicht gebündelter Strahl kommt aus dem Zepter und scheint die Lebensenergie von {sacrificeName} auszusaugen. {rescueName} steht in der nähe des Zepters und könnte sich zwischen das Zepter und {sacrificeName} in den Strahl werfen, um ihn/sie zu retten. Das würde {rescueName} töten aber {sacrificeName} retten. Wen rettest du?";
+					description = $"Ihr betretet einen geheimnisvollen Raum, in dessen Zentrum ein uralter Altar thront, umgeben von schimmernden Runen und einem unheimlich pulsierenden Licht. Plötzlich wird {sacrificeName} von einer Art Zepter attakiert. Ein dicht gebündelter Strahl kommt aus dem Zepter und scheint die Lebensenergie von {sacrificeName} auszusaugen. {rescueName} steht in der nähe des Zepters und könnte sich zwischen das Zepter und {sacrificeName} in den Strahl werfen, um ihn/sie zu retten. Das würde {rescueName} töten aber {sacrificeName} retten. Wen rettest du?";
 				}
 				else
 				{
