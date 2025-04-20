@@ -40,9 +40,14 @@ public partial class CharacterDisplay : Node2D
 		topSprite.Position = topBasePos + new Vector2(0, -offsetY);
 	}
 
-	public void LoadCharacter(int index)
+	public void LoadCharacter(int index, bool useOldId = false)
 	{
-		Character character = GlobalCharacterManager.Instance.GetCharacterByRealId(index);
+		Character character = null;
+		if (useOldId) {
+			character = GlobalCharacterManager.Instance.GetCharacter(index);
+		} else {
+			character = GlobalCharacterManager.Instance.GetCharacterByRealId(index);
+	}
 
 		// Load sprite textures
 		headSprite.Texture = GD.Load<Texture2D>(character.HeadSprite);

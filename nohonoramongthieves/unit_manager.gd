@@ -58,7 +58,7 @@ func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	new_unit.path_follow.add_child(sprite)
 	new_unit.remove_sprite()
 	print("LOAD CHARACTER: ", unit_id)
-	sprite.LoadCharacter(unit_id)
+	sprite.LoadCharacter(unit_id, false)
 	sprite.position -= Vector2(8,8)
 	
 	## Funktioniert nicht

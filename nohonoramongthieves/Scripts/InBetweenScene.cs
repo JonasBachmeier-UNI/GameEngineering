@@ -163,7 +163,7 @@ public partial class InBetweenScene : Control
 
 			// Load character display
 			CharacterDisplay display = btn.GetNode<CharacterDisplay>("CharacterDisplay");
-			display.LoadCharacter(charIndex);
+			display.LoadCharacter(charIndex, true);
 			
 			// Update button text
 			Character character = GlobalCharacterManager.Instance.GetCharacter(charIndex);
