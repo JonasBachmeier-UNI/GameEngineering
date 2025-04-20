@@ -182,8 +182,9 @@ func update_units():
 
 func get_hovered_unit():
 	for unit in all_units:
-		if unit.x_coord == x_pos and unit.y_coord == y_pos:
-			return unit
+		if unit != null:
+			if unit.x_coord == x_pos and unit.y_coord == y_pos:
+				return unit
 	return null
 	
 func hovering_check():
@@ -203,6 +204,9 @@ func hovering_check():
 	
 	## Wenn die Einheit schon gezogen hat wird sie nicht mehr benutzt
 	if hovered != null:
+		if hovered.hp == 0:
+			emit_signal("remove_hovered_info")
+			return
 		if hovered != selected_unit:
 			emit_signal("remove_hovered_info")
 			emit_signal("show_hovered_info", hovered)

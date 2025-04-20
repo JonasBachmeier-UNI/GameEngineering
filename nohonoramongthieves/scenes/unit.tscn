@@ -443,7 +443,7 @@ text = "-4"
 
 [node name="MovedIndicator" type="Sprite2D" parent="PathFollow2D"]
 visible = false
-z_index = 1
+z_index = 2
 texture = ExtResource("5_siyoe")
 
 [node name="SelectedIndicator" type="Sprite2D" parent="PathFollow2D"]
