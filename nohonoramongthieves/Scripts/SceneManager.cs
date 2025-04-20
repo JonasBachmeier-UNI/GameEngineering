@@ -41,7 +41,8 @@ public partial class SceneManager : Node
 		}
 
 		_currentSceneIndex = 0;
-		LoadScene(scenePaths[_currentSceneIndex]);
+		CallDeferred(nameof(LoadScene), scenePaths[_currentSceneIndex]);
+
 	}
 
 	public void SetParticipantNumber(int participantNumber)
@@ -71,8 +72,8 @@ public partial class SceneManager : Node
 		{
 			scenePaths.Add($"{IN_BETWEEN_SCENE}?scenario={scenarioId}");
 			scenePaths.Add($"res://scenes/Level{levelcounter}.tscn");
-            levelcounter++;
-        }
+			levelcounter++;
+		}
 
 		scenePaths.Add($"{IN_BETWEEN_SCENE}?scenario=4");
 

@@ -11,11 +11,12 @@ func get_time():
 
 func make_line(event, uid1, uid2=ID_PLACEHOLDER, dmg=0):
 	get_time()
-	var line = str(get_time()) + "," + event + "," + str(uid1) + "," + str(uid2) + "," + str(dmg) + "\n"
-	var f = FileAccess.open("res://Logs/logs.txt", FileAccess.READ_WRITE)
-	f.seek_end()
-	f.store_string(line)
-	f.close()
+	var line = str(get_time()) + "," + event + "," + str(uid1) + "," + str(uid2) + "," + str(dmg)
+	#var f = FileAccess.open("res://Logs/logs.txt", FileAccess.READ_WRITE)
+	print(line)
+	#f.seek_end()
+	#f.store_string(line)
+	#f.close()
 
 
 func on_selection_reset(unit):

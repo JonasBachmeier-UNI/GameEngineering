@@ -57,7 +57,6 @@ func create_unit(unit_id, unit_name, hp, dmg, defense, x, y):
 	sprite.apply_scale(Vector2(0.4,0.4))
 	new_unit.path_follow.add_child(sprite)
 	new_unit.remove_sprite()
-	print("LOAD CHARACTER: ", unit_id)
 	sprite.LoadCharacter(unit_id, false)
 	sprite.position -= Vector2(8,8)
 	
@@ -105,7 +104,6 @@ func load_characters_to_positions():
 	var characters = GlobalCharacter.GetCharacters();
 	var counter = 0
 	for character in characters:
-		print("ID: ", character["id"])
 		if counter < len(positions):
 			create_unit(character["id"], character["name"], character["health"], character["damage"], character["defense"], positions[counter][0], positions[counter][1])
 		counter += 1
