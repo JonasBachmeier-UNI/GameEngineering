@@ -33,8 +33,8 @@ func _on_cancel_pressed() -> void:
 
 func _on_attack_pressed() -> void:
 	$AudioStreamPlayer2D.play()
-	emit_signal("confirm_attack")
 	close_menu()
+	emit_signal("confirm_attack")
 
 func close_menu() -> void:
 	visible = false

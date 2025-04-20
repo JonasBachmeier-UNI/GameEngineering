@@ -13,6 +13,8 @@ var can_end_turn
 var selected_unit
 var target_unit
 
+var in_attack_menu
+
 signal show_attack_ui(attacker, defender)
 signal close_attack_menu()
 
@@ -47,9 +49,15 @@ func _on_move_pressed():
 
 
 func _on_attack_pressed():
-	$AudioStreamPlayer2D.play()
-	emit_signal("show_attack_ui", selected_unit, target_unit)
-	disable_buttons()
+	if not in_attack_menu:
+		in_attack_menu = true
+		$AudioStreamPlayer2D.play()
+		if target_unit != null:
+			emit_signal("show_attack_ui", selected_unit, target_unit)
+			visible = false
+			disable_buttons()
+		else:
+			return
 
 func _on_attack_confirmed():
 	unit_manager.queue_attack(target_unit)
@@ -60,13 +68,15 @@ func _on_attack_confirmed():
 	close_menu()
 
 func _on_cancel_attack():
+	in_attack_menu = false
 	enable_buttons()
+	visible = true
 
 func _on_wait_pressed():
 	$AudioStreamPlayer2D.play()
 	unit_manager.unit_wait(selected_unit)
 	cursor.reset_selection()
-	Logger.on_move_selected(selected_unit)
+	Logger.on_wait_selected(selected_unit)
 	close_menu()
 
 func _on_end_turn_pressed():
@@ -94,7 +104,9 @@ func _on_cursor_show_actions(selected_unit, target_unit, x, y, last_x, last_y, c
 func close_menu() -> void:
 	visible = false
 	cursor.in_menu = false
+	in_attack_menu = false
 	emit_signal("close_attack_menu")
+	enable_buttons()
 
 func disable_buttons():
 	for button in buttons:

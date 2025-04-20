@@ -65,11 +65,14 @@ public partial class SceneManager : Node
 
 		List<int> scenarioOrder = GenerateScenarioOrder(_participantNumber);
 
+		int levelcounter = 2;
+
 		foreach (int scenarioId in scenarioOrder)
 		{
 			scenePaths.Add($"{IN_BETWEEN_SCENE}?scenario={scenarioId}");
-			scenePaths.Add($"res://scenes/Level{scenarioId + 2}.tscn");
-		}
+			scenePaths.Add($"res://scenes/Level{levelcounter}.tscn");
+            levelcounter++;
+        }
 
 		scenePaths.Add($"{IN_BETWEEN_SCENE}?scenario=4");
 
