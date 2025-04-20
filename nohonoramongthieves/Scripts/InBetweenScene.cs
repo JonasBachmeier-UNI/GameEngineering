@@ -247,7 +247,7 @@ public partial class InBetweenScene : Control
 				break;
 				
 			case Scenario.Bonus:
-				description = "In einem verborgenen Nischenraum der Schatzkammer entdeckt ihr einen schimmernden Trank, der in einem alten, mit mystischen Symbolen verzierten Gefäß ruht. Ein Stück pergament neben dem Trank spezifiziert, wie der Trank genutz wurde um heldenhafte Stärke hervorzubringen. Der Trank verleiht einem Character Stärke und lässt ihn mit doppelt so viel Schaden angeifen.";
+				description = "In einem verborgenen Nischenraum der Schatzkammer entdeckt ihr einen schimmernden Trank, der in einem alten, mit mystischen Symbolen verzierten Gefäß ruht. Ein Stück pergament neben dem Trank spezifiziert, wie der Trank genutz wurde um heldenhafte Stärke hervorzubringen. Der Trank verleiht einem Character Stärke und lässt ihn mit doppelt so viel Schaden angreifen.";
 				_scenarioImage.Texture = GD.Load<Texture2D>("res://assets/DecisionImages/Gemini_Trank.jpg");
 				break;
 				
