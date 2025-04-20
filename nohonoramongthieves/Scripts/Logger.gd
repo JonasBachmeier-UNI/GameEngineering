@@ -19,7 +19,8 @@ func make_line(event, uid1, uid2=ID_PLACEHOLDER, dmg=0):
 
 
 func on_selection_reset(unit):
-	make_line("Reset Selection", unit)
+	var unit_id = unit.id
+	make_line("Reset Selection", unit_id)
 
 func on_select_unit(unit):
 	var unit_id = unit.id

@@ -292,8 +292,9 @@ func reset_selection():
 
 ## Zwischenschritt, um das setzen der Button-verfügbarkeit zu vereinfachen
 func emit_show_actions(selected_unit, target_unit, x, y, last_x, last_y, can_move=false, can_attack=false, can_wait=false, can_end_turn=false):
-	in_menu = true
-	emit_signal("show_actions", selected_unit, target_unit, x, y, last_x, last_y, can_move, can_attack, can_wait, can_end_turn)
+	if not in_menu:
+		in_menu = true
+		emit_signal("show_actions", selected_unit, target_unit, x, y, last_x, last_y, can_move, can_attack, can_wait, can_end_turn)
 
 func show_enemy_range():
 	unit_manager.get_units()
